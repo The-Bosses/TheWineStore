@@ -172,7 +172,7 @@ const App = () => {
                     auth={auth}
                     navigate={navigate}
                   />
-                  </>
+                </>
                 }
               />
             </Routes>
