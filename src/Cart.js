@@ -1,6 +1,8 @@
 import React from "react";
 
-const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products }) => {
+
+const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, updateLineItem, deleteLineItem })=> {
+
   const totalCost = sumCart();
 
   function sumCart() {
@@ -30,11 +32,13 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products }) => {
               products.find((product) => product.id === lineItem.product_id) ||
               {};
             return (
-              <li key={lineItem.id}>
-                {product.name}({lineItem.quantity})
-                <button onClick={() => removeFromCart(lineItem)}>
-                  Remove From Cart
-                </button>
+              <li key={ lineItem.id }>
+                { product.name }
+                ({ lineItem.quantity })
+                <button onClick={() => updateLineItem(lineItem)}>+</button>
+                <button onClick={()=> deleteLineItem(lineItem)}>-</button>
+                <button onClick={ ()=> removeFromCart(lineItem)}>Remove From Cart</button>
+
               </li>
             );
           })}
