@@ -55,6 +55,9 @@ const App = ()=> {
     await api.updateLineItem({ lineItem, cart, lineItems, setLineItems });
   };
 
+  const deleteLineItem = async(lineItem)=> {
+    await api.deleteLineItem({ lineItem, cart, lineItems, setLineItems });
+  }
   const updateOrder = async(order)=> {
     await api.updateOrder({ order, setOrders });
   };
@@ -107,6 +110,8 @@ const App = ()=> {
                 products = { products }
                 updateOrder = { updateOrder }
                 removeFromCart = { removeFromCart }
+                updateLineItem = {updateLineItem}
+                deleteLineItem= {deleteLineItem}
               />
               <Orders
                 orders = { orders }
@@ -123,6 +128,7 @@ const App = ()=> {
               cartItems = { cartItems }
               createLineItem = { createLineItem }
               updateLineItem = { updateLineItem }
+              deleteLineItem = {deleteLineItem}
               auth = { auth }
             />
           </div>
