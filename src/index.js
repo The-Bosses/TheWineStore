@@ -6,6 +6,7 @@ import Orders from './Orders';
 import Cart from './Cart';
 import Login from './Login';
 import api from './api';
+import SearchBar from './SearchBar';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -96,6 +97,8 @@ const App = ()=> {
                 <button onClick={ logout }>Logout</button>
               </span>
             </nav>
+            <h3>search Items</h3>
+            <SearchBar products={products}/>
             <main>
               <Products
                 auth = { auth }
