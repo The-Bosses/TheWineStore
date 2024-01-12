@@ -47,6 +47,7 @@ const deleteLineItem = async({ lineItem, cart, lineItems, setLineItems })=> {
   setLineItems(lineItems.map( lineItem => lineItem.id == response.data.id ? response.data: lineItem));
 };
 
+
 const updateOrder = async({ order, setOrders })=> {
   await axios.put(`/api/orders/${order.id}`, order, getHeaders());
   const response = await axios.get('/api/orders', getHeaders());
