@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
-import { Link, HashRouter, Routes, Route, useNavigate } from "react-router-dom";
-import Products from "./Products";
-import Orders from "./Orders";
-import Cart from "./Cart";
-import Login from "./Login";
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom/client';
+import { Link, HashRouter, Routes, Route } from 'react-router-dom';
+import Products from './Products';
+import Orders from './Orders';
+import Cart from './Cart';
+import Login from './Login';
 import ProductDetail from "./ProductDetail";
 import Homepage from "./Homepage";
-import api from "./api";
+import api from "./api"
+import SearchBar from './SearchBar';
+
 
 const App = () => {
+
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
@@ -104,6 +107,8 @@ const App = () => {
                 Welcome {auth.username}!<button onClick={logout}>Logout</button>
               </span>
             </nav>
+            <h3>search Items</h3>
+            <SearchBar products={products}/>
             <main>
               <Routes>
               <Route
