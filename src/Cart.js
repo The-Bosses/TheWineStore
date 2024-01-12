@@ -32,14 +32,16 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, updateLi
               products.find((product) => product.id === lineItem.product_id) ||
               {};
             return (
-              <li key={ lineItem.id }>
+              <div>
+                <li key={ lineItem.id }>
                 { product.name }
                 ({ lineItem.quantity })
                 <button onClick={() => updateLineItem(lineItem)}>+</button>
-                <button onClick={()=> deleteLineItem(lineItem)}>-</button>
+                <button onClick={()=> (lineItem.quantity > 1 ? deleteLineItem(lineItem) : removeFromCart(lineItem))}>-</button>
                 <button onClick={ ()=> removeFromCart(lineItem)}>Remove From Cart</button>
-
               </li>
+              </div>
+              
             );
           })}
       </ul>

@@ -24,9 +24,11 @@ const {
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
+    DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS users;
+    
 
     CREATE TABLE users(
       id UUID PRIMARY KEY,
@@ -55,8 +57,16 @@ const seed = async()=> {
       alcohol_percent DECIMAL(3,1), 
       description TEXT,
       price DECIMAL(4,2),
-      reviews TEXT,
       is_vip BOOLEAN DEFAULT false NOT NULL
+    );
+
+    CREATE TABLE reviews (
+      id UUID PRIMARY KEY,
+      created_at TIMESTAMP DEFAULT now(),
+      product_id UUID REFERENCES products(id) NOT NULL,
+      user_id UUID REFERENCES users(id) NOT NULL,
+      rating INTEGER NOT NULL,
+      comment TEXT NOT NULL
     );
 
     CREATE TABLE orders(
@@ -86,6 +96,7 @@ const seed = async()=> {
     createUser({ username: 'robert', password: '1234', name: 'Robert', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Detroit', state: 'Michigan', country: "United States", postal_code: '12345', is_vip: true, is_admin: true})
   ]);
   const [oh_schist, enchanted_garden, anthony_road, santa, voga, ecco, hayes, fog_bank, kim_craw, oyster, invivo, unshackled_by, sun_goddess, river_road, oak_grove, la_crema, j_lohr, ferrari, decoy_cali, tuli, caliveda, le_colline, la_belle, prototype, double_black, gnarled, oak_ridge, sobon, bread_butter, nineteen_crimes, chateau, eccentric, unshackled, la_vostra, la_marca, cupcake, naveran, rondel, lini, le_grand, le_marca_rose ] = await Promise.all([
+
     createProduct({ name: 'Oh Schist', type: 'Riesling', location: 'Germany', alcohol_percent: 9.5, description: 'Overflowing with lively citrus aromas and a tantalizing hint of white florals. Its zesty acidity intertwines seamlessly with juicy peach and tangy lemon notes, balanced by a subtle sweetness. This White Riesling is a vibrant, versatile delight that harmonizes beautifully with any occasion. It pairs well with Asian food.', price: 8.99, reviews: 'Light, crisp, high acidity, with a flowery bouquet,The palate is far more generous delivering waves of white peach,apricot, apple, and subtle tropical', is_vip: false }),
     createProduct({ name: 'Echanted Garden of the Eden Valley', type: 'Riesling', location: 'Australia', alcohol_percent: 11.8, description: 'The “Enchanted Garden” was planted in 1910 and thrives to this day, a seven-acre Eden Valley Vine Garden lovingly tended by Sue and Stuart Woodman. The “La Niña” year in 2022 brought cooler, more mild temperatures, particularly at night, which helped to retain acidity since the respiration of acids occurs to a greater degree when temperatures are warmer. The main notes are honetsuckle, sherbet, and citrus. Pairs very well with deep fruit flavors.', price: 21.99, reviews: 'The harmonious palate makes this wine a joy to sip on its own.', is_vip: false }),
     createProduct({ name: 'Anthony Road Dry', type: 'Riesling', location: 'United States', alcohol_percent: 12, description: "John and Ann Martini ventured from city life to establish a winery in the challenging Finger Lakes region. Their Riesling, a testament to their perseverance, boasts honey, petrol, waxy apple, and pear aromas. With an electric, grippy palate and green tea hints, it's complex, concentrated, and finishes beautifully showcasing the region's winemaking prowess. It pairs well with spicy food as well as pork dishes.", price: 21.99, reviews: 'The palate is electric and grippy with some added green tea vibes.', is_vip: false }),
@@ -127,6 +138,7 @@ const seed = async()=> {
     createProduct({ name: 'Lini 910 Labrusca', type: 'Sparkling Rose', location: 'Italy', alcohol_percent: 11, description: "Produced from a blend of 50 percent salamino and 50 percent sorbara, this bone-dry rosé is marked by flavors of white cherry, cranberry, and dried herbs. The wine pairs beautifully with a variety of cuisines, from brunch favorites to savory happy hour snacks and beyond. ", price: 17.99, reviews: '', is_vip: false }),
     createProduct({ name: 'Le Grand Courtage Rose', type: 'Sparkling Rose', location: 'France', alcohol_percent: 12, description: "This rosé compliments an array of foods. Try it with spicy Asian dishes, risotto, BBQ, beef, lamb, duck, game, chicken, prosciutto, seafood, pizza or soft cheese (like brie or goat). ", price: 17.99, reviews: '', is_vip: false }),  
     createProduct({ name: 'Le Marca Prosecco Rose', type: 'Sparkling Rose', location: 'Italy', alcohol_percent: 11, description: "Shining from the first toast to the last sip, our playful pop of pink is an effervescent new way to enjoy Rosé. A balance of our traditional Prosecco and the delicate elegance of Pinot Noir, La Marca Prosecco Rosé sparkles with our classic aromas of white flowers, peach and pear, blending with hints of ripe red cherry, raspberry and wild strawberry. Vibrant and refreshing, this bubbly is perfect for both lively occasions and spontaneous celebrations. ", price: 14.99, reviews: '', is_vip: false }),   
+
   
   ]);
   let orders = await fetchOrders(parker.id);
