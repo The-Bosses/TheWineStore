@@ -9,6 +9,7 @@ import ProductDetail from "./ProductDetail";
 import Homepage from "./Homepage";
 import api from "./api"
 import SearchBar from './SearchBar';
+import { useNavigate } from 'react-router-dom';
 
 
 const App = () => {
