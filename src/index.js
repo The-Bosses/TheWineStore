@@ -8,6 +8,7 @@ import Login from './Login';
 import ProductDetail from "./ProductDetail";
 import api from './api';
 import SearchBar from './SearchBar';
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
 
