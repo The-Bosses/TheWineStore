@@ -9,8 +9,10 @@ const { isLoggedIn, isAdmin } = require('./middleware');
 
 app.put('/:id', isLoggedIn, async(req, res, next)=> {
   try {
-    //TODO make sure the order's user_id is req.user.id
-    res.send(await updateOrder({ ...req.body, id: req.params.id}));
+    if (req.user.id != req.body.user_id) {
+      throw new Error('Current user id does not match the user id for this order')
+    }
+    res.send(await updateOrder({ ...req.body, id: req.params.id, total_cost: req.body.total_cost}));
   }
   catch(ex){
     next(ex);

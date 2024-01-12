@@ -19,7 +19,7 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, updateLi
           return (sum += product.price * lineItem.quantity);
         });
     }
-    return sum;
+    return sum.toFixed(2);
   }
   return (
     <div>
@@ -45,10 +45,10 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, updateLi
       </ul>
       {lineItems.filter((lineItem) => lineItem.order_id === cart.id).length ? (
         <div>
-          <div>Total Cost: ${totalCost.toFixed(2)}</div>
+          <div>Total Cost: ${totalCost}</div>
           <button
             onClick={() => {
-              updateOrder({ ...cart, is_cart: false });
+              updateOrder({ ...cart, is_cart: false, total_cost: totalCost})
             }}
           >
             Create Order
