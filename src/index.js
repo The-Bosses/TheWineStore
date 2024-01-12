@@ -6,6 +6,7 @@ import Orders from "./Orders";
 import Cart from "./Cart";
 import Login from "./Login";
 import ProductDetail from "./ProductDetail";
+import Homepage from "./Homepage";
 import api from "./api";
 
 const App = () => {
@@ -93,6 +94,7 @@ const App = () => {
         {auth.id ? (
           <>
             <nav>
+              <Link to="/"> Home </Link>
               <Link to="/products">Products ({products.length})</Link>
               <Link to="/orders">
                 Orders ({orders.filter((order) => !order.is_cart).length})
@@ -104,6 +106,23 @@ const App = () => {
             </nav>
             <main>
               <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                  <Homepage />
+                  <Products
+                    products={products}
+                    cartItems={cartItems}
+                    createLineItem={createLineItem}
+                    updateLineItem={updateLineItem}
+                    deleteLineItem={deleteLineItem}
+                    auth={auth}
+                    navigate={navigate}
+                  />
+                </>
+                }
+              />
                 <Route
                   path="/products"
                   element={
