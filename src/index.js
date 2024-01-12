@@ -1,139 +1,183 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom/client';
-import { Link, HashRouter, Routes, Route } from 'react-router-dom';
-import Products from './Products';
-import Orders from './Orders';
-import Cart from './Cart';
-import Login from './Login';
-import api from './api';
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+import { Link, HashRouter, Routes, Route, useNavigate } from "react-router-dom";
+import Products from "./Products";
+import Orders from "./Orders";
+import Cart from "./Cart";
+import Login from "./Login";
+import ProductDetail from "./ProductDetail";
+import api from "./api";
 
-const App = ()=> {
+const App = () => {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
 
-  const attemptLoginWithToken = async()=> {
+  const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
-  }
+  };
 
-  useEffect(()=> {
+
+  useEffect(() => {
     attemptLoginWithToken();
   }, []);
 
-  useEffect(()=> {
-    const fetchData = async()=> {
+  useEffect(() => {
+    const fetchData = async () => {
       await api.fetchProducts(setProducts);
     };
     fetchData();
   }, []);
 
-  useEffect(()=> {
-    if(auth.id){
-      const fetchData = async()=> {
+  useEffect(() => {
+    if (auth.id) {
+      const fetchData = async () => {
         await api.fetchOrders(setOrders);
       };
       fetchData();
     }
   }, [auth]);
 
-  useEffect(()=> {
-    if(auth.id){
-      const fetchData = async()=> {
+  useEffect(() => {
+    if (auth.id) {
+      const fetchData = async () => {
         await api.fetchLineItems(setLineItems);
       };
       fetchData();
     }
   }, [auth]);
 
-
-  const createLineItem = async(product)=> {
-    await api.createLineItem({ product, cart, lineItems, setLineItems});
+  const createLineItem = async (product) => {
+    await api.createLineItem({ product, cart, lineItems, setLineItems });
   };
 
-  const updateLineItem = async(lineItem)=> {
+  const updateLineItem = async (lineItem) => {
     await api.updateLineItem({ lineItem, cart, lineItems, setLineItems });
   };
 
-  const deleteLineItem = async(lineItem)=> {
+  const deleteLineItem = async (lineItem) => {
     await api.deleteLineItem({ lineItem, cart, lineItems, setLineItems });
-  }
-  const updateOrder = async(order)=> {
+  };
+  const updateOrder = async (order) => {
     await api.updateOrder({ order, setOrders });
   };
 
-  const removeFromCart = async(lineItem)=> {
+  const removeFromCart = async (lineItem) => {
     await api.removeFromCart({ lineItem, lineItems, setLineItems });
   };
 
-  const cart = orders.find(order => order.is_cart) || {};
+  const cart = orders.find((order) => order.is_cart) || {};
 
-  const cartItems = lineItems.filter(lineItem => lineItem.order_id === cart.id);
+  const cartItems = lineItems.filter(
+    (lineItem) => lineItem.order_id === cart.id
+  );
 
-  const cartCount = cartItems.reduce((acc, item)=> {
-    return acc += item.quantity;
+  const cartCount = cartItems.reduce((acc, item) => {
+    return (acc += item.quantity);
   }, 0);
 
-  const login = async(credentials)=> {
+  const login = async (credentials) => {
     await api.login({ credentials, setAuth });
-  }
+  };
 
-  const logout = ()=> {
+  const logout = () => {
     api.logout(setAuth);
-  }
+  };
+
+  const navigate = useNavigate();
+
 
   return (
     <div>
-      {
-        auth.id ? (
+        {auth.id ? (
           <>
             <nav>
-              <Link to='/products'>Products ({ products.length })</Link>
-              <Link to='/orders'>Orders ({ orders.filter(order => !order.is_cart).length })</Link>
-              <Link to='/cart'>Cart ({ cartCount })</Link>
+              <Link to="/products">Products ({products.length})</Link>
+              <Link to="/orders">
+                Orders ({orders.filter((order) => !order.is_cart).length})
+              </Link>
+              <Link to="/cart">Cart ({cartCount})</Link>
               <span>
-                Welcome { auth.username }!
-                <button onClick={ logout }>Logout</button>
+                Welcome {auth.username}!<button onClick={logout}>Logout</button>
               </span>
             </nav>
             <main>
-              <Products
-                auth = { auth }
-                products={ products }
-                cartItems = { cartItems }
-                createLineItem = { createLineItem }
-                updateLineItem = { updateLineItem }
-              />
-              <Cart
-                cart = { cart }
-                lineItems = { lineItems }
-                products = { products }
-                updateOrder = { updateOrder }
-                removeFromCart = { removeFromCart }
-                updateLineItem = {updateLineItem}
-                deleteLineItem= {deleteLineItem}
-              />
-              <Orders
-                orders = { orders }
-                products = { products }
-                lineItems = { lineItems }
-              />
+              <Routes>
+                <Route
+                  path="/products"
+                  element={
+                    <Products
+                      auth={auth}
+                      products={products}
+                      cartItems={cartItems}
+                      createLineItem={createLineItem}
+                      updateLineItem={updateLineItem}
+                      navigate={navigate}
+                    />
+                  }
+                />
+                <Route
+                  path="/cart"
+                  element={
+                    <Cart
+                      cart={cart}
+                      lineItems={lineItems}
+                      products={products}
+                      updateOrder={updateOrder}
+                      removeFromCart={removeFromCart}
+                      updateLineItem={updateLineItem}
+                      deleteLineItem={deleteLineItem}
+                      navigate={navigate}
+                    />
+                  }
+                />
+                <Route
+                  path="/orders"
+                  element={
+                    <Orders
+                      orders={orders}
+                      products={products}
+                      lineItems={lineItems}
+                      navigate={navigate}
+                    />
+                  }
+                />
+                <Route
+                  path="/product/:productId"
+                  element={
+                    <ProductDetail 
+                    products={products} 
+                    navigate={navigate}
+                    />
+                  }
+                />
+              </Routes>
             </main>
-            </>
-        ):(
+          </>
+        ) : (
           <div>
-            <Login login={ login }/>
-            <Products
-              products={ products }
-              cartItems = { cartItems }
-              createLineItem = { createLineItem }
-              updateLineItem = { updateLineItem }
-              deleteLineItem = {deleteLineItem}
-              auth = { auth }
-            />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                  <Login login={ login }/>
+                  <Products
+                    products={products}
+                    cartItems={cartItems}
+                    createLineItem={createLineItem}
+                    updateLineItem={updateLineItem}
+                    deleteLineItem={deleteLineItem}
+                    auth={auth}
+                    navigate={navigate}
+                  />
+                </>
+                }
+              />
+            </Routes>
           </div>
-        )
-      }
+        )}
     </div>
   );
 };
