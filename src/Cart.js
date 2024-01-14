@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, updateLineItem, deleteLineItem })=> {
 
   const totalCost = sumCart();
@@ -32,8 +31,8 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, updateLi
               products.find((product) => product.id === lineItem.product_id) ||
               {};
             return (
-              <div>
-                <li key={ lineItem.id }>
+              <div key={ lineItem.id }>
+                <li >
                 { product.name }
                 ({ lineItem.quantity })
                 <button onClick={() => updateLineItem(lineItem)}>+</button>

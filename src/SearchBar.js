@@ -1,39 +1,37 @@
-import React,{useState} from "react"
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
+const SearchBar = ({ products }) => {
+    const [searchTerm, setSearchTerm] = useState("");
 
-const SearchBar = ({products}) => {
-    const [searchTerm, setSearchTerm] = useState('')
+    const filteredProducts = products.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
-    const filteredTerms = products.filter((product) => {
-        return product.name.indexOf(searchTerm) !== -1
-    })
-    
-    return(
+  return (
+    <div>
+      <label>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
+      </label>
+      {searchTerm.length > 0 ? (
         <div>
-          <label>
-            <input
-                type="text"
-                value={searchTerm}
-                onChange={(event) => {setSearchTerm(event.target.value)}}
-            />
-          </label>
-          {
-            searchTerm.length > 0 ?
-            <div>
-                <ul>
-                    {
-                        filteredTerms.map((product) => {
-                            return <li>{product.name}</li>
-                        })
-                    }
-                </ul>
-            </div> 
-            
-            : null
+          <ul>
+            {filteredProducts.map((product) => (
+              <li key={product.id}>
+                <Link to={`/product/${product.id}`}>{product.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </div>
+  );
+};
 
-          }
-      </div>
-    )
-    
-}
-export default SearchBar
+export default SearchBar;

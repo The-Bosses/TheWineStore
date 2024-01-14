@@ -95,114 +95,88 @@ const App = () => {
 
   return (
     <div>
-        {auth.id ? (
-          <>
-            <nav>
-              <Link to="/"> Home </Link>
-              <Link to="/products">Products ({products.length})</Link>
-              <Link to="/orders">
-                Orders ({orders.filter((order) => !order.is_cart).length})
-              </Link>
-              <Link to="/cart">Cart ({cartCount})</Link>
-              <span>
-                Welcome {auth.username}!<button onClick={logout}>Logout</button>
-              </span>
-            </nav>
-            <h3>search Items</h3>
-            <SearchBar products={products}/>
-            <main>
-              <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                  <Homepage />
-                  <Products
-                    products={products}
-                    cartItems={cartItems}
-                    createLineItem={createLineItem}
-                    updateLineItem={updateLineItem}
-                    deleteLineItem={deleteLineItem}
-                    auth={auth}
-                    navigate={navigate}
-                  />
-                </>
-                }
+      <nav>
+        <Link to="/"> Home </Link>
+        <Link to="/products">Products ({products.length})</Link>
+        {auth.id ? <Link to="/orders">Orders ({orders.filter((order) => !order.is_cart).length})</Link> : null}
+        {auth.id ? <Link to="/cart">Cart ({cartCount})</Link> : null}
+        {auth.is_admin ? <Link to="/admin">Admin</Link> : null}
+        <span>
+          Welcome {auth.username || 'Guest'}!
+          {auth.id ? <button onClick={logout}>Logout</button> : null}
+        </span>
+      </nav>
+  
+      <h3>Search Items</h3>
+      <SearchBar products={products} />
+
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Homepage />
+                {auth.id ? null : <Login login={login} />} {/* Render Login only for not logged-in users */}
+                <Products
+                  auth={auth}
+                  products={products}
+                  cartItems={cartItems}
+                  createLineItem={createLineItem}
+                  updateLineItem={updateLineItem}
+                  deleteLineItem={deleteLineItem}
+                  navigate={navigate}
+                />
+              </>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <Products
+                auth={auth}
+                products={products}
+                cartItems={cartItems}
+                createLineItem={createLineItem}
+                updateLineItem={updateLineItem}
+                navigate={navigate}
               />
-                <Route
-                  path="/products"
-                  element={
-                    <Products
-                      auth={auth}
-                      products={products}
-                      cartItems={cartItems}
-                      createLineItem={createLineItem}
-                      updateLineItem={updateLineItem}
-                      navigate={navigate}
-                    />
-                  }
-                />
-                <Route
-                  path="/cart"
-                  element={
-                    <Cart
-                      cart={cart}
-                      lineItems={lineItems}
-                      products={products}
-                      updateOrder={updateOrder}
-                      removeFromCart={removeFromCart}
-                      updateLineItem={updateLineItem}
-                      deleteLineItem={deleteLineItem}
-                      navigate={navigate}
-                    />
-                  }
-                />
-                <Route
-                  path="/orders"
-                  element={
-                    <Orders
-                      orders={orders}
-                      products={products}
-                      lineItems={lineItems}
-                      navigate={navigate}
-                    />
-                  }
-                />
-                <Route
-                  path="/product/:productId"
-                  element={
-                    <ProductDetail 
-                    products={products} 
-                    navigate={navigate}
-                    />
-                  }
-                />
-              </Routes>
-            </main>
-          </>
-        ) : (
-          <div>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                  <Login login={ login }/>
-                  <Products
-                    products={products}
-                    cartItems={cartItems}
-                    createLineItem={createLineItem}
-                    updateLineItem={updateLineItem}
-                    deleteLineItem={deleteLineItem}
-                    auth={auth}
-                    navigate={navigate}
-                  />
-                </>
-                }
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                cart={cart}
+                lineItems={lineItems}
+                products={products}
+                updateOrder={updateOrder}
+                removeFromCart={removeFromCart}
+                updateLineItem={updateLineItem}
+                deleteLineItem={deleteLineItem}
+                navigate={navigate}
               />
-            </Routes>
-          </div>
-        )}
+            }
+          />
+          <Route
+            path="/orders"
+            element={<Orders orders={orders} 
+            products={products} 
+            lineItems={lineItems} 
+            navigate={navigate} 
+            />}
+          />
+          <Route
+            path="/product/:productId"
+            element={<ProductDetail 
+              products={products} 
+              navigate={navigate} 
+              />}
+          />
+          {/* <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/users" element={<AdminUsers />} /> */}
+        </Routes>
+      </main>
     </div>
   );
 };
