@@ -11,6 +11,15 @@ const fetchProducts = async () => {
   return response.rows;
 };
 
+const fetchAdminProducts = async () => {
+  const SQL = `
+    SELECT *
+    FROM products
+  `;
+  const response = await client.query(SQL);
+  return response.rows;
+};
+
 const createProduct = async (product) => {
   const SQL = `
     INSERT INTO products (id, name, type, location, alcohol_percent, description, price, is_vip) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
@@ -19,7 +28,19 @@ const createProduct = async (product) => {
   return response.rows[0];
 };
 
+const markProductVIP = async (productId) => {
+  const SQL = `
+  UPDATE products
+  SET is_vip = true
+  WHERE id = $1
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [productId]);
+  return response.rows[0];
+};
 module.exports = {
   fetchProducts,
   createProduct,
+  markProductVIP,
+  fetchAdminProducts
 };

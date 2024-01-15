@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { getAllUsers, makeUserVIP, makeUserAdmin } from '../server/db/auth'; // Assuming you have an api file with these functions
+import { fetchUsers, makeUserVIP, makeUserAdmin } from './api'; // Assuming you have an api file with these functions
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -10,7 +10,7 @@ const AdminUsers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userList = await getAllUsers();
+        const userList = await fetchUsers();
         setUsers(userList);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -23,7 +23,7 @@ const AdminUsers = () => {
   const handleMakeVIP = async (userId) => {
     try {
       await makeUserVIP(userId);
-      const updatedUsers = await getAllUsers();
+      const updatedUsers = await fetchUsers();
       setUsers(updatedUsers);
     } catch (error) {
       console.error('Error making user VIP:', error);
@@ -33,7 +33,7 @@ const AdminUsers = () => {
   const handleMakeAdmin = async (userId) => {
     try {
       await makeUserAdmin(userId);
-      const updatedUsers = await getAllUsers();
+      const updatedUsers = await fetchUsers();
       setUsers(updatedUsers);
     } catch (error) {
       console.error('Error making user Admin:', error);

@@ -85,18 +85,8 @@ const makeUserAdmin = async (userId) => {
   return response.rows[0];
 };
 
-const markProductVIP = async (productId) => {
-  const SQL = `
-  UPDATE products
-  SET is_vip = true
-  WHERE id = $1
-  RETURNING *
-  `;
-  const response = await client.query(SQL, [productId]);
-  return response.rows[0];
-};
 
-const getAllUsers = async () => {
+const fetchUsers = async () => {
   const SQL = `
     SELECT *
     FROM users
@@ -111,6 +101,5 @@ module.exports = {
   findUserByToken,
   makeUserVIP,
   makeUserAdmin,
-  markProductVIP,
-  getAllUsers
+  fetchUsers
 };

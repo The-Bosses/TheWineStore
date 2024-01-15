@@ -9,6 +9,9 @@ import ProductDetail from "./ProductDetail";
 import Homepage from "./Homepage";
 import api from "./api"
 import SearchBar from './SearchBar';
+import Admin from './Admin';
+import AdminUsers from './AdminUsers';
+import AdminProducts from './AdminProducts';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -100,7 +103,12 @@ const App = () => {
         <Link to="/products">Products ({products.length})</Link>
         {auth.id ? <Link to="/orders">Orders ({orders.filter((order) => !order.is_cart).length})</Link> : null}
         {auth.id ? <Link to="/cart">Cart ({cartCount})</Link> : null}
-        {auth.is_admin ? <Link to="/admin">Admin</Link> : null}
+        {auth.is_admin ? (
+          <>
+            <Link to="/admin">Admin</Link>
+            
+          </>
+        ) : null}
         <span>
           Welcome {auth.username || 'Guest'}!
           {auth.id ? <button onClick={logout}>Logout</button> : null}
@@ -173,8 +181,9 @@ const App = () => {
               navigate={navigate} 
               />}
           />
-          {/* <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/users" element={<AdminUsers />} /> */}
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
         </Routes>
       </main>
     </div>
