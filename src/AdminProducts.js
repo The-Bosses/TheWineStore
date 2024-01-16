@@ -1,36 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import api from './api';
 
-const AdminProducts = () => {
-  const [products, setProducts] = useState([]);
-  const [newProductName, setNewProductName] = useState('');
-  const [newProductAlcohol, setNewProductAlcohol] = useState('');
-  const [newProductType, setNewProductType] = useState('');
-  const [newProductLocation, setNewProductLocation] = useState('');
-  const [newProductPrice, setNewProductPrice] = useState('');
-  const [newProductDescription, setNewProductDescription] = useState('');
+const AdminProducts = ({products, auth}) => {
 
-  useEffect(() => {
-    const fetchData = async () => {
-        console.log('1')
-      try {
-        const productList = await api.fetchAdminProducts();
-        console.log('2')
-        setProducts(productList);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleCreateProduct = async () => {
     try {
-      // Check if user is admin (you might need to implement isAdmin logic)
-      const isAdmin = true; // Replace with actual isAdmin logic
+      if (auth.is_admin) {
+        console.log("you are admin!")
+      } 
+    }
+      catch (error) {
+        console.error('Error creating product:', error);
+      }
 
-      if (isAdmin) {
+      /*if (isAdmin) {
         await api.createProduct({
           name: newProductName,
           alcohol_percent: newProductAlcohol,
@@ -53,26 +37,27 @@ const AdminProducts = () => {
       } else {
         console.error('User is not an admin. Cannot create a product.');
       }
-    } catch (error) {
-      console.error('Error creating product:', error);
-    }
-  };
+    } */ 
+  }
 
   const handleMarkProductVIP = async (productId) => {
     try {
-      // Check if user is admin (you might need to implement isAdmin logic)
-      const isAdmin = true; // Replace with actual isAdmin logic
+      if (auth.is_admin) {
+        console.log("you are admin!")
+      }
+    }
+      catch (error) {
+        console.error('Error marking product as VIP:', error);
+      }
 
-      if (isAdmin) {
+      /* if (isAdmin) {
         await api.markProductVIP(productId);
         const updatedProducts = await api.fetchAdminProducts();
         setProducts(updatedProducts);
       } else {
         console.error('User is not an admin. Cannot mark product as VIP.');
       }
-    } catch (error) {
-      console.error('Error marking product as VIP:', error);
-    }
+    }  */
   };
 
   return (
@@ -82,12 +67,13 @@ const AdminProducts = () => {
         {products.map((product) => (
           <li key={product.id}>
             {product.name} - Type: {product.type} - VIP: {product.is_vip ? 'Yes' : 'No'}
-            <button onClick={() => handleMarkProductVIP(product.id)}>Mark as VIP</button>
+            {product.is_vip ? <button onClick={() => handleMarkProductVIP(product.id)}>Unmark as VIP</button> 
+              : <button onClick={() => handleMarkProductVIP(product.id)}>Mark as VIP</button>}
           </li>
         ))}
       </ul>
 
-      <h2>Create a New Product</h2>
+     {/*  <h2>Create a New Product</h2>
       <label>Name:</label>
       <input type="text" value={newProductName} onChange={(e) => setNewProductName(e.target.value)} />
 
@@ -106,7 +92,7 @@ const AdminProducts = () => {
       <label>Description:</label>
       <textarea value={newProductDescription} onChange={(e) => setNewProductDescription(e.target.value)} />
 
-      <button onClick={handleCreateProduct}>Create Product</button>
+      <button onClick={handleCreateProduct}>Create Product</button> */}
     </div>
   );
 };
