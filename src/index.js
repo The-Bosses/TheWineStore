@@ -1,16 +1,22 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
-import { Link, HashRouter, Routes, Route, useNavigate } from "react-router-dom";
-import Products from "./Products";
-import Orders from "./Orders";
-import Cart from "./Cart";
-import Login from "./Login";
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom/client';
+import { Link, HashRouter, Routes, Route } from 'react-router-dom';
+import Products from './Products';
+import Orders from './Orders';
+import Cart from './Cart';
+import Login from './Login';
 import ProductDetail from "./ProductDetail";
 import Homepage from "./Homepage";
 import UserProfile from "./UserProfile";
 import api from "./api";
+import SearchBar from './SearchBar';
+import Admin from './Admin';
+import AdminUsers from './AdminUsers';
+import AdminProducts from './AdminProducts';
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
+
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
@@ -194,6 +200,7 @@ const App = () => {
           </Routes>
         </div>
       )}
+
     </div>
   );
 };

@@ -18,6 +18,7 @@ const ProductDetail = ({ products }) => {
           <p>Region: {product.location} </p>
           <p>ABV: {product.alcohol_percent}%</p>
           <p>Description: {product.description}</p>
+          <p>Reviews: {product.reviews}</p>
         </div>
       ) : (
         <div>Product not found.</div>

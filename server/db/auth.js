@@ -63,8 +63,43 @@ const createUser = async(user)=> {
   return response.rows[0];
 };
 
+const makeUserVIP = async (userId) => {
+  const SQL = `
+  UPDATE users
+  SET is_vip = true
+  where id = $1
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [userId]);
+  return response.rows[0];
+};
+
+const makeUserAdmin = async (userId) => {
+  const SQL = `
+  UPDATE users
+  SET is_admin = true
+  WHERE id = $1
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [userId]);
+  return response.rows[0];
+};
+
+
+const fetchUsers = async () => {
+  const SQL = `
+    SELECT *
+    FROM users
+  `;
+  const response = await client.query(SQL);
+  return response.rows;
+};
+
 module.exports = {
   createUser,
   authenticate,
-  findUserByToken
+  findUserByToken,
+  makeUserVIP,
+  makeUserAdmin,
+  fetchUsers
 };
