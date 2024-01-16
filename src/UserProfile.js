@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 
+
+
+
 const UserProfile = ({ user }) => {
-  console.log(user)
   const [error, setError] = useState(null);
 
   if (!user.id) {
@@ -13,8 +15,13 @@ const UserProfile = ({ user }) => {
     <div>
 
         <h2>Welcome {user.name} </h2>
-        <p>Username: {user.username}</p>
-        <p>Email: {user.email}</p>
+        <h3>Your Account Details:</h3>
+          <ul>
+          <li>Username: {user.username}</li>
+          <li>Email: {user.email}</li>
+          <li>Address: {user.address_1}, {user.city}, {user.state} {user.postal_code}</li>
+         </ul>
+       
       
     </div>
   );
