@@ -183,7 +183,7 @@ const App = () => {
           />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/products" element={<AdminProducts />} />
+          <Route path="/admin/products" element={<AdminProducts products={products} auth={auth}/> } />
         </Routes>
       </main>
     </div>
