@@ -12,7 +12,8 @@ const isLoggedIn = async(req, res, next)=> {
 };
 
 const isAdmin = (req, res, next)=> {
-  if(req.user.is_admin){
+  console.log('User:', req.user);
+  if(req.user && req.user.is_admin){
     next();
   }
   else {
@@ -22,4 +23,12 @@ const isAdmin = (req, res, next)=> {
   }
 };
 
-module.exports = { isLoggedIn, isAdmin }
+const isVIP = (req, res, next) => {
+  if (req.user && req.user.is_vip) {
+    next();
+  } else {
+    res.status(403).json({ error: 'You must be a Snotty Sommelier to continue' });
+  }
+};
+
+module.exports = { isLoggedIn, isAdmin, isVIP }
