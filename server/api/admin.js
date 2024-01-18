@@ -1,6 +1,8 @@
 const {
     makeUserVIP,
     makeUserAdmin,
+    makeUsernotAdmin,
+    makeUsernotVIP,
     fetchUsers
   } = require('../db/auth');
 const { markProductVIP, createProduct, fetchAdminProducts } = require('../db/products');
@@ -12,7 +14,6 @@ const app = express.Router();
 
 app.get('/users', isLoggedIn, isAdmin, async (req, res, next) => {
     try {
-      console.log('asd');
       const users = await fetchUsers();
       res.send(users);
     } catch (ex) {
@@ -31,7 +32,7 @@ app.get('/products', isLoggedIn, isAdmin, async (req, res, next) => {
   }
 });
 
-app.post('/make-user-vip/:userId', isLoggedIn, isAdmin, async (req, res, next) => {
+app.put('/users/make-user-vip/:userId', isLoggedIn, isAdmin, async (req, res, next) => {
     try {
       const { userId } = req.params;
       const user = await makeUserVIP(userId);
@@ -40,11 +41,31 @@ app.post('/make-user-vip/:userId', isLoggedIn, isAdmin, async (req, res, next) =
       next(ex);
     }
   });
+
+  app.put('/users/make-user-not-vip/:userId', isLoggedIn, isAdmin, async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const user = await makeUsernotVIP(userId);
+      res.send(user);
+    } catch (ex) {
+      next(ex);
+    }
+  });
   
-app.post('/make-user-admin/:userId', isLoggedIn, isAdmin, async (req, res, next) => {
+app.put('/users/make-user-admin/:userId', isLoggedIn, isAdmin, async (req, res, next) => {
     try {
       const { userId } = req.params;
       const user = await makeUserAdmin(userId);
+      res.send(user);
+    } catch (ex) {
+      next(ex);
+    }
+  });
+
+  app.put('/users/make-user-not-admin/:userId', isLoggedIn, isAdmin, async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const user = await makeUsernotAdmin(userId);
       res.send(user);
     } catch (ex) {
       next(ex);

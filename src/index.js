@@ -21,6 +21,7 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [users, setUsers] = useState([]);
 
   const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
@@ -185,7 +186,7 @@ const App = () => {
               />}
           />
           <Route path="/admin" element={<Admin auth={auth}/>} />
-          <Route path="/admin/users" element={<AdminUsers auth={auth}/>} />
+          <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
           <Route path="/admin/products" element={<AdminProducts products={products} auth={auth}/> } />
           <Route path="/profile" element={<UserProfile user={auth} />}/>
         </Routes>
