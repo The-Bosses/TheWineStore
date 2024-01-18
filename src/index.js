@@ -14,6 +14,7 @@ import AdminUsers from './AdminUsers';
 import AdminProducts from './AdminProducts';
 import { useNavigate } from 'react-router-dom';
 import AdminProductEdit from './AdminProductEdit';
+import UserProfile from './UserProfile';
 
 
 const App = () => {
@@ -22,10 +23,12 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [users, setUsers] = useState([]);
 
   const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
   };
+
 
 
   useEffect(() => {
@@ -56,6 +59,7 @@ const App = () => {
       fetchData();
     }
   }, [auth]);
+
 
   const createLineItem = async (product) => {
     await api.createLineItem({ product, cart, lineItems, setLineItems });
@@ -117,6 +121,7 @@ const App = () => {
         <span>
           Welcome {auth.username || 'Guest'}!
           {auth.id ? <button onClick={logout}>Logout</button> : null}
+          {auth.id ? <Link to="/profile"><button>My Profile</button></Link> : null}
         </span>
       </nav>
   
@@ -198,6 +203,12 @@ const App = () => {
                           products={products}
                           editProduct={editProduct}
                           />} />
+
+          <Route path="/admin" element={<Admin auth={auth}/>} />
+          <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
+          <Route path="/admin/products" element={<AdminProducts products={products} auth={auth}/> } />
+          <Route path="/profile" element={<UserProfile user={auth} />}/>
+
         </Routes>
       </main>
     </div>
