@@ -126,12 +126,12 @@ const api = {
   updateOrder,
   removeFromCart,
   attemptLoginWithToken,
-  fetchUsers,
   createProduct,
   markProductVIP,
   makeUserAdmin,
   makeUserVIP,
-  fetchAdminProducts
+  fetchAdminProducts,
+  fetchUsers
 };
 
 export default api;

@@ -184,8 +184,8 @@ const App = () => {
               navigate={navigate} 
               />}
           />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin" element={<Admin auth={auth}/>} />
+          <Route path="/admin/users" element={<AdminUsers auth={auth}/>} />
           <Route path="/admin/products" element={<AdminProducts products={products} auth={auth}/> } />
           <Route path="/profile" element={<UserProfile user={auth} />}/>
         </Routes>
