@@ -13,6 +13,7 @@ import Admin from './Admin';
 import AdminUsers from './AdminUsers';
 import AdminProducts from './AdminProducts';
 import { useNavigate } from 'react-router-dom';
+import AdminProductEdit from './AdminProductEdit';
 
 
 const App = () => {
@@ -69,6 +70,10 @@ const App = () => {
   };
   const updateOrder = async (order) => {
     await api.updateOrder({ order, setOrders });
+  };
+
+  const editProduct = async(product) => {
+    await api.editProduct({product, setProducts});
   };
 
   const removeFromCart = async (lineItem) => {
@@ -183,7 +188,16 @@ const App = () => {
           />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/products" element={<AdminProducts products={products} auth={auth}/> } />
+          <Route path="/admin/products" 
+              element={<AdminProducts 
+                        products={products} 
+                        auth={auth}
+                        /> } />
+          <Route path="/admin/products/:id" 
+                element={<AdminProductEdit 
+                          products={products}
+                          editProduct={editProduct}
+                          />} />
         </Routes>
       </main>
     </div>

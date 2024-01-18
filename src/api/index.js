@@ -53,6 +53,12 @@ const updateOrder = async ({ order, setOrders }) => {
   setOrders(response.data);
 };
 
+const editProduct = async ({product, setProducts}) => {
+  await axios.put(`/api/admin/products/${product.id}`, product, getHeaders());
+  const response = await axios.get('/api/products', getHeaders());
+  setProducts(response.data);
+}
+
 const removeFromCart = async ({ lineItem, lineItems, setLineItems }) => {
   const response = await axios.delete(`/api/lineItems/${lineItem.id}`, getHeaders());
   setLineItems(lineItems.filter(_lineItem => _lineItem.id !== lineItem.id));
@@ -124,6 +130,7 @@ const api = {
   updateLineItem,
   deleteLineItem,
   updateOrder,
+  editProduct,
   removeFromCart,
   attemptLoginWithToken,
   fetchUsers,

@@ -28,19 +28,19 @@ const createProduct = async (product) => {
   return response.rows[0];
 };
 
-const markProductVIP = async (productId) => {
+const editProduct = async (product) => {
   const SQL = `
   UPDATE products
-  SET is_vip = true
-  WHERE id = $1
+  SET name = $1, type = $2, price = $3, location = $4, alcohol_percent = $5, description = $6, is_vip = $7
+  WHERE id = $8
   RETURNING *
   `;
-  const response = await client.query(SQL, [productId]);
+  const response = await client.query(SQL, [product.name, product.type, product.price, product.location, product.alcohol_percent, product.description, product.is_vip, product.id]);
   return response.rows[0];
 };
 module.exports = {
   fetchProducts,
   createProduct,
-  markProductVIP,
+  editProduct,
   fetchAdminProducts
 };

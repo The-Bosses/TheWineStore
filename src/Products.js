@@ -19,11 +19,6 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth})=
                     cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add</button>
                   ): null 
                 }
-                {
-                  auth.is_admin ? (
-                    <Link to={`/products/${product.id}/edit`}>Edit</Link>
-                  ): null
-                }
               </li>
             );
           })

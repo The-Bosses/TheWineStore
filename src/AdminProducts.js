@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import api from './api';
+import { Link } from 'react-router-dom';
+import AdminProductEdit from './AdminProductEdit';
 
 const AdminProducts = ({products, auth}) => {
-
-
   const handleCreateProduct = async () => {
     try {
       if (auth.is_admin) {
@@ -40,35 +40,15 @@ const AdminProducts = ({products, auth}) => {
     } */ 
   }
 
-  const handleMarkProductVIP = async (productId) => {
-    try {
-      if (auth.is_admin) {
-        console.log("you are admin!")
-      }
-    }
-      catch (error) {
-        console.error('Error marking product as VIP:', error);
-      }
-
-      /* if (isAdmin) {
-        await api.markProductVIP(productId);
-        const updatedProducts = await api.fetchAdminProducts();
-        setProducts(updatedProducts);
-      } else {
-        console.error('User is not an admin. Cannot mark product as VIP.');
-      }
-    }  */
-  };
-
   return (
     <div>
       <h2>All Products</h2>
+      
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            {product.name} - Type: {product.type} - VIP: {product.is_vip ? 'Yes' : 'No'}
-            {product.is_vip ? <button onClick={() => handleMarkProductVIP(product.id)}>Unmark as VIP</button> 
-              : <button onClick={() => handleMarkProductVIP(product.id)}>Mark as VIP</button>}
+            {product.name} - Type: {product.type}
+            <span> <Link to={`/admin/products/${product.id.toString()}`}><button >Edit Product</button></Link> </span>
           </li>
         ))}
       </ul>

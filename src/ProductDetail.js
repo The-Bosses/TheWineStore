@@ -14,6 +14,7 @@ const ProductDetail = ({ products }) => {
       {productId ? (
         <div>
           <h2>{product.name}</h2>
+          <p>{product.type}</p>
           <p>Price: {product.price}</p>
           <p>Region: {product.location} </p>
           <p>ABV: {product.alcohol_percent}%</p>
