@@ -130,6 +130,11 @@ const makeUsernotAdmin = async ({userId, setUsers}) => {
   setUsers(response.data);
 };
 
+const createUser = async ({formData}) => {
+  await axios.post('/api/signup', formData, getHeaders());
+  console.log('inde.js')
+};
+
 const api = {
   login,
   logout,
@@ -149,7 +154,8 @@ const api = {
   fetchAdminProducts,
   fetchUsers,
   makeUsernotAdmin,
-  makeUsernotVIP
+  makeUsernotVIP,
+  createUser
 };
 
 export default api;
