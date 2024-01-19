@@ -156,6 +156,15 @@ const makeUsernotAdmin = async ({userId, setUsers}) => {
 
 };
 
+
+const addToWishList = async ({product}) => {
+await axios.post(`/api/wishlist`, product, getHeaders());
+}
+
+const removeFromWishList = async({product}) => {
+  await axios.delete('/api/wishlist', product, getHeaders());
+};
+
 const api = {
   login,
   logout,
@@ -169,24 +178,19 @@ const api = {
   editProduct,
   removeFromCart,
   attemptLoginWithToken,
-
+  addToWishList,
+  removeFromWishList,
   fetchUsers,
   editUsers,
-
-
   createProduct,
   markProductVIP,
   makeUserAdmin,
   makeUserVIP,
   fetchAdminProducts,
-  
   makeUsernotAdmin,
-
   makeUsernotVIP,
   createUser,
-
   makeUsernotVIP
-
 };
 
 export default api;

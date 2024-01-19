@@ -91,6 +91,10 @@ const App = () => {
     await api.removeFromCart({ lineItem, lineItems, setLineItems });
   };
 
+  const addToWishList = async (product) => {
+    await api.addToWishList({product})
+  }
+
   const cart = orders.find((order) => order.is_cart) || {};
 
   const cartItems = lineItems.filter(
@@ -197,6 +201,7 @@ const App = () => {
             element={<ProductDetail 
               products={products} 
               navigate={navigate} 
+              addToWishList={addToWishList}
               />}
           />
           <Route path="/admin" element={<Admin auth={auth}/>} />

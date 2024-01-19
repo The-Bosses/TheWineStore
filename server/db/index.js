@@ -25,6 +25,7 @@ const {
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
+    DROP TABLE IF EXISTS wish_list;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
@@ -76,6 +77,13 @@ const seed = async()=> {
       is_cart BOOLEAN NOT NULL DEFAULT true,
       user_id UUID REFERENCES users(id) NOT NULL,
       total_cost DECIMAL(10,2)
+    );
+
+    CREATE TABLE wish_list(
+      id UUID PRIMARY KEY,
+      created_at TIMESTAMP DEFAULT now(),
+      user_id UUID REFERENCES users(id) NOT NULL,
+      product_id UUID REFERENCES products(id) NOT NULL
     );
 
     CREATE TABLE line_items(

@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from "react";
 import api from "./api";
+import { removeFromWishList } from './api';
 
-const UserProfile = ({ user: initialUser }) => {
+const UserProfile = ({ user: initialUser, setUserData }) => {
   const [editMode, setEditMode] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -34,6 +35,12 @@ const UserProfile = ({ user: initialUser }) => {
     setUsername(user.username);
     setEmail(user.email);
   };
+
+
+
+const handleRemoveFromWishList = async (productId) => {
+  await removeFromWishList(productId, setUserData)
+}
 
   return (
     <div>
@@ -87,7 +94,21 @@ const UserProfile = ({ user: initialUser }) => {
           <button type="button" onClick={handleEditClick}>
             Edit Profile
           </button>
-        </>
+          <h3>Your Wish List:</h3>
+          {console.log(user.wishlist)}
+          <ul>
+          {user.wishlist ? (
+            user.wishlist.map((productId) => (
+              <li key={productId}>
+                Product ID: {productId}
+                <button onClick={() => handleRemoveFromWishList(productId)}>Remove from Wishlist</button>
+              </li>
+            ))
+          ) : (
+            <p>Your wishlist is currently empty.</p>
+          )}
+        </ul>
+      </>
       )}
 
     </div>

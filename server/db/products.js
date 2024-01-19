@@ -38,9 +38,29 @@ const editProduct = async (product) => {
   const response = await client.query(SQL, [product.name, product.type, product.price, product.location, product.alcohol_percent, product.description, product.is_vip, product.id]);
   return response.rows[0];
 };
+
+const addToWishList = async (product) => {
+  const SQL = `
+  INSERT INTO wish_list (id, product_id, user_id) VALUES ($1, $2, $3) RETURNING *
+  `;
+  const response = await client.query(SQL, [uuidv4(), product.id, product.user_id]);
+  return response.rows[0];
+}
+
+const removeFromWishList = async (product) => {
+  const SQL = `
+  DELETE FROM wish_list
+  WHERE id = $1
+  RETURNING *
+  `;
+  await client.query(SQL, [product.id]);
+}
+
 module.exports = {
   fetchProducts,
   createProduct,
   editProduct,
-  fetchAdminProducts
+  fetchAdminProducts,
+  addToWishList,
+  removeFromWishList
 };
