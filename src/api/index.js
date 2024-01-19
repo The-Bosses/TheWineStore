@@ -93,7 +93,7 @@ const fetchUsers = async (setUsers) => {
 
 const editUsers = async ({editedUser, setUser}) => {
   try {
-    const response = await axios.put(`/api/users/${editedUser.id}`, getHeaders());
+    const response = await axios.put(`/api/users/${editedUser.id}`, editedUser, getHeaders());
     console.log(editedUser)
     setUser(editedUser);
   } catch (error) {

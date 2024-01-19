@@ -46,6 +46,7 @@ const UserProfile = ({ user: initialUser }) => {
               <input
                 type="text"
                 name="username"
+                placeholder={user.username}
                 value={username}
                 onChange={(event) => {setUsername(event.target.value)}}
               />
@@ -56,6 +57,7 @@ const UserProfile = ({ user: initialUser }) => {
               <input
                 type="email"
                 name="email"
+                placeholder={user.email}
                 value={email}
                 onChange={(event) => {setEmail(event.target.value)}}
               />
