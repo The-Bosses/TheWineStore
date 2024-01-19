@@ -1,14 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import ReviewForm from "./ReviewForm";
+import Reviews from "./Reviews";
 
-const ProductDetail = ({ products }) => {
+
+const ProductDetail = ({ products,reviews }) => {
   const params = useParams();
   const productId = params.productId;
   const product = products.find((product) => {
     return product.id === productId
   })
 
-
+  
   return (
     <div>
       {productId ? (
@@ -18,8 +21,10 @@ const ProductDetail = ({ products }) => {
           <p>Region: {product.location} </p>
           <p>ABV: {product.alcohol_percent}%</p>
           <p>Description: {product.description}</p>
-          <p>Reviews: {product.reviews}</p>
+          <Reviews reviews={reviews}/>
+          <ReviewForm/>
         </div>
+        
       ) : (
         <div>Product not found.</div>
       )}

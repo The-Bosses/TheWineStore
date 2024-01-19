@@ -23,6 +23,20 @@ const fetchLineItems = async (setLineItems) => {
   setLineItems(response.data);
 };
 
+const fetchReviews = async (setReviews) => {
+  
+  const response = await axios.get('/api/reviews', getHeaders());
+  
+  setReviews(response.data);
+};
+
+const createReview = async ({ reviews, setReviews}) => {
+  await axios.post('/api/reviews', reviews, getHeaders());
+  const response = await axios.get(('/api/reviews', getHeaders()))
+  setReviews([...reviews, response.data]);
+}
+
+
 const createLineItem = async ({ product, cart, lineItems, setLineItems }) => {
   const response = await axios.post('/api/lineItems', {
     order_id: cart.id,
@@ -118,6 +132,7 @@ const api = {
   login,
   logout,
   fetchProducts,
+  fetchReviews,
   fetchOrders,
   fetchLineItems,
   createLineItem,
@@ -128,6 +143,7 @@ const api = {
   attemptLoginWithToken,
   fetchUsers,
   createProduct,
+  createReview,
   markProductVIP,
   makeUserAdmin,
   makeUserVIP,

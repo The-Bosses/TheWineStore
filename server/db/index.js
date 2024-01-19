@@ -6,6 +6,11 @@ const {
 } = require('./products');
 
 const {
+  fetchReviews,
+  createReview
+} = require('./reviews');
+
+const {
   createUser,
   authenticate,
   findUserByToken
@@ -61,10 +66,10 @@ const seed = async()=> {
     );
 
     CREATE TABLE reviews (
-      id UUID PRIMARY KEY,
+    
       created_at TIMESTAMP DEFAULT now(),
-      product_id UUID REFERENCES products(id) NOT NULL,
-      user_id UUID REFERENCES users(id) NOT NULL,
+      product_id TEXT NOT NULL,
+      user_id TEXT NOT NULL,
       rating INTEGER NOT NULL,
       comment TEXT NOT NULL
     );
@@ -89,11 +94,13 @@ const seed = async()=> {
   `;
   await client.query(SQL);
 
+ 
+
   const [ben, parker, sam, robert] = await Promise.all([
     createUser({ username: 'ben', password: 'bboss', name: 'Ben Boss', email: 'bb@icloud.com', birth_date:'1998-03-09', address_1: '123 Ypsilanti Dr', address_2: '', city: 'Ypsilanti', state: 'Michigan', country: 'United States', postal_code: '48197', is_vip: true, is_admin: true }),
     createUser({ username: 'parker', password: '1234', name: 'Parker', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Detroit', state: 'Michigan', country: "United States", postal_code: '12345', is_vip: true, is_admin: true}),
     createUser({ username: 'sam', password: '1234', name: 'Sam', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Detroit', state: 'Michigan', country: "United States", postal_code: '12345', is_vip: true, is_admin: true}),
-    createUser({ username: 'robert', password: '1234', name: 'Robert', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Detroit', state: 'Michigan', country: "United States", postal_code: '12345', is_vip: true, is_admin: true})
+    createUser({ username: 'robert', password: '1234', name: 'Robert', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Penrose', state: 'Colorado', country: "United States", postal_code: '81240', is_vip: true, is_admin: true})
   ]);
   const [oh_schist, enchanted_garden, anthony_road, santa, voga, ecco, hayes, fog_bank, kim_craw, oyster, invivo, unshackled_by, sun_goddess, river_road, oak_grove, la_crema, j_lohr, ferrari, decoy_cali, tuli, caliveda, le_colline, la_belle, prototype, double_black, gnarled, oak_ridge, sobon, bread_butter, nineteen_crimes, chateau, eccentric, unshackled, la_vostra, la_marca, cupcake, naveran, rondel, lini, le_grand, le_marca_rose ] = await Promise.all([
 
@@ -138,7 +145,9 @@ const seed = async()=> {
     createProduct({ name: 'Lini 910 Labrusca', type: 'Sparkling Rose', location: 'Italy', alcohol_percent: 11, description: "Produced from a blend of 50 percent salamino and 50 percent sorbara, this bone-dry rosé is marked by flavors of white cherry, cranberry, and dried herbs. The wine pairs beautifully with a variety of cuisines, from brunch favorites to savory happy hour snacks and beyond. ", price: 17.99, reviews: '', is_vip: false }),
     createProduct({ name: 'Le Grand Courtage Rose', type: 'Sparkling Rose', location: 'France', alcohol_percent: 12, description: "This rosé compliments an array of foods. Try it with spicy Asian dishes, risotto, BBQ, beef, lamb, duck, game, chicken, prosciutto, seafood, pizza or soft cheese (like brie or goat). ", price: 17.99, reviews: '', is_vip: false }),  
     createProduct({ name: 'Le Marca Prosecco Rose', type: 'Sparkling Rose', location: 'Italy', alcohol_percent: 11, description: "Shining from the first toast to the last sip, our playful pop of pink is an effervescent new way to enjoy Rosé. A balance of our traditional Prosecco and the delicate elegance of Pinot Noir, La Marca Prosecco Rosé sparkles with our classic aromas of white flowers, peach and pear, blending with hints of ripe red cherry, raspberry and wild strawberry. Vibrant and refreshing, this bubbly is perfect for both lively occasions and spontaneous celebrations. ", price: 14.99, reviews: '', is_vip: false }),   
-
+    createReview({product_id:'Oh Schist', user_id:'robert', rating: 6, comment:'Light, crisp, citrus'}),
+    createReview({product_id: 'voga', user_id:'robert', rating: 7, comment:'light but prolonged bitter-sweet finish'}),
+    createReview({product_id: 'caliveda', user_id:'robert', rating: 6, comment:'Very strong nose and full body'})
   
   ]);
   let orders = await fetchOrders(parker.id);
@@ -149,11 +158,18 @@ const seed = async()=> {
   lineItem = await createLineItem({ order_id: cart.id, product_id: voga.id});
   cart.is_cart = false;
   await updateOrder(cart);
+  let reviews = await fetchReviews();
+  //let review = await createReview();
+  //review.quantity++;
+  //await createReview(review)
+  //console.log(reviews)
 };
 
 module.exports = {
   fetchProducts,
   fetchOrders,
+  fetchReviews,
+  createReview,
   fetchLineItems,
   createLineItem,
   updateLineItem,

@@ -13,6 +13,9 @@ import Admin from './Admin';
 import AdminUsers from './AdminUsers';
 import AdminProducts from './AdminProducts';
 import { useNavigate } from 'react-router-dom';
+import ReviewForm from './ReviewForm';
+import Reviews from './Reviews';
+
 
 
 const App = () => {
@@ -21,6 +24,7 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [reviews,setReviews] = useState();
 
   const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
@@ -55,6 +59,21 @@ const App = () => {
       fetchData();
     }
   }, [auth]);
+
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      if (auth.id) {
+        await api.fetchReviews(setReviews)
+    };
+    fetchData();
+  } 
+      
+  });
+
+  const createReview = async (reviews) => {
+    await api.createReview(reviews, setReviews);
+  };
 
   const createLineItem = async (product) => {
     await api.createLineItem({ product, cart, lineItems, setLineItems });
@@ -115,7 +134,7 @@ const App = () => {
         </span>
       </nav>
   
-      <h3>Search Items</h3>
+      <h3>Search Available Wines</h3>
       <SearchBar products={products} />
 
       <main>
@@ -179,8 +198,18 @@ const App = () => {
             element={<ProductDetail 
               products={products} 
               navigate={navigate} 
+              
+              createReview={createReview}
+              
               />}
           />
+          <Route 
+            path="/reviews"
+            element={<Reviews 
+              reviews={reviews}
+              />}
+          />
+          
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/products" element={<AdminProducts />} />

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Products = ({ products, cartItems, createLineItem, updateLineItem, auth})=> {
   return (
     <div>
-      <h2>Products</h2>
+      <h2>Available Wine List</h2>
       <ul>
         {
           products.map( product => {
