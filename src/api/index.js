@@ -95,7 +95,6 @@ const fetchUsers = async (setUsers) => {
   const response = await axios.get('/api/admin/users', getHeaders());
   setUsers(response.data);
 };
-// const editUsers = async (args) => {
 
 const editUsers = async ({editedUser, setUser}) => {
   try {
