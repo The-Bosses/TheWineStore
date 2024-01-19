@@ -95,6 +95,19 @@ const fetchUsers = async (setUsers) => {
   const response = await axios.get('/api/admin/users', getHeaders());
   setUsers(response.data);
 };
+// const editUsers = async (args) => {
+
+const editUsers = async ({editedUser, setUser}) => {
+  try {
+    const response = await axios.put(`/api/users/${editedUser.id}`, editedUser, getHeaders());
+    console.log(editedUser)
+    setUser(editedUser);
+  } catch (error) {
+    console.error('Error editing user:', error.message);
+    throw error; 
+  }
+}
+
 
 const fetchAdminProducts = async (setProducts) => {
   console.log('1.1')
@@ -116,6 +129,7 @@ const makeUserVIP = async ({userId, setUsers}) => {
   await axios.put(`/api/admin/users/make-user-vip/${userId}`, userId, getHeaders());
   const response = await axios.get('/api/admin/users', getHeaders())
   setUsers(response.data);
+
 };
 
 const makeUserAdmin = async ({userId, setUsers}) => {
@@ -123,6 +137,18 @@ const makeUserAdmin = async ({userId, setUsers}) => {
   const response = await axios.get('/api/admin/users', getHeaders());
   setUsers(response.data);
 };
+
+
+const makeUserAdmin = async ({userId, setUsers}) => {
+  await axios.put(`/api/admin/users/make-user-admin/${userId}`, userId, getHeaders());
+  const response = await axios.get('/api/admin/users', getHeaders());
+  setUsers(response.data);
+};
+
+
+const createUser = async ({formData}) => {
+  await axios.post('/api/signup', formData, getHeaders());
+  console.log('inde.js')
 
 const makeUsernotVIP = async ({userId, setUsers}) => {
   await axios.put(`/api/admin/users/make-user-not-vip/${userId}`, userId, getHeaders());
@@ -134,6 +160,7 @@ const makeUsernotAdmin = async ({userId, setUsers}) => {
   await axios.put(`/api/admin/users/make-user-not-admin/${userId}`, userId, getHeaders());
   const response = await axios.get('/api/admin/users', getHeaders());
   setUsers(response.data);
+
 };
 
 const api = {
@@ -149,14 +176,24 @@ const api = {
   editProduct,
   removeFromCart,
   attemptLoginWithToken,
+
+  fetchUsers,
+  editUsers,
+
+
   createProduct,
   markProductVIP,
   makeUserAdmin,
   makeUserVIP,
   fetchAdminProducts,
-  fetchUsers,
+  
   makeUsernotAdmin,
+
+  makeUsernotVIP,
+  createUser,
+
   makeUsernotVIP
+
 };
 
 export default api;

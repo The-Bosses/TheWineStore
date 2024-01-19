@@ -63,6 +63,17 @@ const createUser = async(user)=> {
   return response.rows[0];
 };
 
+const editUser = async(user) => {
+  const SQL = `
+  UPDATE users
+  SET username = $1, email = $2
+  WHERE id = $3
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [user.username, user.email, user.id]);
+  return response.rows[0];
+};
+
 const makeUserVIP = async (userId) => {
   const SQL = `
   UPDATE users
@@ -119,6 +130,7 @@ const fetchUsers = async () => {
 
 module.exports = {
   createUser,
+  editUser,
   authenticate,
   findUserByToken,
   makeUserVIP,
