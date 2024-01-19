@@ -12,6 +12,7 @@ import SearchBar from './SearchBar';
 import Admin from './Admin';
 import AdminUsers from './AdminUsers';
 import AdminProducts from './AdminProducts';
+import UserForm from './CreateUser';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 
@@ -21,6 +22,7 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [users, setUsers] = useState([]);
 
   const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
@@ -57,6 +59,9 @@ const App = () => {
     }
   }, [auth]);
 
+  const createUser = async(formData) => {
+    await api.createUser({formData});
+  };
 
   const createLineItem = async (product) => {
     await api.createLineItem({ product, cart, lineItems, setLineItems });
@@ -103,6 +108,7 @@ const App = () => {
       <nav>
         <Link to="/"> Home </Link>
         <Link to="/products">Products ({products.length})</Link>
+        <Link to="/signup">Sign Up!</Link>
         {auth.id ? <Link to="/orders">Orders ({orders.filter((order) => !order.is_cart).length})</Link> : null}
         {auth.id ? <Link to="/cart">Cart ({cartCount})</Link> : null}
         {auth.is_admin ? (
@@ -184,10 +190,11 @@ const App = () => {
               navigate={navigate} 
               />}
           />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin" element={<Admin auth={auth}/>} />
+          <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
           <Route path="/admin/products" element={<AdminProducts products={products} auth={auth}/> } />
           <Route path="/profile" element={<UserProfile user={auth} />}/>
+          <Route path='/signup' element={<UserForm createUser={createUser}/>} />   
         </Routes>
       </main>
     </div>

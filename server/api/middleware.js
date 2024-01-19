@@ -12,7 +12,6 @@ const isLoggedIn = async(req, res, next)=> {
 };
 
 const isAdmin = (req, res, next)=> {
-  console.log('User:', req.user);
   if(req.user && req.user.is_admin){
     next();
   }

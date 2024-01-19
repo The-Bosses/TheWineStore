@@ -115,17 +115,38 @@ const createProduct = async (productData) => {
 };
 
 const markProductVIP = async (productId) => {
+  console.log(productId)
   await axios.put(`/api/admin/mark-product-as-vip/${productId}`, {}, getHeaders());
 };
 
-const makeUserVIP = async (userId) => {
-  await axios.post(`/admin/make-user-vip/${userId}`, {}, getHeaders());
+const makeUserVIP = async ({userId, setUsers}) => {
+  await axios.put(`/api/admin/users/make-user-vip/${userId}`, userId, getHeaders());
+  const response = await axios.get('/api/admin/users', getHeaders())
+  setUsers(response.data);
 };
 
-const makeUserAdmin = async (userId) => {
-  await axios.post(`/admin/make-user-admin/${userId}`, {}, getHeaders());
+const makeUserAdmin = async ({userId, setUsers}) => {
+  await axios.put(`/api/admin/users/make-user-admin/${userId}`, userId, getHeaders());
+  const response = await axios.get('/api/admin/users', getHeaders());
+  setUsers(response.data);
 };
 
+const makeUsernotVIP = async ({userId, setUsers}) => {
+  await axios.put(`/api/admin/users/make-user-not-vip/${userId}`, userId, getHeaders());
+  const response = await axios.get('/api/admin/users', getHeaders())
+  setUsers(response.data);
+};
+
+const makeUsernotAdmin = async ({userId, setUsers}) => {
+  await axios.put(`/api/admin/users/make-user-not-admin/${userId}`, userId, getHeaders());
+  const response = await axios.get('/api/admin/users', getHeaders());
+  setUsers(response.data);
+};
+
+const createUser = async ({formData}) => {
+  await axios.post('/api/signup', formData, getHeaders());
+  console.log('inde.js')
+};
 
 const api = {
   login,
@@ -145,7 +166,11 @@ const api = {
   markProductVIP,
   makeUserAdmin,
   makeUserVIP,
-  fetchAdminProducts
+  fetchAdminProducts,
+  fetchUsers,
+  makeUsernotAdmin,
+  makeUsernotVIP,
+  createUser
 };
 
 export default api;

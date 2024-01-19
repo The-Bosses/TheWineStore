@@ -85,10 +85,32 @@ const makeUserVIP = async (userId) => {
   return response.rows[0];
 };
 
+const makeUsernotVIP = async (userId) => {
+  const SQL = `
+  UPDATE users
+  SET is_vip = false
+  where id = $1
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [userId]);
+  return response.rows[0];
+};
+
 const makeUserAdmin = async (userId) => {
   const SQL = `
   UPDATE users
   SET is_admin = true
+  WHERE id = $1
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [userId]);
+  return response.rows[0];
+};
+
+const makeUsernotAdmin = async (userId) => {
+  const SQL = `
+  UPDATE users
+  SET is_admin = false
   WHERE id = $1
   RETURNING *
   `;
@@ -113,5 +135,7 @@ module.exports = {
   findUserByToken,
   makeUserVIP,
   makeUserAdmin,
-  fetchUsers
+  fetchUsers,
+  makeUsernotAdmin,
+  makeUsernotVIP
 };
