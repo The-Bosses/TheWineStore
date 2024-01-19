@@ -1,5 +1,5 @@
 const {
-  fetchProducts,
+  fetchProducts
 } = require('../db');
 
 const express = require('express');
@@ -15,9 +15,7 @@ app.get('/', async(req, res, next)=> {
   }
 });
 
-app.put('/products/:id', isLoggedIn, isAdmin, (req, res, next)=> {
-  res.send('hello world');
-});
+
 
 
 module.exports = app;

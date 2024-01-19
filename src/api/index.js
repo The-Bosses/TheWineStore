@@ -53,6 +53,12 @@ const updateOrder = async ({ order, setOrders }) => {
   setOrders(response.data);
 };
 
+const editProduct = async ({product, setProducts}) => {
+  await axios.put(`/api/admin/products/${product.id}`, product, getHeaders());
+  const response = await axios.get('/api/products', getHeaders());
+  setProducts(response.data);
+}
+
 const removeFromCart = async ({ lineItem, lineItems, setLineItems }) => {
   const response = await axios.delete(`/api/lineItems/${lineItem.id}`, getHeaders());
   setLineItems(lineItems.filter(_lineItem => _lineItem.id !== lineItem.id));
@@ -123,6 +129,7 @@ const makeUserVIP = async ({userId, setUsers}) => {
   await axios.put(`/api/admin/users/make-user-vip/${userId}`, userId, getHeaders());
   const response = await axios.get('/api/admin/users', getHeaders())
   setUsers(response.data);
+
 };
 
 const makeUserAdmin = async ({userId, setUsers}) => {
@@ -130,6 +137,18 @@ const makeUserAdmin = async ({userId, setUsers}) => {
   const response = await axios.get('/api/admin/users', getHeaders());
   setUsers(response.data);
 };
+
+
+const makeUserAdmin = async ({userId, setUsers}) => {
+  await axios.put(`/api/admin/users/make-user-admin/${userId}`, userId, getHeaders());
+  const response = await axios.get('/api/admin/users', getHeaders());
+  setUsers(response.data);
+};
+
+
+const createUser = async ({formData}) => {
+  await axios.post('/api/signup', formData, getHeaders());
+  console.log('inde.js')
 
 const makeUsernotVIP = async ({userId, setUsers}) => {
   await axios.put(`/api/admin/users/make-user-not-vip/${userId}`, userId, getHeaders());
@@ -141,11 +160,7 @@ const makeUsernotAdmin = async ({userId, setUsers}) => {
   await axios.put(`/api/admin/users/make-user-not-admin/${userId}`, userId, getHeaders());
   const response = await axios.get('/api/admin/users', getHeaders());
   setUsers(response.data);
-};
 
-const createUser = async ({formData}) => {
-  await axios.post('/api/signup', formData, getHeaders());
-  console.log('inde.js')
 };
 
 const api = {
@@ -158,19 +173,27 @@ const api = {
   updateLineItem,
   deleteLineItem,
   updateOrder,
+  editProduct,
   removeFromCart,
   attemptLoginWithToken,
+
   fetchUsers,
   editUsers,
+
+
   createProduct,
   markProductVIP,
   makeUserAdmin,
   makeUserVIP,
   fetchAdminProducts,
-  fetchUsers,
+  
   makeUsernotAdmin,
+
   makeUsernotVIP,
-  createUser
+  createUser,
+
+  makeUsernotVIP
+
 };
 
 export default api;

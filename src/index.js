@@ -15,6 +15,9 @@ import AdminProducts from './AdminProducts';
 import UserForm from './CreateUser';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
+import AdminProductEdit from './AdminProductEdit';
+
+
 
 const App = () => {
 
@@ -59,9 +62,11 @@ const App = () => {
     }
   }, [auth]);
 
+
   const createUser = async(formData) => {
     await api.createUser({formData});
   };
+
 
   const createLineItem = async (product) => {
     await api.createLineItem({ product, cart, lineItems, setLineItems });
@@ -76,6 +81,10 @@ const App = () => {
   };
   const updateOrder = async (order) => {
     await api.updateOrder({ order, setOrders });
+  };
+
+  const editProduct = async(product) => {
+    await api.editProduct({product, setProducts});
   };
 
   const removeFromCart = async (lineItem) => {
@@ -192,9 +201,21 @@ const App = () => {
           />
           <Route path="/admin" element={<Admin auth={auth}/>} />
           <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
-          <Route path="/admin/products" element={<AdminProducts products={products} auth={auth}/> } />
+
           <Route path="/profile" element={<UserProfile user={auth} />}/>
           <Route path='/signup' element={<UserForm createUser={createUser}/>} />   
+
+          <Route path="/admin/products" 
+              element={<AdminProducts 
+                        products={products} 
+                        auth={auth}
+                        /> } />
+          <Route path="/admin/products/:id" 
+                element={<AdminProductEdit 
+                          products={products}
+                          editProduct={editProduct}
+                          />} />
+
         </Routes>
       </main>
     </div>

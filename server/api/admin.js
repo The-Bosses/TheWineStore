@@ -1,3 +1,4 @@
+const {editProduct} = require('../db')
 const {
     makeUserVIP,
     makeUserAdmin,
@@ -89,5 +90,14 @@ app.post('/mark-product-as-vip/:productId', isLoggedIn, isAdmin, async (req, res
       next(ex);
     }
   });
+app.put('/products/:id', isLoggedIn, isAdmin, async (req, res, next)=> {
+  try {
+    res.send(await editProduct({...req.body, id: req.params.id}) );
+  } catch (error) {
+    next(error)
+  }
+  
+});
+
 
   module.exports = app;
