@@ -89,6 +89,19 @@ const fetchUsers = async (setUsers) => {
   const response = await axios.get('/api/admin/users', getHeaders());
   setUsers(response.data);
 };
+// const editUsers = async (args) => {
+
+const editUsers = async ({editedUser, setUser}) => {
+  try {
+    const response = await axios.put(`/api/users/${editedUser.id}`, getHeaders());
+    console.log(editedUser)
+    setUser(editedUser);
+  } catch (error) {
+    console.error('Error editing user:', error.message);
+    throw error; 
+  }
+}
+
 
 const fetchAdminProducts = async (setProducts) => {
   console.log('1.1')
@@ -127,6 +140,7 @@ const api = {
   removeFromCart,
   attemptLoginWithToken,
   fetchUsers,
+  editUsers,
   createProduct,
   markProductVIP,
   makeUserAdmin,
