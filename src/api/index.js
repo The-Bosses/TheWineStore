@@ -139,16 +139,10 @@ const makeUserAdmin = async ({userId, setUsers}) => {
 };
 
 
-const makeUserAdmin = async ({userId, setUsers}) => {
-  await axios.put(`/api/admin/users/make-user-admin/${userId}`, userId, getHeaders());
-  const response = await axios.get('/api/admin/users', getHeaders());
-  setUsers(response.data);
-};
-
 
 const createUser = async ({formData}) => {
   await axios.post('/api/signup', formData, getHeaders());
-  console.log('inde.js')
+  console.log('inde.js')};
 
 const makeUsernotVIP = async ({userId, setUsers}) => {
   await axios.put(`/api/admin/users/make-user-not-vip/${userId}`, userId, getHeaders());
