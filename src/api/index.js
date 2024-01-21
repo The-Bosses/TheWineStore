@@ -58,6 +58,11 @@ const editProduct = async ({product, setProducts}) => {
   const response = await axios.get('/api/products', getHeaders());
   setProducts(response.data);
 }
+const addProduct = async ({product, setProducts}) => {
+  await axios.post('/api/admin/products/createnew', product, getHeaders());
+  const response = await axios.get('/api/products', getHeaders());
+  setProducts(response.data);
+}
 
 const removeFromCart = async ({ lineItem, lineItems, setLineItems }) => {
   const response = await axios.delete(`/api/lineItems/${lineItem.id}`, getHeaders());
@@ -107,7 +112,6 @@ const editUsers = async ({editedUser, setUser}) => {
     throw error; 
   }
 }
-
 
 const fetchAdminProducts = async (setProducts) => {
   console.log('1.1')
@@ -170,24 +174,18 @@ const api = {
   editProduct,
   removeFromCart,
   attemptLoginWithToken,
-
   fetchUsers,
   editUsers,
-
-
   createProduct,
   markProductVIP,
   makeUserAdmin,
   makeUserVIP,
   fetchAdminProducts,
-  
   makeUsernotAdmin,
-
   makeUsernotVIP,
   createUser,
-
-  makeUsernotVIP
-
+  makeUsernotVIP,
+  addProduct
 };
 
 export default api;
