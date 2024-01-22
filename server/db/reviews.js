@@ -23,8 +23,6 @@ const createReview = async (review) => {
       review.comment
     ]);
     
-    
-    console.log(response.rows, "in db")
     return (response.rows[0]);
     
     
