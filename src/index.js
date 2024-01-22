@@ -16,6 +16,7 @@ import UserForm from './CreateUser';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import AdminProductEdit from './AdminProductEdit';
+import UserDetailsPage from './UserDetailsPage';
 
 
 
@@ -58,6 +59,15 @@ const App = () => {
       const fetchData = async () => {
         await api.fetchLineItems(setLineItems);
       };
+      fetchData();
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    if(auth.id) {
+      const fetchData = async () => {
+        await api.fetchUsers(setUsers);
+      }
       fetchData();
     }
   }, [auth]);
@@ -201,7 +211,7 @@ const App = () => {
           />
           <Route path="/admin" element={<Admin auth={auth}/>} />
           <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
-
+          <Route path="/admin/users/:userId" element= { <UserDetailsPage users={users} orders={orders} products={products} lineItems={lineItems}/>} />
           <Route path="/profile" element={<UserProfile user={auth} />}/>
           <Route path='/signup' element={<UserForm createUser={createUser}/>} />   
 

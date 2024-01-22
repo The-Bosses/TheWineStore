@@ -27,13 +27,14 @@ const AdminProductEdit = ({products, editProduct}) => {
 
     return (
         <div>
-        <h1>Edit Product</h1>
+        <h2>Admin Dashboard</h2>
+        <h2>Edit Product</h2>
         <div>
         {productId ? (
           <div>
             <div>
-                <h2>Current Information: </h2>
-                <h2>{product.name}</h2>
+                <h3>Current Information: </h3>
+                <h3>{product.name}</h3>
                 <p>{product.type}</p>
                 <p>Price: {product.price}</p>
                 <p>Region: {product.location} </p>
