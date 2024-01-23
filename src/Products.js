@@ -14,10 +14,10 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth })
     // Update the 'search' parameter in the URL
     setSearchParams({ search: newSearchTerm });
   };
-
+    
   return (
-    <div className="container mx-auto px-4">
-      <h2 className="text-2xl font-bold mb-4">Available Wine List</h2>
+    <div className="container px-4 bg-red-900">
+      <h2 className="text-2xl font-bold mb-4 text-white">Available Wine List</h2>
       <div className="mb-4">
         <input
           type="text"
@@ -35,19 +35,24 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth })
             const cartItem = cartItems.find((lineItem) => lineItem.product_id === product.id);
 
             return (
-              <div key={product.id} className="bg-white rounded-md p-4 border border-gray-300 shadow-md">
-                <Link to={`/product/${product.id.toString()}`} className="text-blue-500 hover:underline">
-                  {product.name}
+              <div key={product.id} className=" m-6 border p-4 rounded-md bg-white">
+                <img
+                src={`${product.image}`}
+                alt={product.name}
+                className="w-full h-auto max-h-full object-contain mb-4"
+                />
+                <Link to={`/product/${product.id.toString()}`} className="m-3 text-red-900 text-2xl font-bold hover:underline">
+                {product.name}
                 </Link>
-                <div className="text-gray-700">${product.price}</div>
+                <div className="m-3 text-red-900 text-xl">${product.price}</div>
                 {auth.id ? (
                   cartItem ? (
-                    <button onClick={() => updateLineItem(cartItem)}>Add Another</button>
+                  <button className="m-3  inline-block px-5 py-3 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800" onClick={() => updateLineItem(cartItem)}>Add Another</button>
                   ) : (
-                    <button onClick={() => createLineItem(product)}>Add</button>
+                  <button className="m-3  inline-block px-5 py-3 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"onClick={() => createLineItem(product)}>Add</button>
                   )
                 ) : null}
-              </div>
+               </div>
             );
           })}
       </div>
