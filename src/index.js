@@ -26,6 +26,7 @@ const App = () => {
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
   const [users, setUsers] = useState([]);
+  const [wishList, setWishList] =useState([]);
 
   const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
@@ -62,6 +63,14 @@ const App = () => {
     }
   }, [auth]);
 
+  useEffect(() => {
+    if (auth.id) {
+      const fetchWishList = async () => {
+        await api.getWishList(setWishList);
+      }
+      fetchWishList();
+    }
+  }, [auth]);
 
   const createUser = async(formData) => {
     await api.createUser({formData});
@@ -92,7 +101,11 @@ const App = () => {
   };
 
   const addToWishList = async (product) => {
-    await api.addToWishList({product})
+    await api.addToWishList({product, setWishList})
+  }
+
+  const removeFromWishList = async (product) => {
+    await api.removeFromWishList({product, wishList, setWishList})
   }
 
   const cart = orders.find((order) => order.is_cart) || {};
@@ -201,13 +214,16 @@ const App = () => {
             element={<ProductDetail 
               products={products} 
               navigate={navigate} 
+              wishList={wishList}
+              removeFromWishList={removeFromWishList}
               addToWishList={addToWishList}
+              setWishList={setWishList}
               />}
           />
           <Route path="/admin" element={<Admin auth={auth}/>} />
           <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
 
-          <Route path="/profile" element={<UserProfile user={auth} />}/>
+          <Route path="/profile" element={<UserProfile user={auth} wishList={wishList} products={products} removeFromWishList={removeFromWishList} />}/>
           <Route path='/signup' element={<UserForm createUser={createUser}/>} />   
 
           <Route path="/admin/products" 

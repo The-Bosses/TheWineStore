@@ -157,12 +157,21 @@ const makeUsernotAdmin = async ({userId, setUsers}) => {
 };
 
 
-const addToWishList = async ({product}) => {
+const addToWishList = async ({product, setWishList}) => {
 await axios.post(`/api/wishlist`, product, getHeaders());
+const response = await axios.get('api/wishlist', getHeaders());
+setWishList(response.data);
 }
 
-const removeFromWishList = async({product}) => {
-  await axios.delete('/api/wishlist', product, getHeaders());
+const getWishList = async (setWishList) => {
+const response = await axios.get('/api/wishlist', getHeaders());
+setWishList(response.data);
+};
+
+const removeFromWishList = async({product, wishList, setWishList, userId}) => {
+  console.log({product})
+  await axios.delete(`/api/wishlist/${product.id}`, getHeaders());
+  setWishList(wishList.filter(item => item.product_id !== product.id));
 };
 
 const api = {
@@ -179,6 +188,7 @@ const api = {
   removeFromCart,
   attemptLoginWithToken,
   addToWishList,
+  getWishList,
   removeFromWishList,
   fetchUsers,
   editUsers,

@@ -47,13 +47,22 @@ const addToWishList = async (product) => {
   return response.rows[0];
 }
 
+const getWishList = async (user_id) => {
+  const SQL = `
+  SELECT *
+  FROM wish_list
+  WHERE user_id = $1
+  `
+  const response = await client.query(SQL, [user_id]);
+  return response.rows;
+}
+
 const removeFromWishList = async (product) => {
   const SQL = `
   DELETE FROM wish_list
-  WHERE id = $1
-  RETURNING *
+  WHERE product_id = $1 AND user_id = $2
   `;
-  await client.query(SQL, [product.id]);
+  await client.query(SQL, [product.product_id, product.user_id]);
 }
 
 module.exports = {
@@ -62,5 +71,6 @@ module.exports = {
   editProduct,
   fetchAdminProducts,
   addToWishList,
+  getWishList,
   removeFromWishList
 };
