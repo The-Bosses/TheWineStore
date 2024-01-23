@@ -8,6 +8,16 @@ const getHeaders = () => {
   };
 };
 
+const fetchUser = async ({userId, setUser}) => {
+  const response = await axios.get(`/api/admin/users/${userId}`, userId, getHeaders());
+  setUser(response.data);
+};
+
+const fetchOrder = async ({userId, setOrder}) => {
+  const response = await axios.get(`/api/admin/users/orders/${userId}`, userId, getHeaders());
+  setOrder(response.data);
+};
+
 const fetchProducts = async (setProducts) => {
   const response = await axios.get('/api/products');
   setProducts(response.data);
@@ -55,6 +65,11 @@ const updateOrder = async ({ order, setOrders }) => {
 
 const editProduct = async ({product, setProducts}) => {
   await axios.put(`/api/admin/products/${product.id}`, product, getHeaders());
+  const response = await axios.get('/api/products', getHeaders());
+  setProducts(response.data);
+}
+const addProduct = async ({product, setProducts}) => {
+  await axios.post('/api/admin/products/createnew', product, getHeaders());
   const response = await axios.get('/api/products', getHeaders());
   setProducts(response.data);
 }
@@ -106,7 +121,6 @@ const editUsers = async ({editedUser, setUser}) => {
     throw error; 
   }
 }
-
 
 const fetchAdminProducts = async (setProducts) => {
   console.log('1.1')
@@ -192,6 +206,8 @@ const api = {
   removeFromWishList,
   fetchUsers,
   editUsers,
+  fetchUser,
+  fetchOrder,
   createProduct,
   markProductVIP,
   makeUserAdmin,
@@ -200,7 +216,8 @@ const api = {
   makeUsernotAdmin,
   makeUsernotVIP,
   createUser,
-  makeUsernotVIP
+  makeUsernotVIP,
+  addProduct
 };
 
 export default api;

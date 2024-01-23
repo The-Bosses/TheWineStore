@@ -16,6 +16,7 @@ import UserForm from './CreateUser';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import AdminProductEdit from './AdminProductEdit';
+import UserDetailsPage from './UserDetailsPage';
 
 
 
@@ -236,7 +237,8 @@ const App = () => {
                           products={products}
                           editProduct={editProduct}
                           />} />
-
+          <Route path="/admin/users/:id"
+                element={<UserDetailsPage auth={auth} />}/>
         </Routes>
       </main>
     </div>

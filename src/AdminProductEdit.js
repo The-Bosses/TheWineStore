@@ -52,13 +52,13 @@ const AdminProductEdit = ({products, editProduct}) => {
                     <input type="text" value={productChanges.type} onChange={(e) => setProductChanges({...productChanges, type:e.target.value})} />
                     
                     <label>Price: (Number)</label>
-                    <input type="number" value={productChanges.price} onChange={(e) => setProductChanges({...productChanges, price:e.target.value})} />
+                    <input type="number" step="0.01" value={productChanges.price} onChange={(e) => setProductChanges({...productChanges, price:e.target.value})} />
 
                     <label>Region:</label>
                     <input type="text" value={productChanges.location} onChange={(e) => setProductChanges({...productChanges, location: e.target.value})} />
                     
                     <label>Alcohol Percentage: (Number)</label>
-                    <input type="text" value={productChanges.alcohol_percent} onChange={(e) => setProductChanges({...productChanges, alcohol_percent:e.target.value})} />
+                    <input type="number" step="0.01" value={productChanges.alcohol_percent} onChange={(e) => setProductChanges({...productChanges, alcohol_percent:e.target.value})} />
 
                     <label>Description:</label>
                     <textarea value={productChanges.description} onChange={(e) => setProductChanges({...productChanges, description:e.target.value})} />
