@@ -8,13 +8,13 @@ const getHeaders = () => {
   };
 };
 
-const fetchUser = async (userId, setUser) => {
+const fetchUser = async ({userId, setUser}) => {
   const response = await axios.get(`/api/admin/users/${userId}`, userId, getHeaders());
   setUser(response.data);
 };
 
-const fetchOrder = async (userId, setOrder) => {
-  const response = await axios.get(`/api/admin/orders/${userId}`, userId, getHeaders());
+const fetchOrder = async ({userId, setOrder}) => {
+  const response = await axios.get(`/api/admin/users/orders/${userId}`, userId, getHeaders());
   setOrder(response.data);
 };
 

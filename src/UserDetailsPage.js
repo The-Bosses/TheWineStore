@@ -8,11 +8,11 @@ const UserDetailsPage = ({auth}) => {
   const { userId } = useParams();
 
   useEffect(() => {
-    api.fetchUser(setUser);
+    api.fetchUser({userId, setUser});
   }, [auth]);
 
   useEffect(() => {
-    api.fetchOrder(setOrder);
+    api.fetchOrder({userId, setOrder});
   }, [auth]);
 
 
