@@ -8,17 +8,28 @@ const fetchReviews = async () => {
       FROM reviews
     `;
     const response = await client.query(SQL);
-    return response.rows;
+    return response.rows[0];
   };
 
 const createReview = async (review) => {
     const SQL = `
-      INSERT INTO reviews (product_id, user_id, rating, comment ) VALUES($1, $2, $3, $4) RETURNING *
+      INSERT INTO reviews  (id, product_id, user_id, rating, comment ) VALUES($1, $2, $3, $4,$5) RETURNING *
     `;
-    const response = await client.query(SQL, [review.product_id, review.user_id, review.rating, review.comment]);
-    return response.rows[0];
+    const response = await client.query(SQL, [
+      uuidv4(), 
+      review.product_id, 
+      review.user_id, 
+      review.rating, 
+      review.comment
+    ]);
+    
+    
+    console.log(response.rows, "in db")
+    return (response.rows[0]);
+    
+    
   };
-
+  
   module.exports = {
     fetchReviews,
     createReview,

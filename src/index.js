@@ -14,7 +14,7 @@ import AdminUsers from './AdminUsers';
 import AdminProducts from './AdminProducts';
 import { useNavigate } from 'react-router-dom';
 import ReviewForm from './ReviewForm';
-import Reviews from './Reviews';
+import ReviewsList from './Reviews';
 
 
 
@@ -24,7 +24,7 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
-  const [reviews,setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
 
   const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
@@ -61,18 +61,18 @@ const App = () => {
   }, [auth]);
 
   useEffect(() => {
-    
+    if (auth.id) {
     const fetchData = async () => {
-      if (auth.id) {
+       
         await api.fetchReviews(setReviews)
     };
     fetchData();
-  } 
-      
-  });
+    }  
+  },[auth]);
 
-  const createReview = async (reviews) => {
-    await api.createReview(reviews, setReviews);
+  const createReview = async (review) => {
+    await api.createReview({review, setReviews});
+    console.log("this is review", review)
   };
 
   const createLineItem = async (product) => {
@@ -136,7 +136,7 @@ const App = () => {
   
       <h3>Search Available Wines</h3>
       <SearchBar products={products} />
-
+          
       <main>
         <Routes>
           <Route
@@ -198,14 +198,14 @@ const App = () => {
             element={<ProductDetail 
               products={products} 
               navigate={navigate} 
-              
+              reviews={reviews}
               createReview={createReview}
               
               />}
           />
           <Route 
             path="/reviews"
-            element={<Reviews 
+            element={<ReviewsList 
               reviews={reviews}
               />}
           />
@@ -213,6 +213,7 @@ const App = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/products" element={<AdminProducts />} />
+          
         </Routes>
       </main>
     </div>

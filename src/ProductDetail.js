@@ -2,9 +2,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
 import Reviews from "./Reviews";
+//import { createReview } from "../server/db";
 
 
-const ProductDetail = ({ products,reviews }) => {
+const ProductDetail = ({ products,reviews, users, createReview }) => {
   const params = useParams();
   const productId = params.productId;
   const product = products.find((product) => {
@@ -14,15 +15,16 @@ const ProductDetail = ({ products,reviews }) => {
   
   return (
     <div>
+      
       {productId ? (
         <div>
           <h2>{product.name}</h2>
-          <p>Price: {product.price}</p>
+          <p>Price: ${product.price}</p>
           <p>Region: {product.location} </p>
           <p>ABV: {product.alcohol_percent}%</p>
           <p>Description: {product.description}</p>
           <Reviews reviews={reviews}/>
-          <ReviewForm/>
+          <ReviewForm users={users} products={products} createReview={createReview}/>
         </div>
         
       ) : (

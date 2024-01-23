@@ -28,12 +28,22 @@ const fetchReviews = async (setReviews) => {
   const response = await axios.get('/api/reviews', getHeaders());
   
   setReviews(response.data);
+  //console.log(response.data)
 };
 
-const createReview = async ({ reviews, setReviews}) => {
-  await axios.post('/api/reviews', reviews, getHeaders());
-  const response = await axios.get(('/api/reviews', getHeaders()))
-  setReviews([...reviews, response.data]);
+
+const createReview = async ({review, reviews, setReviews}) => {
+  
+  await axios.post('/api/reviews/createReview', review, getHeaders());
+    const response = await axios.get('/api/reviews', getHeaders())
+  
+    console.log("this is api index",response.data)
+    setReviews(response.data);
+    
+    console.log(reviews)
+  //} catch (error) {
+  //  console.error('Error creating or fetching reviews:', error);
+  //}
 }
 
 

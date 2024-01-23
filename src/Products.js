@@ -13,7 +13,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth})=
               <li key={ product.id }>
                 <Link to={`/product/${product.id.toString()}`}>{ product.name }</Link>
               
-                { product.price }
+                 ${ product.price }
                 {
                   auth.id ? (
                     cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add</button>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Admin = () => {
+
+const Admin = (orders) => {
   return (
     <div>
       <h2>Admin Dashboard</h2>
@@ -11,6 +12,7 @@ const Admin = () => {
       <Link to="/admin/products">
         <button>View All Products</button>
       </Link>
+      
     </div>
   );
 };

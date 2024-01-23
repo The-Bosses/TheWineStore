@@ -2,73 +2,75 @@ import React, { useState } from "react"
 import api from "./api"
 
 
-const ReviewForm = ({createReview}) => {
-    const [item,setItem] = useState()
+const ReviewForm = ({products, reviews, createReview}) => {
+
+    const [item,setItem] = useState('')
     const [user, setUser] = useState('')
     const [rating,setRating] = useState('')
-    const [reviews, setReviews] = useState('')
+    const [comment, setComment] = useState('')
     
 
-      //console.log(reviews)
+      
     const handleCreateReview = async (event) => {
-        event.preventDefault()
-       
-        
-        await api.createReview({
+       event.preventDefault()
+       const review = {
             product_id: item,
             user_id: user,
             rating: rating,
-            comment: reviews
-        });
+            comment: comment
+        };
+        console.log(review)
+        createReview(review)
         
-        const updatedReviews = await api.fetchReviews();
-        setReviews(updatedReviews);
+        //const updatedReviews = await api.fetchReviews();
+        //setReviews(updatedReviews);
         
-
         setItem('');
         setUser('');
         setRating('');
-        setReviews('');
+        setComment('');
         
     };
     
     return(
         <div>
             
-            <form>
+            <form onSubmit={handleCreateReview}>
                 <h4>Leave a Review</h4>
-                <label>Product_id</label>
-                <input
-                    type="text"
-                    value={item}
-                    onChange={(event)=>{setItem(event.target.value)}}
-                    />
-                    <label>user_id</label>
+                <label>Product Name</label>
+                <select value={item} onChange={(event)=>{setItem(event.target.value)}}>
+                    <option>Choose Wine Name</option>
+                    {products.map((product)=>{
+                        return(<option key={product.id} value={product.name}>{product.name}</option>)
+                    })}
+                </select>
+                
+                <label>Username</label>
                 <input
                     type="text"
                     value={user}
                     onChange={(event)=> {setUser(event.target.value)}}
                     />
                 <label>Rating</label>
-                    <input 
+                <input 
                         type="number"
                         value={rating}
                         onChange={(event)=>{setRating(event.target.value)}}
-                    />
+                />
                 <label>Comment</label>
                     <input 
                         type="text"
-                        vlaue={reviews}
-                        onChange={(event)=> {setReviews(event.target.value)}}
-                    />
-                {
-                    reviews ? <button onClick={handleCreateReview}>Submit Review!</button> : null
-                }
+                        value={comment}
+                        onChange={(event)=> {setComment(event.target.value)}}
+                />
+            {
+                    comment ? <button type="sumbit">Submit Review!</button> : null
+            }
                 
             </form>
-
+           
         </div>
     )
 }
 
-export default ReviewForm
+export default ReviewForm;

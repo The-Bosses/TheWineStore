@@ -66,12 +66,12 @@ const seed = async()=> {
     );
 
     CREATE TABLE reviews (
-    
+      id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
-      product_id TEXT NOT NULL,
-      user_id TEXT NOT NULL,
-      rating INTEGER NOT NULL,
-      comment TEXT NOT NULL
+      product_id VARCHAR(100),
+      user_id VARCHAR(10)  ,
+      rating INTEGER,
+      comment VARCHAR(50) 
     );
 
     CREATE TABLE orders(
@@ -86,7 +86,7 @@ const seed = async()=> {
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
       product_id UUID REFERENCES products(id) NOT NULL,
-      order_id UUID REFERENCES orders(id) NOT NULL,
+      order_id UUID REFERENCES orders(id)NOT NULL,
       quantity INTEGER DEFAULT 1,
       CONSTRAINT product_and_order_key UNIQUE(product_id, order_id)
     );
@@ -145,11 +145,13 @@ const seed = async()=> {
     createProduct({ name: 'Lini 910 Labrusca', type: 'Sparkling Rose', location: 'Italy', alcohol_percent: 11, description: "Produced from a blend of 50 percent salamino and 50 percent sorbara, this bone-dry rosé is marked by flavors of white cherry, cranberry, and dried herbs. The wine pairs beautifully with a variety of cuisines, from brunch favorites to savory happy hour snacks and beyond. ", price: 17.99, reviews: '', is_vip: false }),
     createProduct({ name: 'Le Grand Courtage Rose', type: 'Sparkling Rose', location: 'France', alcohol_percent: 12, description: "This rosé compliments an array of foods. Try it with spicy Asian dishes, risotto, BBQ, beef, lamb, duck, game, chicken, prosciutto, seafood, pizza or soft cheese (like brie or goat). ", price: 17.99, reviews: '', is_vip: false }),  
     createProduct({ name: 'Le Marca Prosecco Rose', type: 'Sparkling Rose', location: 'Italy', alcohol_percent: 11, description: "Shining from the first toast to the last sip, our playful pop of pink is an effervescent new way to enjoy Rosé. A balance of our traditional Prosecco and the delicate elegance of Pinot Noir, La Marca Prosecco Rosé sparkles with our classic aromas of white flowers, peach and pear, blending with hints of ripe red cherry, raspberry and wild strawberry. Vibrant and refreshing, this bubbly is perfect for both lively occasions and spontaneous celebrations. ", price: 14.99, reviews: '', is_vip: false }),   
+  ]);
+    const [] = await Promise.all([])
     createReview({product_id:'Oh Schist', user_id:'robert', rating: 6, comment:'Light, crisp, citrus'}),
     createReview({product_id: 'voga', user_id:'robert', rating: 7, comment:'light but prolonged bitter-sweet finish'}),
     createReview({product_id: 'caliveda', user_id:'robert', rating: 6, comment:'Very strong nose and full body'})
   
-  ]);
+  
   let orders = await fetchOrders(parker.id);
   let cart = orders.find(order => order.is_cart);
   let lineItem = await createLineItem({ order_id: cart.id, product_id: oh_schist.id});
@@ -158,7 +160,7 @@ const seed = async()=> {
   lineItem = await createLineItem({ order_id: cart.id, product_id: voga.id});
   cart.is_cart = false;
   await updateOrder(cart);
-  let reviews = await fetchReviews();
+  //let reviews = await fetchReviews();
   //let review = await createReview();
   //review.quantity++;
   //await createReview(review)
