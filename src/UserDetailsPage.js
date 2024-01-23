@@ -16,32 +16,18 @@ const UserDetailsPage = ({auth}) => {
   }, [auth]);
 
 
-  return (
+ return (
     <div>
-      <h2>User Details - {user && user.username}</h2>
       {user && (
         <>
+          <h2>User Details - {user.username}</h2>
           <p>Name: {user.name}</p>
           <p>Address: {user.address}</p>
           <p>VIP: {user.is_vip ? 'Yes' : 'No'}</p>
           <p>Admin: {user.is_admin ? 'Yes' : 'No'}</p>
         </>
       )}
-      {user && (
-        <>
-          {user.is_admin ? (
-            <button onClick={handleRemoveAdmin}>Remove Admin Privileges</button>
-          ) : (
-            <button onClick={handleMakeAdmin}>Make Admin</button>
-          )}
-          {user.is_vip ? (
-            <button onClick={handleRemoveVIP}>Remove VIP Privileges</button>
-          ) : (
-            <button onClick={handleMakeVIP}>Make VIP</button>
-          )}
-        </>
-      )}
-  
+
       <h3>Orders</h3>
       <ul>
         {userOrders.map((order) => (
@@ -64,12 +50,9 @@ const UserDetailsPage = ({auth}) => {
           </li>
         ))}
       </ul>
-  
-      <button id="fetchOrdersButton" onClick={fetchUserOrdersData}>
-        Fetch Orders
-      </button>
     </div>
   );
 };
+
 
 export default UserDetailsPage;
