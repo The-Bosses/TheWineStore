@@ -43,7 +43,7 @@ const AdminProducts = ({products, auth}) => {
   return (
     <div>
       <h2>All Products</h2>
-      
+      <Link to={"/admin/products/createnew"}><button >Add new Product</button></Link>
       <ul>
         {products.map((product) => (
           <li key={product.id}>
