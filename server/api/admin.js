@@ -4,7 +4,9 @@ const {
     makeUserAdmin,
     makeUsernotAdmin,
     makeUsernotVIP,
-    fetchUsers
+    fetchUsers,
+    fetchUser,
+    fetchOrder
   } = require('../db/auth');
 const { markProductVIP, createProduct, fetchAdminProducts } = require('../db/products');
 
@@ -99,5 +101,25 @@ app.put('/products/:id', isLoggedIn, isAdmin, async (req, res, next)=> {
   
 });
 
+
+app.get('/users/:id', isLoggedIn, isAdmin, async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await fetchUser(userId);
+    res.send(user);
+  } catch (ex) {
+    next (ex);
+  }
+});
+
+app.get('/users/orders/:id', isLoggedIn, isAdmin, async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const order = await fetchOrder(userId);
+    res.send(order);
+  } catch (ex) {
+    next (ex);
+  }
+});
 
   module.exports = app;
