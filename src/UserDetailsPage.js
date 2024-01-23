@@ -4,79 +4,17 @@ import api from './api';
 
 const UserDetailsPage = ({auth}) => {
   const [user, setUser] = useState(null);
-  const [userOrders, setUserOrders] = useState([]);
+  const [userOrders, setOrder] = useState([]);
   const { userId } = useParams();
 
   useEffect(() => {
-    const fetchUserData = async (userId) => {
-      try {
-        // Fetch user details
-        const userData = await api.fetchUserDetails(userId);
-        setUser(userData);
-      } catch (error) {
-        console.error('Error fetching user details:', error);
-      }
-    };
+    api.fetchUser(setUser);
+  }, [auth]);
 
-    fetchUserData();
-  }, [userId]);
-
-  // useEffect to fetch user orders when the "Fetch Orders" button is clicked
   useEffect(() => {
-    const fetchUserOrdersData = async (userId) => {
-      try {
-        // Fetch user orders
-        const ordersData = await api.fetchUserOrders(userId);
-        setUserOrders(ordersData);
-      } catch (error) {
-        console.error('Error fetching user orders:', error);
-      }
-    };
-    const buttonClickEvent = document.getElementById('fetchOrdersButton');
+    api.fetchOrder(setOrder);
+  }, [auth]);
 
-    if (buttonClickEvent) {
-      buttonClickEvent.addEventListener('click', fetchUserOrdersData);
-    }
-
-    return () => {
-      // Remove the event listener on component unmount
-      if (buttonClickEvent) {
-        buttonClickEvent.removeEventListener('click', fetchUserOrdersData);
-      }
-    };
-  }, [auth]); 
-
-  const handleMakeAdmin = async (userId) => {
-    try {
-      await api.makeUserAdmin(userId);
-    } catch (error) {
-      console.error('Error making user admin:', error);
-    }
-  };
-
-  const handleMakeVIP = async (userId) => {
-    try {
-      await api.makeUserVIP(userId);
-    } catch (error) {
-      console.error('Error making user VIP:', error);
-    }
-  };
-
-  const handleRemoveAdmin = async (userId) => {
-    try {
-      await api.makeUsernotAdmin(userId);
-    } catch (error) {
-      console.error('Error removing admin privilege:', error);
-    }
-  };
-
-  const handleRemoveVIP = async (userId) => {
-    try {
-      await api.makeUsernotVIP(userId);
-    } catch (error) {
-      console.error('Error removing VIP privilege:', error);
-    }
-  };
 
   return (
     <div>
