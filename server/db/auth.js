@@ -128,6 +128,28 @@ const fetchUsers = async () => {
   return response.rows;
 };
 
+  const fetchUser = async (userId) => {
+    const SQL = `
+    SELECT *
+    FROM users
+    WHERE id = $1
+    RETURNING *
+    `;
+    const response = await client.query(SQL, [userId]);
+    return response.rows;
+  };
+
+  const fetchOrder = async (userId) => {
+    const SQL = `
+    SELECT *
+    FROM orders
+    WHERE id = $1
+    RETURNING *
+    `;
+    const response = await client.query(SQL, [userId]);
+    return response.rows;
+  };
+
 module.exports = {
   createUser,
   editUser,
@@ -137,5 +159,7 @@ module.exports = {
   makeUserAdmin,
   fetchUsers,
   makeUsernotAdmin,
-  makeUsernotVIP
+  makeUsernotVIP,
+  fetchOrder,
+  fetchUser
 };

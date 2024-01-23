@@ -8,6 +8,16 @@ const getHeaders = () => {
   };
 };
 
+const fetchUser = async (userId, setUser) => {
+  const response = await axios.get(`/api/admin/users/${userId}`, userId, getHeaders());
+  setUser(response.data);
+};
+
+const fetchOrder = async (userId, setOrder) => {
+  const response = await axios.get(`/api/admin/orders/${userId}`, userId, getHeaders());
+  setOrder(response.data);
+};
+
 const fetchProducts = async (setProducts) => {
   const response = await axios.get('/api/products');
   setProducts(response.data);
@@ -173,7 +183,8 @@ const api = {
 
   fetchUsers,
   editUsers,
-
+  fetchUser,
+  fetchOrder,
 
   createProduct,
   markProductVIP,
