@@ -16,7 +16,7 @@ import UserForm from './CreateUser';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import AdminProductEdit from './AdminProductEdit';
-import AdminAddProduct from './AdminAddProduct';
+import UserDetailsPage from './UserDetailsPage';
 
 
 
@@ -86,10 +86,6 @@ const App = () => {
 
   const editProduct = async(product) => {
     await api.editProduct({product, setProducts});
-  };
-
-  const addProduct = async(product) => {
-    await api.addProduct({product, setProducts});
   };
 
   const removeFromCart = async (lineItem) => {
@@ -215,16 +211,13 @@ const App = () => {
                         products={products} 
                         auth={auth}
                         /> } />
-          <Route path="/admin/products/createnew" 
-                element={<AdminAddProduct 
-                          addProduct={addProduct}/>} />
-
           <Route path="/admin/products/:id" 
                 element={<AdminProductEdit 
                           products={products}
                           editProduct={editProduct}
                           />} />
-
+          <Route path="/admin/users/:id"
+                element={<UserDetailsPage auth={auth} />}/>
         </Routes>
       </main>
     </div>

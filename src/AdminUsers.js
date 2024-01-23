@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import api from './api';
-import axios from 'axios';
+import axios from 'axios'; 
+import { Link } from 'react-router-dom';
 
 const AdminUsers = ({ auth }) => {
   const [users, setUsers] = useState([]);
@@ -46,6 +47,10 @@ const AdminUsers = ({ auth }) => {
             ) : (
               <button onClick={() => handleMakeVIP(user.id, setUsers)}>Make VIP</button>
             )}
+
+            <Link to={`/admin/users/${user.id}`}>
+              <button>View Details</button>
+            </Link>
           </li>
         ))}
       </ul>
