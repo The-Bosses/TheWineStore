@@ -21,22 +21,27 @@ const Login = ({ login })=> {
   }
 
   return (
-    <form onSubmit={ _login }>
-      <input
-        placeholder='username'
-        value={ username }
-        onChange={ ev => setUsername(ev.target.value)}
-      />
-      <input
-        type='password'
-        placeholder='password'
-        value={ password }
-        onChange={ ev => setPassword(ev.target.value)}
-      />
-      <button disabled={!username || !password}>Login</button>
-      {error && <p style={{color: 'red'}}>{error}</p>}
-    </form>
+    <div className="absolute top-0 right-0 p-4 bg-white rounded-md shadow-md">
+      <form onSubmit={_login}>
+        <input
+          placeholder="username"
+          value={username}
+          onChange={(ev) => setUsername(ev.target.value)}
+          className="p-2 mb-2 border border-gray-300 rounded-md w-40"
+        />
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(ev) => setPassword(ev.target.value)}
+          className="p-2 mb-2 border border-gray-300 rounded-md w-40"
+        />
+        <button disabled={!username || !password} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          Login
+        </button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </form>
+    </div>
   );
-}
-
+};
 export default Login;
