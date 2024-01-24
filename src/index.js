@@ -82,7 +82,7 @@ const App = () => {
 
   const createReview = async (review) => {
     await api.createReview({review, setReviews});
-    console.log("this is review", review)
+    
   };
 
   useEffect(() => {
@@ -250,7 +250,7 @@ const App = () => {
             element={<ProductDetail 
               products={products} 
               navigate={navigate} 
-
+              auth={auth}
               reviews={reviews}
               createReview={createReview}
               wishList={wishList}

@@ -1,9 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ReviewForm from "./ReviewForm";
-import Reviews from "./Reviews";
-//import { createReview } from "../server/db";
-
+import ReviewsList from "./Reviews";
 
 const ProductDetail = ({
   products,
@@ -13,60 +11,61 @@ const ProductDetail = ({
   setWishList,
   users,
   reviews,
-  createReview
+  createReview,
+  setReviews,
+  auth
 }) => {
-
   const params = useParams();
   const productId = params.productId;
-  const product = products.find((product) => {
-    return product.id === productId;
-  });
-
+  const product = products.find((product) => product.id === productId);
 
   const isInWishList = () => {
-    const item = wishList.find((wishListItem) => {
-      return wishListItem.product_id === productId;
-    });
+    const item = wishList.find((wishListItem) => wishListItem.product_id === productId);
     return item !== undefined;
   };
 
 
   return (
     <div>
-      
       {productId ? (
         <div>
-
           <h2>
             {product.name}
-            {isInWishList() ? (
+            {auth.id ? ( 
               <span>
-              <button onClick={() => removeFromWishList(product)}>
-                Remove from Wish List
-              </button>
-            </span>
-            ) : (
-              <span>
-                <button onClick={() => addToWishList(product)}>
-                  Add to Wish List
-                </button>
+                {isInWishList() ? (
+                  <button onClick={() => removeFromWishList(product)}>
+                    Remove from Wish List
+                  </button>
+                ) : (
+                  <button onClick={() => addToWishList(product)}>
+                    Add to Wish List
+                  </button>
+                )}
               </span>
-            )}
+            ) : null}
           </h2>
+          <img src={`${product.image}`} alt={product.name} />
           <p>{product.type}</p>
           <p>Price: {product.price}</p>
           <p>Region: {product.location} </p>
           <p>ABV: {product.alcohol_percent}%</p>
           <p>Description: {product.description}</p>
-          <Reviews reviews={reviews}/>
-          <ReviewForm users={users} products={products} createReview={createReview}/>
+          <ReviewsList reviews={reviews} />
+          {auth.id && (
+            <ReviewForm
+              products={products}
+              createReview={createReview}
+              setReviews={setReviews}
+            />
+          )}
         </div>
-        
       ) : (
         <div>Product not found.</div>
       )}
     </div>
   );
 };
+
 
 export default ProductDetail;

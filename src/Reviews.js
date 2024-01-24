@@ -32,4 +32,4 @@ const ReviewsList = ({review, reviews,products}) => {
         
     ); 
 }; 
-export default ReviewsList
+export default ReviewsList;
