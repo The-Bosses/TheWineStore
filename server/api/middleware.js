@@ -26,7 +26,7 @@ const isVIP = (req, res, next) => {
   if (req.user && req.user.is_vip) {
     next();
   } else {
-    res.status(403).json({ error: 'You must be a Snotty Sommelier to continue' });
+    res.status(403).json({ error: 'You must be a Snooty Sommelier to continue' });
   }
 };
 

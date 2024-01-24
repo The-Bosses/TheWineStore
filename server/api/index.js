@@ -9,6 +9,7 @@ app.use('/lineItems', require('./lineItems'));
 
 app.use('/signup', require('./createuser'));
 
+app.use('/wishlist', require('./wishlist'));
 
 const userRoutes = require('./users');
 app.use('/users', userRoutes);
