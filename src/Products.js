@@ -16,7 +16,7 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, r
   };
     
   return (
-    <div className="bg-red-900">
+    <div className="bg-red-950">
       <h2 className="text-2xl font-bold mb-4 text-white">Our Wines</h2>
       <div className="mb-4">
         <input
@@ -53,14 +53,14 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, r
                 {auth.id ? (
                   cartItem ? (
                     <button
-                      className="mx-auto px-5 py-3 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+                    className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
                       onClick={() => updateLineItem(cartItem)}
                     >
                       Add Another
                     </button>
                   ) : (
                     <button
-                      className="mx-auto px-5 py-3 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+                    className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
                       onClick={() => createLineItem(product)}
                     >
                       Add to cart
