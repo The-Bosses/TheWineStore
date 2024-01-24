@@ -22,9 +22,9 @@ const fetchAdminProducts = async () => {
 
 const createProduct = async (product) => {
   const SQL = `
-    INSERT INTO products (id, name, type, location, alcohol_percent, description, price, is_vip) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
+    INSERT INTO products (id, name, type, location, alcohol_percent, description, price, is_vip, image) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *
   `;
-  const response = await client.query(SQL, [ uuidv4(), product.name, product.type, product.location, product.alcohol_percent, product.description, product.price, product.is_vip]);
+  const response = await client.query(SQL, [ uuidv4(), product.name, product.type, product.location, product.alcohol_percent, product.description, product.price, product.is_vip, product.image]);
   return response.rows[0];
 };
 
