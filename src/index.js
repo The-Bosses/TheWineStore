@@ -63,6 +63,15 @@ const App = () => {
     }
   }, [auth]);
 
+  useEffect(() => {
+    if(auth.id) {
+      const fetchData = async () => {
+        await api.fetchUsers(setUsers);
+      }
+      fetchData();
+    }
+  }, [auth]);
+
 
   const createUser = async(formData) => {
     await api.createUser({formData});
@@ -202,7 +211,7 @@ const App = () => {
           />
           <Route path="/admin" element={<Admin auth={auth}/>} />
           <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
-
+          <Route path="/admin/users/:userId" element= { <UserDetailsPage users={users} orders={orders} products={products} lineItems={lineItems}/>} />
           <Route path="/profile" element={<UserProfile user={auth} />}/>
           <Route path='/signup' element={<UserForm createUser={createUser}/>} />   
 

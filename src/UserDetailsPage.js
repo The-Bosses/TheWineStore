@@ -1,55 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import api from './api';
+import React from "react";
+import { useParams } from "react-router-dom";
 
-const UserDetailsPage = ({auth}) => {
-  const [user, setUser] = useState(null);
-  const [userOrders, setOrder] = useState([]);
-  const { userId } = useParams();
 
-  useEffect(() => {
-    api.fetchUser({userId, setUser});
-  }, [auth]);
-
-  useEffect(() => {
-    api.fetchOrder({userId, setOrder});
-  }, [auth]);
+const UserDetailsPage = ({ users, orders, products, lineItems }) => {
+  const params = useParams();
+  const userId = params.userId;
+  
+  const user = users.find((user) => {
+    return user.id === userId;
+  });
 
 
  return (
     <div>
-      {user && (
-        <>
-          <h2>User Details - {user.username}</h2>
-          <p>Name: {user.name}</p>
-          <p>Address: {user.address}</p>
-          <p>VIP: {user.is_vip ? 'Yes' : 'No'}</p>
-          <p>Admin: {user.is_admin ? 'Yes' : 'No'}</p>
-        </>
-      )}
 
-      <h3>Orders</h3>
-      <ul>
-        {userOrders.map((order) => (
-          <li key={order.id}>
-            ({new Date(order.created_at).toLocaleDateString()})
-            <span>Total Cost: ${order.total_cost}</span>
-            <ul>
-              {order.line_items.map((lineItem) => (
-                <li key={lineItem.id}>
-                  {lineItem.product ? (
-                    <div>
-                      {lineItem.product.name} ({lineItem.quantity} bottles)
-                    </div>
-                  ) : (
-                    ''
-                  )}
+      <h2> Admin Dashboard</h2>
+      <h2>Account Details:</h2>
+          <ul>
+            <li>Username: {user.username}</li>
+            <li>Email: {user.email}</li>
+            <li>
+              Address: {user.address_1}, {user.city}, {user.state}{" "}
+              {user.postal_code}
+            </li>
+            <li>VIP: {user.is_vip ? "Yes" : "No"}</li>
+            <li>Admin: {user.is_admin ? "Yes" : "No"}</li>
+          </ul>
+      
+      <div>
+        <h2>Orders</h2>
+        <ul>
+          {orders
+            .filter((order) => !order.is_cart)
+            .map((order) => {
+              const orderLineItems = lineItems.filter(
+                (lineItem) => lineItem.order_id === order.id
+              );
+              return (
+                <li key={order.id}>
+                  ({new Date(order.created_at).toLocaleDateString()})
+                  <span>Total Cost: ${order.total_cost}</span>
+                  <ul>
+                    {orderLineItems.map((lineItem) => {
+                      const product = products.find(
+                        (product) => product.id === lineItem.product_id
+                      );
+                      return (
+                        <li key={lineItem.id}>
+                          {product ? (
+                            <div>
+                              {product.name} ({lineItem.quantity} bottles)
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
+              );
+            })}
+        </ul>
+      </div>
+
     </div>
   );
 };
