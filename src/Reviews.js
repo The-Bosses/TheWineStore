@@ -37,7 +37,13 @@ const ReviewsList = ({review, reviews,products, productName, auth, setReviews, c
                   Want to leave a review? <u className="cursor-pointer hover:underline" onClick={(event) => {handleClick(event)}} >Click here!</u> 
                 </p>
               ) : (
-                <p className="mt-2 text-red-900">No reviews. Please leave a review!</p>
+                <div>
+                    <p className="mt-2 text-red-900">No reviews. Please leave a review!</p>
+                    <p className="mt-2 text-red-900">
+                         Want to leave a review? <u className="cursor-pointer hover:underline" onClick={(event) => {handleClick(event)}} >Click here!</u> 
+                    </p>
+                </div>
+                
               )
             ) : (
               reviewsLength > 0 ? null : (
