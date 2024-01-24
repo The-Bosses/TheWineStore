@@ -26,26 +26,36 @@ const ProductDetail = ({
 
 
   return (
-    <div>
+    <div className="max-w-2xl mx-auto mt-8">
       {productId ? (
         <div>
-          <h2>
+          <h2 className="text-2xl font-bold mb-4">
             {product.name}
             {auth.id ? ( 
               <span>
                 {isInWishList() ? (
-                  <button onClick={() => removeFromWishList(product)}>
+                  <button
+                    onClick={() => removeFromWishList(product)}
+                    className="bg-red-500 text-white px-4 py-2 rounded-md ml-2"
+                  >
                     Remove from Wish List
                   </button>
                 ) : (
-                  <button onClick={() => addToWishList(product)}>
+                  <button
+                    onClick={() => addToWishList(product)}
+                    className="bg-green-500 text-white px-4 py-2 rounded-md ml-2"
+                  >
                     Add to Wish List
                   </button>
                 )}
               </span>
             ) : null}
           </h2>
-          <img src={`${product.image}`} alt={product.name} />
+          <img
+            src={`${product.image}`}
+            alt={product.name}
+            className="w-full h-auto max-h-full object-contain mb-4"
+          />
           <p>{product.type}</p>
           <p>Price: {product.price}</p>
           <p>Region: {product.location} </p>

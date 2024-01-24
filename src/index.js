@@ -7,8 +7,7 @@ import Cart from './Cart';
 import Login from './Login';
 import ProductDetail from "./ProductDetail";
 import Homepage from "./Homepage";
-import api from "./api"
-import SearchBar from './SearchBar';
+import api from "./api";
 import Admin from './Admin';
 import AdminUsers from './AdminUsers';
 import AdminProducts from './AdminProducts';
@@ -210,8 +209,6 @@ const App = () => {
                   onVerifyAge={handleAgeVerification}
                 />
         {auth.id ? null : <Login login={login} />}
-        <h3>Search Available Wines</h3>
-        <SearchBar products={products} />
         <Products
           auth={auth}
           products={products}
