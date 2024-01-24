@@ -8,7 +8,7 @@ const findUserByToken = async(token) => {
   try {
     const payload = await jwt.verify(token, process.env.JWT);
     const SQL = `
-      SELECT id, username, is_admin
+      SELECT *
       FROM users
       WHERE id = $1
     `;
@@ -63,10 +63,32 @@ const createUser = async(user)=> {
   return response.rows[0];
 };
 
+const editUser = async(user) => {
+  const SQL = `
+  UPDATE users
+  SET username = $1, email = $2
+  WHERE id = $3
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [user.username, user.email, user.id]);
+  return response.rows[0];
+};
+
 const makeUserVIP = async (userId) => {
   const SQL = `
   UPDATE users
   SET is_vip = true
+  where id = $1
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [userId]);
+  return response.rows[0];
+};
+
+const makeUsernotVIP = async (userId) => {
+  const SQL = `
+  UPDATE users
+  SET is_vip = false
   where id = $1
   RETURNING *
   `;
@@ -85,6 +107,17 @@ const makeUserAdmin = async (userId) => {
   return response.rows[0];
 };
 
+const makeUsernotAdmin = async (userId) => {
+  const SQL = `
+  UPDATE users
+  SET is_admin = false
+  WHERE id = $1
+  RETURNING *
+  `;
+  const response = await client.query(SQL, [userId]);
+  return response.rows[0];
+};
+
 
 const fetchUsers = async () => {
   const SQL = `
@@ -95,11 +128,38 @@ const fetchUsers = async () => {
   return response.rows;
 };
 
+  const fetchUser = async (userId) => {
+    const SQL = `
+    SELECT *
+    FROM users
+    WHERE id = $1
+    RETURNING *
+    `;
+    const response = await client.query(SQL, [userId]);
+    return response.rows;
+  };
+
+  const fetchOrder = async (userId) => {
+    const SQL = `
+    SELECT *
+    FROM orders
+    WHERE id = $1
+    RETURNING *
+    `;
+    const response = await client.query(SQL, [userId]);
+    return response.rows;
+  };
+
 module.exports = {
   createUser,
+  editUser,
   authenticate,
   findUserByToken,
   makeUserVIP,
   makeUserAdmin,
-  fetchUsers
+  fetchUsers,
+  makeUsernotAdmin,
+  makeUsernotVIP,
+  fetchOrder,
+  fetchUser
 };

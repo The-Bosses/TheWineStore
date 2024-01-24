@@ -9,15 +9,17 @@ app.use('/lineItems', require('./lineItems'));
 app.use('/reviews', require('./reviews'));
 app.use('/createReview', require('./reviews'));
 
-const adminRoutes = require('./admin');
-app.use('/admin', isAdmin, adminRoutes);
+app.use('/signup', require('./createuser'));
 
-app.use('/admin/users', require('./admin'));
-app.use('/admin/products', require('./admin'));
-app.use('/admin/add-product', require('./admin'));
-app.use('/admin/make-user-admin/:userId', require('./admin'));
-app.use('/admin/make-user-vip/:userId', require('./admin'));
-app.use('/admin/mark-product-as-vip/:productId', require('./admin'));
+app.use('/wishlist', require('./wishlist'));
+
+const userRoutes = require('./users');
+app.use('/users', userRoutes);
+
+app.use('/admin', require('./admin'));
+
+
+
 
 
 module.exports = app;

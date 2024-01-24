@@ -12,9 +12,14 @@ import SearchBar from './SearchBar';
 import Admin from './Admin';
 import AdminUsers from './AdminUsers';
 import AdminProducts from './AdminProducts';
+import UserForm from './CreateUser';
 import { useNavigate } from 'react-router-dom';
 import ReviewForm from './ReviewForm';
 import ReviewsList from './Reviews';
+import UserProfile from './UserProfile';
+import AdminProductEdit from './AdminProductEdit';
+import UserDetailsPage from './UserDetailsPage';
+
 
 
 
@@ -25,10 +30,13 @@ const App = () => {
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
   const [reviews, setReviews] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [wishList, setWishList] =useState([]);
 
   const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
   };
+
 
 
   useEffect(() => {
@@ -61,6 +69,7 @@ const App = () => {
   }, [auth]);
 
   useEffect(() => {
+
     if (auth.id) {
     const fetchData = async () => {
        
@@ -74,6 +83,21 @@ const App = () => {
     await api.createReview({review, setReviews});
     console.log("this is review", review)
   };
+
+
+
+    if (auth.id) {
+      const fetchWishList = async () => {
+        await api.getWishList(setWishList);
+      }
+      fetchWishList();
+    }
+  }, [auth]);
+
+  const createUser = async(formData) => {
+    await api.createUser({formData});
+  };
+
 
   const createLineItem = async (product) => {
     await api.createLineItem({ product, cart, lineItems, setLineItems });
@@ -90,9 +114,21 @@ const App = () => {
     await api.updateOrder({ order, setOrders });
   };
 
+  const editProduct = async(product) => {
+    await api.editProduct({product, setProducts});
+  };
+
   const removeFromCart = async (lineItem) => {
     await api.removeFromCart({ lineItem, lineItems, setLineItems });
   };
+
+  const addToWishList = async (product) => {
+    await api.addToWishList({product, setWishList})
+  }
+
+  const removeFromWishList = async (product) => {
+    await api.removeFromWishList({product, wishList, setWishList})
+  }
 
   const cart = orders.find((order) => order.is_cart) || {};
 
@@ -120,6 +156,7 @@ const App = () => {
       <nav>
         <Link to="/"> Home </Link>
         <Link to="/products">Products ({products.length})</Link>
+        <Link to="/signup">Sign Up!</Link>
         {auth.id ? <Link to="/orders">Orders ({orders.filter((order) => !order.is_cart).length})</Link> : null}
         {auth.id ? <Link to="/cart">Cart ({cartCount})</Link> : null}
         {auth.is_admin ? (
@@ -131,6 +168,7 @@ const App = () => {
         <span>
           Welcome {auth.username || 'Guest'}!
           {auth.id ? <button onClick={logout}>Logout</button> : null}
+          {auth.id ? <Link to="/profile"><button>My Profile</button></Link> : null}
         </span>
       </nav>
   
@@ -198,9 +236,13 @@ const App = () => {
             element={<ProductDetail 
               products={products} 
               navigate={navigate} 
+
               reviews={reviews}
               createReview={createReview}
-              
+              wishList={wishList}
+              removeFromWishList={removeFromWishList}
+              addToWishList={addToWishList}
+              setWishList={setWishList}
               />}
           />
           <Route 
@@ -210,10 +252,29 @@ const App = () => {
               />}
           />
           
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/products" element={<AdminProducts />} />
-          
+              
+          />
+          <Route path="/admin" element={<Admin auth={auth}/>} />
+          <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
+
+
+          <Route path="/profile" element={<UserProfile user={auth} wishList={wishList} products={products} removeFromWishList={removeFromWishList} />}/>
+
+          <Route path="/admin/users/:userId" element= { <UserDetailsPage users={users} orders={orders} products={products} lineItems={lineItems}/>} />
+
+          <Route path='/signup' element={<UserForm createUser={createUser}/>} />   
+
+          <Route path="/admin/products" 
+              element={<AdminProducts 
+                        products={products} 
+                        auth={auth}
+                        /> } />
+          <Route path="/admin/products/:id" 
+                element={<AdminProductEdit 
+                          products={products}
+                          editProduct={editProduct}
+                          />} />
+
         </Routes>
       </main>
     </div>

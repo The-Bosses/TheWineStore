@@ -2,7 +2,8 @@ const client = require('./client')
 
 const {
   fetchProducts,
-  createProduct
+  createProduct,
+  editProduct
 } = require('./products');
 
 const {
@@ -29,6 +30,7 @@ const {
 const seed = async()=> {
   const SQL = `
     DROP TABLE IF EXISTS line_items;
+    DROP TABLE IF EXISTS wish_list;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS orders;
@@ -82,6 +84,13 @@ const seed = async()=> {
       total_cost DECIMAL(10,2)
     );
 
+    CREATE TABLE wish_list(
+      id UUID PRIMARY KEY,
+      created_at TIMESTAMP DEFAULT now(),
+      user_id UUID REFERENCES users(id) NOT NULL,
+      product_id UUID REFERENCES products(id) NOT NULL
+    );
+
     CREATE TABLE line_items(
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
@@ -94,13 +103,14 @@ const seed = async()=> {
   `;
   await client.query(SQL);
 
- 
 
-  const [ben, parker, sam, robert] = await Promise.all([
+  const [ben, parker, sam, robert, test] = await Promise.all([
     createUser({ username: 'ben', password: 'bboss', name: 'Ben Boss', email: 'bb@icloud.com', birth_date:'1998-03-09', address_1: '123 Ypsilanti Dr', address_2: '', city: 'Ypsilanti', state: 'Michigan', country: 'United States', postal_code: '48197', is_vip: true, is_admin: true }),
     createUser({ username: 'parker', password: '1234', name: 'Parker', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Detroit', state: 'Michigan', country: "United States", postal_code: '12345', is_vip: true, is_admin: true}),
     createUser({ username: 'sam', password: '1234', name: 'Sam', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Detroit', state: 'Michigan', country: "United States", postal_code: '12345', is_vip: true, is_admin: true}),
-    createUser({ username: 'robert', password: '1234', name: 'Robert', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Penrose', state: 'Colorado', country: "United States", postal_code: '81240', is_vip: true, is_admin: true})
+    createUser({ username: 'robert', password: '1234', name: 'Robert', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Detroit', state: 'Michigan', country: "United States", postal_code: '12345', is_vip: true, is_admin: true}),
+    createUser({ username: 'test', password: '1234', name: 'test', email: 'e@me.com', birth_date: '1900-01-01', address_1: '234 Lane', address_2:'', city: 'Detroit', state: 'Michigan', country: "United States", postal_code: '12345', is_vip: false, is_admin: false})
+
   ]);
   const [oh_schist, enchanted_garden, anthony_road, santa, voga, ecco, hayes, fog_bank, kim_craw, oyster, invivo, unshackled_by, sun_goddess, river_road, oak_grove, la_crema, j_lohr, ferrari, decoy_cali, tuli, caliveda, le_colline, la_belle, prototype, double_black, gnarled, oak_ridge, sobon, bread_butter, nineteen_crimes, chateau, eccentric, unshackled, la_vostra, la_marca, cupcake, naveran, rondel, lini, le_grand, le_marca_rose ] = await Promise.all([
 
@@ -177,6 +187,7 @@ module.exports = {
   updateLineItem,
   deleteLineItem,
   updateOrder,
+  editProduct,
   authenticate,
   findUserByToken,
   seed,

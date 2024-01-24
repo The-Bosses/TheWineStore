@@ -28,19 +28,49 @@ const createProduct = async (product) => {
   return response.rows[0];
 };
 
-const markProductVIP = async (productId) => {
+const editProduct = async (product) => {
   const SQL = `
   UPDATE products
-  SET is_vip = true
-  WHERE id = $1
+  SET name = $1, type = $2, price = $3, location = $4, alcohol_percent = $5, description = $6, is_vip = $7
+  WHERE id = $8
   RETURNING *
   `;
-  const response = await client.query(SQL, [productId]);
+  const response = await client.query(SQL, [product.name, product.type, product.price, product.location, product.alcohol_percent, product.description, product.is_vip, product.id]);
   return response.rows[0];
 };
+
+const addToWishList = async (product) => {
+  const SQL = `
+  INSERT INTO wish_list (id, product_id, user_id) VALUES ($1, $2, $3) RETURNING *
+  `;
+  const response = await client.query(SQL, [uuidv4(), product.id, product.user_id]);
+  return response.rows[0];
+}
+
+const getWishList = async (user_id) => {
+  const SQL = `
+  SELECT *
+  FROM wish_list
+  WHERE user_id = $1
+  `
+  const response = await client.query(SQL, [user_id]);
+  return response.rows;
+}
+
+const removeFromWishList = async (product) => {
+  const SQL = `
+  DELETE FROM wish_list
+  WHERE product_id = $1 AND user_id = $2
+  `;
+  await client.query(SQL, [product.product_id, product.user_id]);
+}
+
 module.exports = {
   fetchProducts,
   createProduct,
-  markProductVIP,
-  fetchAdminProducts
+  editProduct,
+  fetchAdminProducts,
+  addToWishList,
+  getWishList,
+  removeFromWishList
 };
