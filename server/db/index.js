@@ -81,7 +81,8 @@ const seed = async()=> {
       created_at TIMESTAMP DEFAULT now(),
       is_cart BOOLEAN NOT NULL DEFAULT true,
       user_id UUID REFERENCES users(id) NOT NULL,
-      total_cost DECIMAL(10,2)
+      total_cost DECIMAL(10,2),
+      address VARCHAR(255)
     );
 
     CREATE TABLE wish_list(
