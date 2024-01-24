@@ -71,15 +71,12 @@ const App = () => {
   }, [auth]);
 
   useEffect(() => {
-
-    if (auth.id) {
     const fetchData = async () => {
        
         await api.fetchReviews(setReviews)
-    };
-    fetchData();
     }  
-  },[auth]);
+    fetchData();
+  },[]);
 
   const createReview = async (review) => {
     await api.createReview({review, setReviews});
@@ -167,7 +164,6 @@ const App = () => {
   };
 
   const navigate = useNavigate();
-
 
   return (
     <div>
@@ -269,16 +265,21 @@ const App = () => {
               removeFromWishList={removeFromWishList}
               addToWishList={addToWishList}
               setWishList={setWishList}
+              createLineItem={createLineItem}
+              updateLineItem={updateLineItem}
+              cartItems={cartItems}
+              setReviews={setReviews}
               />}
           />
           <Route 
             path="/reviews"
             element={<ReviewsList 
               reviews={reviews}
+              auth={auth}
+              products={products}
               />}
           />
           
-            
           <Route path="/admin" element={<Admin auth={auth}/>} />
           <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
 
