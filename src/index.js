@@ -225,7 +225,8 @@ const App = () => {
                           products={products}
                           editProduct={editProduct}
                           />} />
-
+          <Route path="/admin/users/:id"
+                element={<UserDetailsPage auth={auth} />}/>
         </Routes>
       </main>
     </div>

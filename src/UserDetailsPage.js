@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+
 const UserDetailsPage = ({ users, orders, products, lineItems }) => {
   const params = useParams();
   const userId = params.userId;
@@ -9,8 +10,10 @@ const UserDetailsPage = ({ users, orders, products, lineItems }) => {
     return user.id === userId;
   });
 
-  return (
+
+ return (
     <div>
+
       <h2> Admin Dashboard</h2>
       <h2>Account Details:</h2>
           <ul>
@@ -60,8 +63,10 @@ const UserDetailsPage = ({ users, orders, products, lineItems }) => {
             })}
         </ul>
       </div>
+
     </div>
   );
 };
+
 
 export default UserDetailsPage;
