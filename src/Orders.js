@@ -14,7 +14,7 @@ const Orders = ({ orders, products, lineItems }) => {
             return (
               <li key={order.id}>
                 ({new Date(order.created_at).toLocaleDateString()})
-                <span>Total Cost: ${order.total_cost}</span>
+                <span> Total Cost: ${order.total_cost}</span>
                 <ul>
                   {orderLineItems.map((lineItem) => {
                     const product = products.find(

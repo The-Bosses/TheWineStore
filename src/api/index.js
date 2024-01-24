@@ -33,6 +33,30 @@ const fetchLineItems = async (setLineItems) => {
   setLineItems(response.data);
 };
 
+const fetchReviews = async (setReviews) => {
+  
+  const response = await axios.get('/api/reviews', getHeaders());
+  
+  setReviews(response.data);
+  //console.log(response.data)
+};
+
+
+const createReview = async ({review, reviews, setReviews}) => {
+  
+  await axios.post('/api/reviews/createReview', review, getHeaders());
+    const response = await axios.get('/api/reviews', getHeaders())
+  
+    console.log("this is api index",response.data)
+    setReviews(response.data);
+    
+    console.log(reviews)
+  //} catch (error) {
+  //  console.error('Error creating or fetching reviews:', error);
+  //}
+}
+
+
 const createLineItem = async ({ product, cart, lineItems, setLineItems }) => {
   const response = await axios.post('/api/lineItems', {
     order_id: cart.id,
@@ -192,6 +216,7 @@ const api = {
   login,
   logout,
   fetchProducts,
+  fetchReviews,
   fetchOrders,
   fetchLineItems,
   createLineItem,
@@ -209,6 +234,7 @@ const api = {
   fetchUser,
   fetchOrder,
   createProduct,
+  createReview,
   markProductVIP,
   makeUserAdmin,
   makeUserVIP,

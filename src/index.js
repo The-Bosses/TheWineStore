@@ -14,9 +14,12 @@ import AdminUsers from './AdminUsers';
 import AdminProducts from './AdminProducts';
 import UserForm from './CreateUser';
 import { useNavigate } from 'react-router-dom';
+import ReviewForm from './ReviewForm';
+import ReviewsList from './Reviews';
 import UserProfile from './UserProfile';
 import AdminProductEdit from './AdminProductEdit';
 import UserDetailsPage from './UserDetailsPage';
+
 
 
 
@@ -26,6 +29,7 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [reviews, setReviews] = useState([]);
   const [users, setUsers] = useState([]);
   const [wishList, setWishList] =useState([]);
 
@@ -65,6 +69,22 @@ const App = () => {
   }, [auth]);
 
   useEffect(() => {
+
+    if (auth.id) {
+    const fetchData = async () => {
+       
+        await api.fetchReviews(setReviews)
+    };
+    fetchData();
+    }  
+  },[auth]);
+
+  const createReview = async (review) => {
+    await api.createReview({review, setReviews});
+    console.log("this is review", review)
+  };
+
+
 
     if (auth.id) {
       const fetchWishList = async () => {
@@ -152,9 +172,9 @@ const App = () => {
         </span>
       </nav>
   
-      <h3>Search Items</h3>
+      <h3>Search Available Wines</h3>
       <SearchBar products={products} />
-
+          
       <main>
         <Routes>
           <Route
@@ -216,11 +236,23 @@ const App = () => {
             element={<ProductDetail 
               products={products} 
               navigate={navigate} 
+
+              reviews={reviews}
+              createReview={createReview}
               wishList={wishList}
               removeFromWishList={removeFromWishList}
               addToWishList={addToWishList}
               setWishList={setWishList}
               />}
+          />
+          <Route 
+            path="/reviews"
+            element={<ReviewsList 
+              reviews={reviews}
+              />}
+          />
+          
+              
           />
           <Route path="/admin" element={<Admin auth={auth}/>} />
           <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
@@ -242,6 +274,7 @@ const App = () => {
                           products={products}
                           editProduct={editProduct}
                           />} />
+
         </Routes>
       </main>
     </div>
