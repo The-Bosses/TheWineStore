@@ -65,6 +65,7 @@ const App = () => {
   }, [auth]);
 
   useEffect(() => {
+
     if (auth.id) {
       const fetchWishList = async () => {
         await api.getWishList(setWishList);
@@ -224,7 +225,11 @@ const App = () => {
           <Route path="/admin" element={<Admin auth={auth}/>} />
           <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
 
+
           <Route path="/profile" element={<UserProfile user={auth} wishList={wishList} products={products} removeFromWishList={removeFromWishList} />}/>
+
+          <Route path="/admin/users/:userId" element= { <UserDetailsPage users={users} orders={orders} products={products} lineItems={lineItems}/>} />
+
           <Route path='/signup' element={<UserForm createUser={createUser}/>} />   
 
           <Route path="/admin/products" 
@@ -237,8 +242,6 @@ const App = () => {
                           products={products}
                           editProduct={editProduct}
                           />} />
-          <Route path="/admin/users/:id"
-                element={<UserDetailsPage auth={auth} />}/>
         </Routes>
       </main>
     </div>
