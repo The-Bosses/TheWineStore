@@ -84,7 +84,7 @@ const App = () => {
     console.log("this is review", review)
   };
 
-
+  useEffect(() => {
 
     if (auth.id) {
       const fetchWishList = async () => {
@@ -252,8 +252,7 @@ const App = () => {
               />}
           />
           
-              
-          />
+            
           <Route path="/admin" element={<Admin auth={auth}/>} />
           <Route path="/admin/users" element={<AdminUsers auth={auth} users={users} setUsers={setUsers}/>} />
 
