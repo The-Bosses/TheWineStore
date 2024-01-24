@@ -82,7 +82,7 @@ const App = () => {
 
   const createReview = async (review) => {
     await api.createReview({review, setReviews});
-    console.log("this is review", review)
+    //console.log("this is review", review)
   };
 
   useEffect(() => {

@@ -170,11 +170,7 @@ const seed = async()=> {
   lineItem = await createLineItem({ order_id: cart.id, product_id: voga.id});
   cart.is_cart = false;
   await updateOrder(cart);
-  //let reviews = await fetchReviews();
-  //let review = await createReview();
-  //review.quantity++;
-  //await createReview(review)
-  //console.log(reviews)
+  
 };
 
 module.exports = {

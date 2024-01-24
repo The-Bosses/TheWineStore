@@ -22,12 +22,8 @@ const createReview = async (review) => {
       review.rating, 
       review.comment
     ]);
-    
-    
-    console.log(response.rows, "in db")
+    //console.log(response.rows, "in db")
     return (response.rows[0]);
-    
-    
   };
   
   module.exports = {

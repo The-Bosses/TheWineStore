@@ -3,7 +3,7 @@ import React from 'react';
 const Orders = ({ orders, products, lineItems }) => {
   return (
     <div>
-      <h2>Orders</h2>
+      <h2 Class="text-3xl font-bold underline">Orders</h2>
       <ul>
         {orders
           .filter((order) => !order.is_cart)

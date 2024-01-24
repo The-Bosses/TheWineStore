@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import api from "./api"
+
 
 
 const ReviewForm = ({products, reviews, createReview}) => {
@@ -8,8 +8,6 @@ const ReviewForm = ({products, reviews, createReview}) => {
     const [user, setUser] = useState('')
     const [rating,setRating] = useState('')
     const [comment, setComment] = useState('')
-    
-
       
     const handleCreateReview = async (event) => {
        event.preventDefault()
@@ -21,10 +19,7 @@ const ReviewForm = ({products, reviews, createReview}) => {
         };
         console.log(review)
         createReview(review)
-        
-        //const updatedReviews = await api.fetchReviews();
-        //setReviews(updatedReviews);
-        
+           
         setItem('');
         setUser('');
         setRating('');

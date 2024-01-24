@@ -4,7 +4,6 @@ const {
 } = require('../db/reviews');
 
 
-
   const express = require('express');
   const app = express.Router();
   const { isLoggedIn, isAdmin } = require('./middleware');
@@ -17,8 +16,7 @@ const {
         FROM reviews
         `
         const response = await client.query(SQL)
-      res.send(response.rows);
-      
+      res.send(response.rows); 
     } 
     catch(ex){
       next(ex)
@@ -30,15 +28,13 @@ const {
        const review = req.body;
        const createdReview = await createReview(review);
         res.send(req.body);
-        console.log(req.body,"api")
-        
+        //console.log(req.body,"api")   
     }
     
     catch(ex){
         console.error('error creating review:', ex)
         next(ex)
     }
-    
   });
   
   

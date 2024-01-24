@@ -33,28 +33,18 @@ const fetchLineItems = async (setLineItems) => {
   setLineItems(response.data);
 };
 
-const fetchReviews = async (setReviews) => {
-  
+const fetchReviews = async (setReviews) => { 
   const response = await axios.get('/api/reviews', getHeaders());
-  
   setReviews(response.data);
   //console.log(response.data)
 };
 
-
 const createReview = async ({review, reviews, setReviews}) => {
-  
   await axios.post('/api/reviews/createReview', review, getHeaders());
     const response = await axios.get('/api/reviews', getHeaders())
-  
-    console.log("this is api index",response.data)
+    //console.log("this is api index",response.data)
     setReviews(response.data);
-    
-    console.log(reviews)
-  //} catch (error) {
-  //  console.error('Error creating or fetching reviews:', error);
-  //}
-}
+};
 
 
 const createLineItem = async ({ product, cart, lineItems, setLineItems }) => {
@@ -207,7 +197,7 @@ setWishList(response.data);
 };
 
 const removeFromWishList = async({product, wishList, setWishList, userId}) => {
-  console.log({product})
+  //console.log({product})
   await axios.delete(`/api/wishlist/${product.id}`, getHeaders());
   setWishList(wishList.filter(item => item.product_id !== product.id));
 };
