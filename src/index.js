@@ -20,6 +20,7 @@ import ReviewsList from './Reviews';
 import UserProfile from './UserProfile';
 import AdminProductEdit from './AdminProductEdit';
 import UserDetailsPage from './UserDetailsPage';
+import AgeVerificationModal from './AgeVerificationModal';
 
 
 
@@ -33,6 +34,7 @@ const App = () => {
   const [reviews, setReviews] = useState([]);
   const [users, setUsers] = useState([]);
   const [wishList, setWishList] =useState([]);
+  const [isAgeVerificationCompleted, setIsAgeVerificationCompleted] = useState(false);
 
   const attemptLoginWithToken = async () => {
     await api.attemptLoginWithToken(setAuth);
@@ -108,6 +110,9 @@ const App = () => {
     await api.createUser({formData});
   };
 
+  const handleAgeVerification = () => {
+    setIsAgeVerificationCompleted(true);
+  };
 
   const createLineItem = async (product) => {
     await api.createLineItem({ product, cart, lineItems, setLineItems });
@@ -167,48 +172,58 @@ const App = () => {
 
   return (
     <div>
-      <nav>
-        <Link to="/"> Home </Link>
-        <Link to="/products">Products ({products.length})</Link>
-        <Link to="/signup">Sign Up!</Link>
-        {auth.id ? <Link to="/orders">Orders ({orders.filter((order) => !order.is_cart).length})</Link> : null}
-        {auth.id ? <Link to="/cart">Cart ({cartCount})</Link> : null}
-        {auth.is_admin ? (
-          <>
-            <Link to="/admin">Admin</Link>
-            
-          </>
-        ) : null}
-        <span>
-          Welcome {auth.username || 'Guest'}!
-          {auth.id ? <button onClick={logout}>Logout</button> : null}
-          {auth.id ? <Link to="/profile"><button>My Profile</button></Link> : null}
-        </span>
-      </nav>
-  
-      <h3>Search Available Wines</h3>
-      <SearchBar products={products} />
-          
+      {isAgeVerificationCompleted ? (
+        <nav>
+          <Link to="/"> Home </Link>
+          <Link to="/products">Products ({products.length})</Link>
+          <Link to="/signup">Sign Up!</Link>
+          {auth.id ? <Link to="/orders">Orders ({orders.filter((order) => !order.is_cart).length})</Link> : null}
+          {auth.id ? <Link to="/cart">Cart ({cartCount})</Link> : null}
+          {auth.is_admin ? (
+            <>
+              <Link to="/admin">Admin</Link>
+            </>
+          ) : null}
+          <span>
+            Welcome {auth.username || 'Guest'}!
+            {auth.id ? <button onClick={logout}>Logout</button> : null}
+            {auth.id ? <Link to="/profile"><button>My Profile</button></Link> : null}
+          </span>
+        </nav>
+      ) : (
+        <AgeVerificationModal
+          onClose={() => alert("Verification closed")}
+          onVerify={handleAgeVerification}
+        />
+      )}
+       {isAgeVerificationCompleted && (  
       <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Homepage />
-                {auth.id ? null : <Login login={login} />} {/* Render Login only for not logged-in users */}
-                <Products
-                  auth={auth}
-                  products={products}
-                  cartItems={cartItems}
-                  createLineItem={createLineItem}
-                  updateLineItem={updateLineItem}
-                  deleteLineItem={deleteLineItem}
-                  navigate={navigate}
+      <Routes> 
+        
+  <Route
+    path="/"
+    element={
+      <>
+        <Homepage 
+        isAgeVerificationCompleted={isAgeVerificationCompleted}
+        onCloseAgeVerificationModal={() => alert("Verification closed")}
+                  onVerifyAge={handleAgeVerification}
                 />
-              </>
-            }
-          />
+        {auth.id ? null : <Login login={login} />}
+        <h3>Search Available Wines</h3>
+        <SearchBar products={products} />
+        <Products
+          auth={auth}
+          products={products}
+          cartItems={cartItems}
+          createLineItem={createLineItem}
+          updateLineItem={updateLineItem}
+          deleteLineItem={deleteLineItem}
+          navigate={navigate}
+        />
+      </>
+    }
+  />
           <Route
             path="/products"
             element={
@@ -293,6 +308,7 @@ const App = () => {
 
         </Routes>
       </main>
+      )}
     </div>
   );
 };
