@@ -15,6 +15,7 @@ const Orders = ({ orders, products, lineItems }) => {
               <li key={order.id}>
                 ({new Date(order.created_at).toLocaleDateString()})
                 <span> Total Cost: ${order.total_cost}</span>
+                {order.address && <div>Address: {order.address}</div>}
                 <ul>
                   {orderLineItems.map((lineItem) => {
                     const product = products.find(
