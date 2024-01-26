@@ -186,7 +186,7 @@ const App = () => {
                     onVerifyAge={handleAgeVerification}
                   />
                   {auth.id ? null : <Login login={login} />}
-                  <Products
+                  {/* <Products
                     auth={auth}
                     products={products}
                     cartItems={cartItems}
@@ -194,7 +194,7 @@ const App = () => {
                     updateLineItem={updateLineItem}
                     deleteLineItem={deleteLineItem}
                     navigate={navigate}
-                  />
+                  /> */}
                 </>
               }
             />
