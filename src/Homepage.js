@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AgeVerificationModal from "./AgeVerificationModal";
 import Products from "./Products";
+import Slider from "react-slick";
 
 const Homepage = ({
   isAgeVerificationCompleted,
@@ -9,6 +10,35 @@ const Homepage = ({
   onVerifyAge,
   products,
 }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    draggable: true,
+    scrollable: true,
+    swipeToSlide: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    afterChange: (index) => setCurrentSlide(index),
+    appendDots: (dots) => (
+      <div style={{ position: "relative" }}>
+        <div>{dots}</div>
+      </div>
+    ),
+    customPaging: (i) => (
+      <div
+        style={{
+          width: 10,
+          height: 10,
+          background: "white",
+          borderRadius: "50%",
+        }}
+      ></div>
+    ),
+  };
+
   if (!isAgeVerificationCompleted) {
     return (
       <AgeVerificationModal
@@ -33,27 +63,39 @@ const Homepage = ({
       {/* Featured Products Section */}
       <section className="bg-red-900 py-12">
         <h2 className="text-2xl text-white font-bold ml-4 mb-6">
-          Featured Products
+          Featured Wines
         </h2>
-        
+        {/* Featured Products Carousel */}
+        <Slider {...settings} initialSlide={currentSlide}>
           {/* Featured Product Cards */}
-          <div className="flex justify-center space-x-4">
-          {products.slice(0,5).map((product) => (
+          {products.slice(1, 8).map((product) => (
             <div
               key={product.id}
-              className="bg-white max-w-xs border rounded overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:shadow-lg"
+              className=" bg-white max-w-xs border rounded overflow-hidden shadow-md ml-4 mb-4"
             >
               <img
-                src={product.image} 
+                src={product.image}
                 alt={product.name}
-                className="w-36 h-48 object-cover"
+                className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-xl text-black font-bold mb-2">{product.name}</h3>
-                <Link to="/product/:id"><button className="ml-4 bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded">More</button></Link>
+                <h3 className="text-xl font-bold mb-2 overflow-hidden whitespace-nowrap overflow-ellipsis">
+                  {product.name}
+                </h3>
               </div>
             </div>
           ))}
+        </Slider>
+        {/* Navigation Buttons */}
+        <div className="text-center mt-4">
+          <button
+            onClick={() => setCurrentSlide(currentSlide - 1)}
+            disabled={currentSlide === 0}
+          ></button>
+          <button
+            onClick={() => setCurrentSlide(currentSlide + 1)}
+            disabled={currentSlide === products.slice(1, 8).length - 1}
+          ></button>
         </div>
       </section>
 
@@ -65,7 +107,6 @@ const Homepage = ({
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
       </section>
-
     </div>
   );
 };
