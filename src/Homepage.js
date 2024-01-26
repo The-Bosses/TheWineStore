@@ -69,14 +69,24 @@ const Homepage = ({
 
   return (
     <div>
-      <section className="bg-gray-100 p-8 flex flex-col items-center justify-center text-center py-12">
-        <h1 className="text-4xl font-bold mb-4">Curated wines on a dime.</h1>
-        <p className="text-lg mb-4">Good wine doesn't have to be expensive.</p>
-        <Link to="/products">
-          <button className="bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded">
-            Shop Wines
+      {/* Home Page Intro */}
+      <section
+        className="bg-cover bg-center p-8 flex flex-col items-center justify-center text-center py-12"
+        style={{
+          backgroundImage: "url('public/Images/bw_cover_img.png')",
+          height: "500px",
+        }}
+      >
+        <div className="bg-red-900 text-white p-4 rounded-md absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/4">
+          <h2 className="text-5xl font-bold mt-4 mb-4">Curated Wines on a Dime</h2>
+          <p className="text-lg mb-4">Good wine doesn't have to be expensive.</p>
+          <Link to="/products">
+          <button className="bg-white text-red-900 px-4 py-2 rounded mt-4 mb-4">
+            Shop Plonk
           </button>
         </Link>
+        </div>
+        
       </section>
 
       {/* Featured Products Section */}
@@ -107,26 +117,39 @@ const Homepage = ({
             </Link>
           ))}
         </Slider>
-        {/* Navigation Buttons */}
-        {/* <div className="text-center mt-4">
-          <button
-            onClick={() => setCurrentSlide(currentSlide - 1)}
-            disabled={currentSlide === 0}
-          >Previous</button>
-          <button
-            onClick={() => setCurrentSlide(currentSlide + 1)}
-            disabled={currentSlide === products.slice(1, 8).length - 1}
-          >Next</button>
-        </div> */}
       </section>
 
       {/* About Us */}
-      <section className="bg-gray-100 p-8">
-        <h2 className="text-2xl font-bold mb-4">About Us</h2>
-        <p className="text-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
+      <section className="bg-white p-8 flex items-center justify-center flex-col md:flex-row">
+        <div className="md:w-3/5 mb-2 md:mb-0">
+          <img
+            src="public/Images/bw_about_logo_img.png"
+            alt="About Us"
+            className="ml-28 w-3/5 h-auto object-cover rounded"
+          />
+        </div>
+
+        <div className="md:w-2/3 md:ml-2 mt-0">
+          <h2 className="text-2xl font-bold mb-4">Here's to the VIP's!</h2>
+          <p className="text-lg max-w-md">
+            Not a member? Create an account today to get instant access to VIP
+            products.
+          </p>
+          <Link to="/signup">
+            <button className="bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded mt-4">
+              Sign Up
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="bg-gray-100 p-8 flex items-center justify-center flex-col md:flex-row">
+        <div>
+          <p>
+            Tetsing    
+          </p>
+        </div>
       </section>
     </div>
   );
