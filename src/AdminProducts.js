@@ -14,66 +14,40 @@ const AdminProducts = ({products, auth}) => {
         console.error('Error creating product:', error);
       }
 
-      /*if (isAdmin) {
-        await api.createProduct({
-          name: newProductName,
-          alcohol_percent: newProductAlcohol,
-          type: newProductType,
-          location: newProductLocation,
-          price: newProductPrice,
-          description: newProductDescription,
-        });
-
-        const updatedProducts = await api.fetchAdminProducts();
-        setProducts(updatedProducts);
-
-        // Reset input fields
-        setNewProductName('');
-        setNewProductAlcohol('');
-        setNewProductType('');
-        setNewProductLocation('');
-        setNewProductPrice('');
-        setNewProductDescription('');
-      } else {
-        console.error('User is not an admin. Cannot create a product.');
-      }
-    } */ 
+     
   }
 
   return (
     <div>
-      <h2>Admin Dashboard</h2>
-      <h2>All Products</h2>
-      <Link to={"/admin/products/createnew"}><button >Add new Product</button></Link>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name} - Type: {product.type}
-            <span> <Link to={`/admin/products/${product.id.toString()}`}><button >Edit Product</button></Link> </span>
-          </li>
-        ))}
-      </ul>
+      <h2 className="text-3xl font-bold mb-6 mt-2 text-red-800">Admin Dashboard</h2>
 
-     {/*  <h2>Create a New Product</h2>
-      <label>Name:</label>
-      <input type="text" value={newProductName} onChange={(e) => setNewProductName(e.target.value)} />
+      <h2 className="text-2xl font-bold mb-2 text-red-800">All Products</h2>
+      <Link to="/admin/products/createnew">
+        <button className="bg-red-700 text-white px-4 py-2 rounded">Add New Product</button>
+      </Link>
 
-      <label>Alcohol Percentage:</label>
-      <input type="text" value={newProductAlcohol} onChange={(e) => setNewProductAlcohol(e.target.value)} />
-
-      <label>Type:</label>
-      <input type="text" value={newProductType} onChange={(e) => setNewProductType(e.target.value)} />
-
-      <label>Origin Location:</label>
-      <input type="text" value={newProductLocation} onChange={(e) => setNewProductLocation(e.target.value)} />
-
-      <label>Price:</label>
-      <input type="text" value={newProductPrice} onChange={(e) => setNewProductPrice(e.target.value)} />
-
-      <label>Description:</label>
-      <textarea value={newProductDescription} onChange={(e) => setNewProductDescription(e.target.value)} />
-
-      <button onClick={handleCreateProduct}>Create Product</button> */}
+      <table className="min-w-full border border-collapse mt-4">
+        <thead>
+          <tr className="bg-red-600 text-white">
+            <th className="border p-2">Product Name</th>
+            <th className="border p-2">Type</th>
+            <th className="border p-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr key={product.id} className="even:bg-gray-100">
+              <td className="border p-2">{product.name}</td>
+              <td className="border p-2">{product.type}</td>
+              <td className="border p-2">
+                <Link to={`/admin/products/${product.id.toString()}`}>
+                  <button className="bg-red-400 text-white px-2 py-1 rounded">Edit Product</button>
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
