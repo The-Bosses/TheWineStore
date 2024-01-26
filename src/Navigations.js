@@ -12,8 +12,8 @@ const Navigation = ({ auth, logout, orders }) => {
       {auth.is_admin ? <Link to="/admin" className="ml-4 text-black hover:bg-gray-100 px-4 py-2 rounded">Admin</Link> : null}
       <span className="text-black">
         {/* Welcome {auth.username || 'Guest'}! */}
-        {auth.id ? <button onClick={logout} className="ml-4 bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded">Logout</button> : null}
-        {auth.id ? <Link to="/profile"><button className="ml-4 bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded">My Profile</button></Link> : null}
+        {auth.id ? <button onClick={logout} className="ml-4 mr-4 bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded">Logout</button> : null}
+        {auth.id ? <Link to="/profile"><button className="ml-4 mr-4 bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded">My Profile</button></Link> : null}
       </span>
     </nav>
   );

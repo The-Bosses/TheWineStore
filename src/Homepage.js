@@ -16,7 +16,6 @@ const Homepage = ({
     dots: true,
     infinite: true,
     draggable: true,
-    scrollable: true,
     swipeToSlide: true,
     speed: 500,
     slidesToShow: 3,
@@ -37,6 +36,26 @@ const Homepage = ({
         }}
       ></div>
     ),
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
 
   if (!isAgeVerificationCompleted) {
@@ -69,34 +88,36 @@ const Homepage = ({
         <Slider {...settings} initialSlide={currentSlide}>
           {/* Featured Product Cards */}
           {products.slice(1, 8).map((product) => (
-            <div
-              key={product.id}
-              className=" bg-white max-w-xs border rounded overflow-hidden shadow-md ml-4 mb-4"
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-bold mb-2 overflow-hidden whitespace-nowrap overflow-ellipsis">
-                  {product.name}
-                </h3>
+            <Link to={`/product/${product.id}`} key={product.id}>
+              <div
+                key={product.id}
+                className="bg-white max-w-xs border rounded overflow-hidden shadow-md ml-12 mb-4 transition-transform hover:shadow-lg hover:shadow-red-950"
+              >
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-bold mb-2 overflow-hidden whitespace-nowrap overflow-ellipsis">
+                    {product.name}
+                  </h3>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </Slider>
         {/* Navigation Buttons */}
-        <div className="text-center mt-4">
+        {/* <div className="text-center mt-4">
           <button
             onClick={() => setCurrentSlide(currentSlide - 1)}
             disabled={currentSlide === 0}
-          ></button>
+          >Previous</button>
           <button
             onClick={() => setCurrentSlide(currentSlide + 1)}
             disabled={currentSlide === products.slice(1, 8).length - 1}
-          ></button>
-        </div>
+          >Next</button>
+        </div> */}
       </section>
 
       {/* About Us */}
