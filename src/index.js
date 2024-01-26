@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Link, HashRouter, Routes, Route } from 'react-router-dom';
+import Navigations from './Navigations';
 import Products from './Products';
 import Orders from './Orders';
 import Cart from './Cart';
@@ -172,31 +173,15 @@ const App = () => {
   return (
     <div>
       {isAgeVerificationCompleted ? (
-        <nav>
-          <Link to="/"> Home </Link>
-          <Link to="/products">Products ({products.length})</Link>
-          <Link to="/signup">Sign Up!</Link>
-          {auth.id ? <Link to="/orders">Orders ({orders.filter((order) => !order.is_cart).length})</Link> : null}
-          {auth.id ? <Link to="/cart">Cart ({cartCount})</Link> : null}
-          {auth.is_admin ? (
-            <>
-              <Link to="/admin">Admin</Link>
-            </>
-          ) : null}
-          <span>
-            Welcome {auth.username || 'Guest'}!
-            {auth.id ? <button onClick={logout}>Logout</button> : null}
-            {auth.id ? <Link to="/profile"><button>My Profile</button></Link> : null}
-          </span>
-        </nav>
+        <Navigations auth={auth} logout={logout} orders={orders} />
       ) : (
         <AgeVerificationModal
           onClose={() => alert("Verification closed")}
           onVerify={handleAgeVerification}
         />
       )}
-       {isAgeVerificationCompleted && (  
-      <main>
+      {isAgeVerificationCompleted && (  
+        <main>
       <Routes> 
         
   <Route
