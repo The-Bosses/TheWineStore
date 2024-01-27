@@ -23,7 +23,6 @@ app.get("/", isLoggedIn, async (req, res, next) => {
 
 app.delete("/:id", isLoggedIn, async (req, res, next) => {
     try {
-        console.log(req.params.id)
         res.send(await removeFromWishList({product_id: req.params.id, user_id: req.user.id}));
     } catch (error) {
         next(error)
