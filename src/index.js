@@ -75,6 +75,7 @@ const App = () => {
     }
   }, [auth]);
 
+
   const createReview = async (review) => {
     await api.createReview({ review, setReviews });
   };
@@ -237,26 +238,7 @@ const App = () => {
                 />
               }
             />
-            <Route
-              path="/product/:productId"
-              element={
-                <ProductDetail
-                  products={products}
-                  navigate={navigate}
-                  auth={auth}
-                  reviews={reviews}
-                  createReview={createReview}
-                  wishList={wishList}
-                  removeFromWishList={removeFromWishList}
-                  addToWishList={addToWishList}
-                  setWishList={setWishList}
-                />
-              }
-            />
-            <Route
-              path="/reviews"
-              element={<ReviewsList reviews={reviews} />}
-            />
+            
 
             <Route path="/admin" element={<Admin auth={auth} />} />
             <Route
@@ -312,8 +294,37 @@ const App = () => {
                 />
               }
             />
-          </Routes>
-        </main>
+
+
+          <Route
+            path="/product/:productId"
+            element={<ProductDetail 
+              products={products} 
+              navigate={navigate} 
+              auth={auth}
+              reviews={reviews}
+              createReview={createReview}
+              wishList={wishList}
+              removeFromWishList={removeFromWishList}
+              addToWishList={addToWishList}
+              setWishList={setWishList}
+              createLineItem={createLineItem}
+              updateLineItem={updateLineItem}
+              cartItems={cartItems}
+              setReviews={setReviews}
+              />}
+          />
+          <Route 
+            path="/reviews"
+            element={<ReviewsList 
+              reviews={reviews}
+              auth={auth}
+              products={products}
+              />}
+          />
+        </Routes>
+      </main>
+
       )}
     </div>
   );

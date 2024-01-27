@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-const Products = ({ products, cartItems, createLineItem, updateLineItem, auth }) => {
+const Products = ({ products, cartItems, createLineItem, updateLineItem, auth, reviews }) => {
   const isVipUser = auth && auth.is_vip;
   const [searchTerm, setSearchTerm] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,8 +16,8 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth })
   };
     
   return (
-    <div className="container px-4 bg-red-900">
-      <h2 className="text-2xl font-bold mb-4 text-white">Available Wine List</h2>
+    <div className="bg-red-950">
+      <h2 className="text-2xl font-bold mb-4 text-white">Our Wines</h2>
       <div className="mb-4">
         <input
           type="text"
@@ -33,26 +33,41 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem, auth })
           .filter((product) => !searchTerm || product.name.toLowerCase().includes(searchTerm.toLowerCase()))
           .map((product) => {
             const cartItem = cartItems.find((lineItem) => lineItem.product_id === product.id);
-
+  
             return (
-              <div key={product.id} className=" m-6 border p-4 rounded-md bg-white">
-                <img
-                src={`${product.image}`}
-                alt={product.name}
-                className="w-full h-auto max-h-full object-contain mb-4"
-                />
-                <Link to={`/product/${product.id.toString()}`} className="m-3 text-red-900 text-2xl font-bold hover:underline">
-                {product.name}
-                </Link>
-                <div className="m-3 text-red-900 text-xl">${product.price}</div>
+              <div key={product.id} className="m-6 border p-4 rounded-md bg-white flex flex-col items-center">
+                <div className="flex-grow text-center">
+                  <img
+                    src={`${product.image}`}
+                    alt={product.name}
+                    className="object-contain size-40 mb-4 shadow-md flex-shrink-0 mx-auto"
+                  />
+                  <Link
+                    to={`/product/${product.id.toString()}`}
+                    className="text-red-900 text-xl font-bold hover:underline"
+                  >
+                    {product.name}
+                  </Link>
+                  <div className="text-red-900 text-base mb-2">${product.price}</div>
+                </div>
                 {auth.id ? (
                   cartItem ? (
-                  <button className="m-3  inline-block px-5 py-3 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800" onClick={() => updateLineItem(cartItem)}>Add Another</button>
+                    <button
+                    className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+                      onClick={() => updateLineItem(cartItem)}
+                    >
+                      Add Another
+                    </button>
                   ) : (
-                  <button className="m-3  inline-block px-5 py-3 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"onClick={() => createLineItem(product)}>Add</button>
+                    <button
+                    className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+                      onClick={() => createLineItem(product)}
+                    >
+                      Add to cart
+                    </button>
                   )
                 ) : null}
-               </div>
+              </div>
             );
           })}
       </div>

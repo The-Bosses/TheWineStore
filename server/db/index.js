@@ -72,9 +72,9 @@ const seed = async()=> {
       id UUID PRIMARY KEY,
       created_at TIMESTAMP DEFAULT now(),
       product_id VARCHAR(100),
-      user_id VARCHAR(10)  ,
-      rating INTEGER,
-      comment VARCHAR(50) 
+      user_id VARCHAR(10),
+      rating INTEGER CHECK (rating BETWEEN 0 AND 5),
+      comment VARCHAR(50)
     );
 
     CREATE TABLE orders(
@@ -159,9 +159,9 @@ const seed = async()=> {
     createProduct({ name: 'Le Marca Prosecco Rose', type: 'Sparkling Rose', location: 'Italy', alcohol_percent: 11, description: "Shining from the first toast to the last sip, our playful pop of pink is an effervescent new way to enjoy Rosé. A balance of our traditional Prosecco and the delicate elegance of Pinot Noir, La Marca Prosecco Rosé sparkles with our classic aromas of white flowers, peach and pear, blending with hints of ripe red cherry, raspberry and wild strawberry. Vibrant and refreshing, this bubbly is perfect for both lively occasions and spontaneous celebrations. ", price: 14.99, reviews: '', is_vip: false, image:'../../public/winePics/marcaProsecco.webp' }),   
   ]);
     const [] = await Promise.all([])
-    createReview({product_id:'Oh Schist', user_id:'robert', rating: 6, comment:'Light, crisp, citrus'}),
-    createReview({product_id: 'voga', user_id:'robert', rating: 7, comment:'light but prolonged bitter-sweet finish'}),
-    createReview({product_id: 'caliveda', user_id:'robert', rating: 6, comment:'Very strong nose and full body'})
+    createReview({product_id:'Oh Schist', user_id:'robert', rating: 4, comment:'Light, crisp, citrus'}),
+    createReview({product_id: 'Voga', user_id:'robert', rating: 5, comment:'light but prolonged bitter-sweet finish'}),
+    createReview({product_id: 'Caliveda', user_id:'robert', rating: 4, comment:'Very strong nose and full body'})
   
   
   let orders = await fetchOrders(parker.id);
