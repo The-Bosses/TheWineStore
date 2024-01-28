@@ -28,15 +28,17 @@ const ReviewForm = ({products, reviews, createReview}) => {
     };
     
     return(
-        <div>
+        <div className="">
             
             <form onSubmit={handleCreateReview}>
                 <h4>Leave a Review</h4>
                 <label>Product Name</label>
-                <select value={item} onChange={(event)=>{setItem(event.target.value)}}>
+                <select className="hover:bg-red-200" value={item} onChange={(event)=>{setItem(event.target.value)}}>
                     <option>Choose Wine Name</option>
                     {products.map((product)=>{
-                        return(<option key={product.id} value={product.name}>{product.name}</option>)
+                        return(<option key={product.id} 
+                            value={product.name}>{product.name}
+                            </option>)
                     })}
                 </select>
                 
@@ -45,21 +47,26 @@ const ReviewForm = ({products, reviews, createReview}) => {
                     type="text"
                     value={user}
                     onChange={(event)=> {setUser(event.target.value)}}
+                    className="hover:bg-red-200"
                     />
                 <label>Rating</label>
                 <input 
                         type="number"
                         value={rating}
                         onChange={(event)=>{setRating(event.target.value)}}
+                        className="hover:bg-red-200"
                 />
                 <label>Comment</label>
                     <input 
                         type="text"
                         value={comment}
                         onChange={(event)=> {setComment(event.target.value)}}
+                        className="hover:bg-red-200"
                 />
             {
-                    comment ? <button type="sumbit">Submit Review!</button> : null
+                    comment ? <button 
+                    className="px-4 py-2 rounded-md ml-2" 
+                    type="sumbit">Submit Review!</button> : null
             }
                 
             </form>

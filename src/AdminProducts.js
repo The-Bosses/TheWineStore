@@ -49,7 +49,7 @@ const AdminProducts = ({products, auth}) => {
         {products.map((product) => (
           <li key={product.id}>
             {product.name} - Type: {product.type}
-            <span> <Link to={`/admin/products/${product.id.toString()}`}><button >Edit Product</button></Link> </span>
+            <span> <Link to={`/admin/products/${product.id.toString()}`}><button>Edit Product</button></Link> </span>
           </li>
         ))}
       </ul>

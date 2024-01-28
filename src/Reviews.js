@@ -9,7 +9,7 @@ const ReviewsList = ({review, reviews,products}) => {
   //})
    
     return (
-        <div>
+        <div className="text-red-300">
             <h4>Reviews</h4> 
             <ul>
                 {

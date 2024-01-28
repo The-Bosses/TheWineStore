@@ -83,11 +83,6 @@ const App = () => {
 
   const createReview = async (review) => {
     await api.createReview({review, setReviews});
-<<<<<<< HEAD
-    //console.log("this is review", review)
-=======
-    
->>>>>>> 3f989565d13ef238423d245af96e9d1101989eea
   };
 
   useEffect(() => {
@@ -179,18 +174,18 @@ const App = () => {
         <nav>
           <Link to="/"> Home </Link>
           <Link to="/products">Products ({products.length})</Link>
-          <Link to="/signup">Sign Up!</Link>
+          <Link to="/signup" >Sign Up!</Link>
           {auth.id ? <Link to="/orders">Orders ({orders.filter((order) => !order.is_cart).length})</Link> : null}
-          {auth.id ? <Link to="/cart">Cart ({cartCount})</Link> : null}
+          {auth.id ? <Link to="/cart"> Cart ({cartCount})</Link> : null}
           {auth.is_admin ? (
             <>
               <Link to="/admin">Admin</Link>
             </>
           ) : null}
           <span>
-            Welcome {auth.username || 'Guest'}!
-            {auth.id ? <button onClick={logout}>Logout</button> : null}
-            {auth.id ? <Link to="/profile"><button>My Profile</button></Link> : null}
+            Welcome {auth.username || 'Guest'}! 
+            {auth.id ? <button onClick={logout} className=''>Logout</button> : null}
+            {auth.id ? <Link to="/profile"><button className=''>My Profile</button></Link> : null}
           </span>
         </nav>
       ) : (

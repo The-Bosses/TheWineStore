@@ -76,10 +76,11 @@ const Cart = ({ updateOrder, removeFromCart, lineItems, cart, products, updateLi
                   onChange={handleAddressChange}
                 />
               </label>
-              <button onClick={addAddressToCart}>Add Address to Cart and Checkout!</button>
+              <button className="" 
+              onClick={addAddressToCart}>Add Address to Cart and Checkout!</button>
             </div>
           )}
-          <button
+          <button className=""
             onClick={() => {
               updateOrder({
                 ...cart,

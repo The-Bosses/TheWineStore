@@ -22,16 +22,17 @@ const AgeVerificationModal = ({ onClose, onVerify }) => {
   };
 
   return (
-    <div className="modal">
+    <div className="bg-gray-400 modal flex-auto">
       <h2>Age Verification</h2>
       <p>Please enter your age:</p>
       <input
         type="number"
         value={enteredAge}
         onChange={(e) => setEnteredAge(e.target.value)}
+        className="bg-gray-200"
       />
-      <button onClick={handleVerify}>Verify</button>
-      <button onClick={onClose} disabled={!verificationSuccessful}>
+      <button className="" onClick={handleVerify}>Verify</button>
+      <button className="" onClick={onClose} disabled={!verificationSuccessful}>
         Close
       </button>
     </div>

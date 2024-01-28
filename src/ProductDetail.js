@@ -54,7 +54,7 @@ const ProductDetail = ({
           <img
             src={`${product.image}`}
             alt={product.name}
-            className="w-full h-auto max-h-full object-contain mb-4"
+            className="w-full h-10px max-h-full object-contain mb-4"
           />
           <p>{product.type}</p>
           <p>Price: {product.price}</p>

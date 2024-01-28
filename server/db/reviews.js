@@ -22,11 +22,7 @@ const createReview = async (review) => {
       review.rating, 
       review.comment
     ]);
-<<<<<<< HEAD
     //console.log(response.rows, "in db")
-=======
-    
->>>>>>> 3f989565d13ef238423d245af96e9d1101989eea
     return (response.rows[0]);
   };
   
