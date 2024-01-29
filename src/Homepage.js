@@ -155,7 +155,7 @@ const Homepage = ({
 
         <div className="mb-4 md:mb-0">
           <p className="text-center md:text-left">
-            Terms and Policies tbd     |     follow us on github!
+            Terms and Policies tbd     |     follow us on <a href="https://github.com/The-Bosses" className="text-blue-500 underline">GitHub</a>
           </p>
         </div>
 
