@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "./api";
-import { removeFromWishList } from "./api";
-import axios from "axios";
 
 const UserProfile = ({ 
-  user: initialUser, 
-  setUserData, 
-  wishList, 
-  product, 
+  user: initialUser,  
+  wishList,  
   products, 
   removeFromWishList 
 }) => {
@@ -69,13 +65,13 @@ const UserProfile = ({
       </h2>
       {editMode ? (
         <>
-          <div className="">
+          <div>
           <h3 className="text-xl font-bold mb-4">Edit Your Information:</h3>
           <form className="mb-4"> 
             <div className="mb-4">
               <label className="space-y-8">
                 Username:
-                <input className="hover:bg-gray-400 outline space-y-8"
+                <input className="m-4 hover:bg-gray-400 outline space-y-8 rounded-sm"
                   type="text"
                   name="username"
                   placeholder={user.username}
@@ -87,10 +83,10 @@ const UserProfile = ({
               </label>
             </div>
             
-            <div className="mb-4">
+            <div className="mb-4 m-2">
               <label>
                 Email:
-                <input className="hover:bg-gray-400 outline space-y-8"
+                <input className="m-2 hover:bg-gray-400 outline space-y-8 rounded-sm"
                   type="email"
                   name="email"
                   placeholder={user.email}
@@ -102,15 +98,15 @@ const UserProfile = ({
               </label>
             </div>
             <br />
-            <button className="bg-gray-950 text-white px-4 py-2 rounded-md ml-2 space-y-8" type="button" onClick={() => handleSaveClick(user)}>
+            <button className="bg-gray-300 text-black hover:bg-black hover:text-white px-4 py-2 rounded-md ml-2 space-y-8" type="button" onClick={() => handleSaveClick(user)}>
               Save Changes
             </button>
-            <button className="bg-gray-950 text-white px-4 py-2 rounded-md ml-2"type="button" onClick={handleCancelClick}>
+            <button className="bg-gray-300 text-black hover:bg-black hover:text-white px-4 py-2 rounded-md ml-2"type="button" onClick={handleCancelClick}>
               Cancel
             </button>
           </form>
             <div className="flex justify-center">
-              <img className=""
+              <img
                 src="https://hips.hearstapps.com/hmg-prod/images/vineyards-in-napa-valley-california-royalty-free-image-1693237218.jpg?resize=2048:*" 
                 alt="vineyard" 
                 width={900} 
@@ -136,7 +132,7 @@ const UserProfile = ({
               </li>
               {isVIP && <li>Status: VIP User</li>}
             </ul>
-            <button className="bg-gray-300 text-gray-950 hover:bg-gray-950 hover:text-white px-4 py-2 rounded-md ml-2 mb-4" type="button" onClick={handleEditClick}>
+            <button className="bg-gray-300 text-black hover:bg-black hover:text-white px-4 py-2 rounded-md ml-2 mb-4" type="button" onClick={handleEditClick}>
               Edit Profile
             </button>
           </div>
