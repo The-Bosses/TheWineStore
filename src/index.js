@@ -21,6 +21,7 @@ import UserProfile from "./UserProfile";
 import AdminProductEdit from "./AdminProductEdit";
 import UserDetailsPage from "./UserDetailsPage";
 import AgeVerificationModal from "./AgeVerificationModal";
+import AboutUs from "./AboutUs";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -74,7 +75,6 @@ const App = () => {
       fetchData();
     }
   }, [auth]);
-
 
   const createReview = async (review) => {
     await api.createReview({ review, setReviews });
@@ -238,7 +238,6 @@ const App = () => {
                 />
               }
             />
-            
 
             <Route path="/admin" element={<Admin auth={auth} />} />
             <Route
@@ -295,36 +294,40 @@ const App = () => {
               }
             />
 
+            <Route
+              path="/product/:productId"
+              element={
+                <ProductDetail
+                  products={products}
+                  navigate={navigate}
+                  auth={auth}
+                  reviews={reviews}
+                  createReview={createReview}
+                  wishList={wishList}
+                  removeFromWishList={removeFromWishList}
+                  addToWishList={addToWishList}
+                  setWishList={setWishList}
+                  createLineItem={createLineItem}
+                  updateLineItem={updateLineItem}
+                  cartItems={cartItems}
+                  setReviews={setReviews}
+                />
+              }
+            />
+            <Route
+              path="/reviews"
+              element={
+                <ReviewsList
+                  reviews={reviews}
+                  auth={auth}
+                  products={products}
+                />
+              }
+            />
 
-          <Route
-            path="/product/:productId"
-            element={<ProductDetail 
-              products={products} 
-              navigate={navigate} 
-              auth={auth}
-              reviews={reviews}
-              createReview={createReview}
-              wishList={wishList}
-              removeFromWishList={removeFromWishList}
-              addToWishList={addToWishList}
-              setWishList={setWishList}
-              createLineItem={createLineItem}
-              updateLineItem={updateLineItem}
-              cartItems={cartItems}
-              setReviews={setReviews}
-              />}
-          />
-          <Route 
-            path="/reviews"
-            element={<ReviewsList 
-              reviews={reviews}
-              auth={auth}
-              products={products}
-              />}
-          />
-        </Routes>
-      </main>
-
+            <Route path="/about" element={<AboutUs navigate={navigate}/>} />
+          </Routes>
+        </main>
       )}
     </div>
   );
