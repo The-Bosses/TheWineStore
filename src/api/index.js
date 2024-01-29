@@ -40,13 +40,12 @@ const fetchReviews = async (setReviews) => {
 };
 
 
-
-const createReview = async ({ review, setReviews }) => {
-  await axios.post("/api/reviews/createReview", review, getHeaders());
-  fetchReviews(setReviews); 
+const createReview = async ({review, reviews, setReviews}) => {
+  await axios.post('/api/reviews/createReview', review, getHeaders());
+    const response = await axios.get('/api/reviews', getHeaders())
+    setReviews(response.data);
 };
 
-  
 
 
 const createLineItem = async ({ product, cart, lineItems, setLineItems }) => {
@@ -199,7 +198,6 @@ setWishList(response.data);
 };
 
 const removeFromWishList = async({product, wishList, setWishList, userId}) => {
-  //console.log({product})
   await axios.delete(`/api/wishlist/${product.id}`, getHeaders());
   setWishList(wishList.filter(item => item.product_id !== product.id));
 };

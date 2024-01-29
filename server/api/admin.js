@@ -92,6 +92,7 @@ app.post('/mark-product-as-vip/:productId', isLoggedIn, isAdmin, async (req, res
       next(ex);
     }
   });
+
 app.put('/products/:id', isLoggedIn, isAdmin, async (req, res, next)=> {
   try {
     res.send(await editProduct({...req.body, id: req.params.id}) );
@@ -100,8 +101,6 @@ app.put('/products/:id', isLoggedIn, isAdmin, async (req, res, next)=> {
   }
   
 });
-
-
 
 app.get('/users/:id', isLoggedIn, isAdmin, async (req, res, next) => {
   try {
