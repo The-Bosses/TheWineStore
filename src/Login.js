@@ -41,7 +41,7 @@ const Login = ({ login, auth })=> {
               onChange={(ev) => setPassword(ev.target.value)}
               className="p-2 mb-2 border border-gray-300 rounded-md w-40"
             />
-            <button disabled={!username || !password} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+            <button disabled={!username || !password} className="bg-red-500 text-white px-4 py-2 rounded-md">
               Login
             </button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
