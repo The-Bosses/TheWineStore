@@ -43,9 +43,9 @@ const fetchReviews = async (setReviews) => {
 const createReview = async ({review, reviews, setReviews}) => {
   await axios.post('/api/reviews/createReview', review, getHeaders());
     const response = await axios.get('/api/reviews', getHeaders())
-    //console.log("this is api index",response.data)
     setReviews(response.data);
 };
+
 
 
 const createLineItem = async ({ product, cart, lineItems, setLineItems }) => {
