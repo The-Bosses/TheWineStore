@@ -19,7 +19,7 @@ const Orders = ({ orders, products, lineItems }) => {
                 <li className='flex-items-center m-4'>
                   ({new Date(order.created_at).toLocaleDateString()})
                   <span className='text-red-500'> Total Cost: ${order.total_cost}</span>
-                  {order.address && <div className='text-white'>Address: {order.address}</div>}
+                  {order.address && <div className='text-black'>Address: {order.address}</div>}
                   <ul>
                     {orderLineItems.map((lineItem) => {
                       const product = products.find(
