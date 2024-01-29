@@ -85,7 +85,7 @@ const Homepage = ({
           <h2 className="text-5xl font-bold mt-4 mb-4">Curated Wines on a Dime</h2>
           <p className="text-lg mb-4">Good wine doesn't have to be expensive.</p>
           <Link to="/products">
-          <button className="bg-white text-red-900 px-4 py-2 rounded mt-4 mb-4">
+          <button className="bg-white hover:bg-gray-100 text-red-900 px-4 py-2 rounded mt-4 mb-4">
             Shop Plonk
           </button>
         </Link>
@@ -110,7 +110,7 @@ const Homepage = ({
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-48 object-cover"
+                  className="object-contain size-60 mt-4 mb-4 flex-shrink-0 mx-auto"
                 />
                 <div className="p-4">
                   <h3 className="text-xl font-bold mb-2 overflow-hidden whitespace-nowrap overflow-ellipsis">
