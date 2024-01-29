@@ -110,7 +110,7 @@ const Homepage = ({
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-48 object-cover"
+                  className="object-contain size-60 mt-4 mb-4 flex-shrink-0 mx-auto"
                 />
                 <div className="p-4">
                   <h3 className="text-xl font-bold mb-2 overflow-hidden whitespace-nowrap overflow-ellipsis">

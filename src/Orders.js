@@ -18,8 +18,8 @@ const Orders = ({ orders, products, lineItems }) => {
               >
                 <li className='flex-items-center m-4'>
                   ({new Date(order.created_at).toLocaleDateString()})
-                  <span className='text-red-500'> Total Cost: ${order.total_cost}</span>
-                  {order.address && <div className='text-black'>Address: {order.address}</div>}
+                  <span className='text-red-500 font-extrabold'> Total Cost: ${order.total_cost}</span>
+                  {order.address && <div className='text-black font-bold'>Address: {order.address}</div>}
                   <ul>
                     {orderLineItems.map((lineItem) => {
                       const product = products.find(
@@ -28,7 +28,7 @@ const Orders = ({ orders, products, lineItems }) => {
                       return (
                         <li key={lineItem.id}>
                           {product ? (
-                            <div className=''>
+                            <div>
                               {product.name} ({lineItem.quantity} bottles)
                             </div>
                           ) : (
@@ -39,12 +39,17 @@ const Orders = ({ orders, products, lineItems }) => {
                     })}
                   </ul>
                 </li>
-                
               </div>
             );
           })}
       </ul>
-      <h1 className='text-2xl text-center text-white font-bold'>We Appreciate your Business! </h1>
+      <h1 className='text-2xl text-center text-white font-bold mb-4'>We Appreciate your Business!</h1>
+      <div className="flex justify-center mb-4">
+              <img className="flex justify-center"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDW8_TYLy8eVx7Vd4Dk-j04prq_DbtWxciiQ&usqp=CAU" 
+                alt="wine bottles" 
+              />  
+      </div>
     </div>
   );
 };

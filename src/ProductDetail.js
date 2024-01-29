@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import ReviewForm from "./ReviewForm";
 import ReviewsList from "./Reviews";
 
 const ProductDetail = ({
@@ -8,8 +7,6 @@ const ProductDetail = ({
   addToWishList,
   wishList,
   removeFromWishList,
-  setWishList,
-  users,
   reviews,
   createReview,
   setReviews,
