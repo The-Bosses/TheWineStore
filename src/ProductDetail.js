@@ -57,6 +57,7 @@ const ProductDetail = ({
                 <h2 className="text-4xl font-bold mb-2 text-red-900">
                   {product.name}
                 </h2>
+                {product.is_vip ? <p> VIP Product</p> : null}
                 <p className="text-red-900 mb-2 text-lg">{product.type}</p>
                 <p className="text-red-900 mb-2 text-lg">
                   Price: ${product.price}
