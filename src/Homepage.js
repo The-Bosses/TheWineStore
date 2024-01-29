@@ -147,11 +147,21 @@ const Homepage = ({
         </div>
       </section>
 
-      {/* Footer */}
-      <section className="bg-gray-100 p-8 flex items-center justify-center flex-col md:flex-row">
+     {/* Footer */}
+      <section className="bg-gray-100 p-8 flex items-center justify-between flex-col md:flex-row">
+        <div className="mb-4 md:mb-0">
+          <img src="../../public/Logos/plonk_logo_transparent.png" alt="Plonk Logo" className="w-16 h-16 object-contain" />
+        </div>
+
+        <div className="mb-4 md:mb-0">
+          <p className="text-center md:text-left">
+            Terms and Policies tbd     |     follow us on github!
+          </p>
+        </div>
+
         <div>
-          <p>
-            Tetsing    
+          <p className="text-red-500 font-bold text-center md:text-left">
+            Drink responsibly
           </p>
         </div>
       </section>
