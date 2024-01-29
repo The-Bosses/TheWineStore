@@ -75,7 +75,7 @@ const ProductDetail = ({
                         <button
                           onClick={() => removeFromWishList(product)}
                           className="w-full px-5 py-3 rounded-lg mb-2 focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-800 text-red-50 hover:bg-red-900 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
-                        >
+                        > 
                           Remove from Wish List
                         </button>
                       ) : (

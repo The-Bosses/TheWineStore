@@ -198,7 +198,6 @@ setWishList(response.data);
 };
 
 const removeFromWishList = async({product, wishList, setWishList, userId}) => {
-  //console.log({product})
   await axios.delete(`/api/wishlist/${product.id}`, getHeaders());
   setWishList(wishList.filter(item => item.product_id !== product.id));
 };

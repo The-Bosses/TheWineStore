@@ -22,6 +22,7 @@ const createReview = async (review) => {
       review.rating, 
       review.comment
     ]);
+
     return (response.rows[0]);
   };
   
