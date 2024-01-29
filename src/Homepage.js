@@ -151,7 +151,7 @@ const Homepage = ({
       <section className="bg-gray-100 p-8 flex items-center justify-center flex-col md:flex-row">
         <div>
           <p>
-            Tetsing    
+            Made by TENZIN & Co.    
           </p>
         </div>
       </section>
