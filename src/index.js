@@ -23,6 +23,7 @@ import AgeVerificationModal from "./AgeVerificationModal";
 import AboutUs from "./AboutUs";
 
 import Navigation from "./Navigations";
+import NotFound from "./NotFound";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -327,6 +328,7 @@ const App = () => {
             />
 
             <Route path="/about" element={<AboutUs navigate={navigate}/>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       )}
