@@ -228,24 +228,6 @@ const Products = ({
                       ${product.price}
                     </div>
                   </div>
-                  {auth.id ? (
-                    cartItem ? (
-                      <button
-                        className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
-                        onClick={() => updateLineItem(cartItem)}
-                      >
-                        Add Another
-                      </button>
-                    ) : (
-                      <button
-                        className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
-                        onClick={() => createLineItem(product)}
-                      >
-                        Add to cart
-                      </button>
-                    )
-                  ) : null}
-                
 
                 {auth.id ? (
                   cartItem ? (
