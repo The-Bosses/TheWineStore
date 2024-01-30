@@ -257,6 +257,7 @@ const App = () => {
                   wishList={wishList}
                   products={products}
                   removeFromWishList={removeFromWishList}
+                  createLineItem={createLineItem}
                 />
               }
             />

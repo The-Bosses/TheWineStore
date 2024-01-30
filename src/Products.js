@@ -246,8 +246,31 @@ const Products = ({
                     )
                   ) : null}
                 </div>
-              );
-            })}
+
+                {auth.id ? (
+                  cartItem ? (
+                    <button
+                      className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+                      onClick={() => updateLineItem(cartItem)}
+                    >
+                      Add Another
+                    </button>
+                  ) : (
+                    <button
+                      className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+                      onClick={() => createLineItem(product)}
+                    >
+                      Add to cart
+                    </button>
+                  )
+                ) : null}
+                <a href="/#/cart" className="fixed bottom-4 right-4 hover:bg-red-600 hover:text-white  bg-red-300 text-black px-4 py-2 rounded-full">
+                    Cart 
+                </a>
+              </div>
+            );
+          })}
+
           {searchProductFound().length === 0 && (
             <p className="text-white text-xl font-bold ml-2">
               No wines found.{" "}
