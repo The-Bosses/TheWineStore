@@ -82,15 +82,18 @@ const Homepage = ({
         }}
       >
         <div className="bg-red-900 text-white p-4 rounded-md absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/4">
-          <h2 className="text-5xl font-bold mt-4 mb-4">Curated Wines on a Dime</h2>
-          <p className="text-lg mb-4">Good wine doesn't have to be expensive.</p>
+          <h2 className="text-5xl font-bold mt-4 mb-4">
+            Curated Wines on a Dime
+          </h2>
+          <p className="text-lg mb-4">
+            Good wine doesn't have to be expensive.
+          </p>
           <Link to="/products">
-          <button className="bg-white text-red-900 px-4 py-2 rounded mt-4 mb-4">
-            Shop Plonk
-          </button>
-        </Link>
+            <button className="bg-white hover:bg-gray-100 text-red-900 px-4 py-2 rounded mt-4 mb-4">
+              Shop Plonk
+            </button>
+          </Link>
         </div>
-        
       </section>
 
       {/* Featured Products Section */}
@@ -123,7 +126,7 @@ const Homepage = ({
         </Slider>
       </section>
 
-      {/* About Us */}
+      {/* Create Account */}
       <section className="bg-white p-8 flex items-center justify-center flex-col md:flex-row">
         <div className="md:w-3/5 mb-2 md:mb-0">
           <img
@@ -134,8 +137,8 @@ const Homepage = ({
         </div>
 
         <div className="md:w-2/3 md:ml-2 mt-0">
-          <h2 className="text-2xl font-bold mb-4">Here's to the VIP's!</h2>
-          <p className="text-lg max-w-md">
+          <h2 className="text-2xl font-bold mb-8">Here's to the VIP's!</h2>
+          <p className="text-lg max-w-md mb-4">
             Not a member? Create an account today to get instant access to VIP
             products.
           </p>
@@ -146,6 +149,33 @@ const Homepage = ({
           </Link>
         </div>
       </section>
+
+
+      {/* About Us */}
+        <div className="flex items-center justify-center bg-gray-100">
+          <div className="container mx-auto flex items-center">
+            {/* Text on the left */}
+            <div className="w-1/2 pr-8">
+              <h2 className="text-3xl font-bold">About<Link to="/about"><img src="public/Logos/plonk_logo_transparent.png" alt="Logo" className="ml-4 w-24 h-24 inline-block object-contain transform -translate-y-1"/></Link></h2>
+              <p className="text-lg mb-4">
+                It all started with a dream. Four visionaries combined their talents to create Plonk—a wine shop for the people.
+              </p>
+              <Link to="/about" hash="">
+            <button className="bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded mt-4">
+              Learn More
+            </button>
+          </Link>
+            </div>
+
+            {/* Image on the right */}
+            <div className="w-1/2">
+              <img
+                src="public/Images/bottles_sm.png"
+                alt="Description of the image"
+                className="w-full h-auto object-cover transform translate-x-40"
+              />
+            </div>
+          </div>
 
      {/* Footer */}
       <section className="bg-gray-100 p-8 flex items-center justify-between flex-col md:flex-row">
@@ -164,7 +194,6 @@ const Homepage = ({
             Drink responsibly
           </p>
         </div>
-      </section>
     </div>
   );
 };
