@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 
-const Navigation = ({ auth, logout, orders, login}) => {
+const Navigation = ({ auth, logout, orders, login, cartCount}) => {
   const [showLogin, setShowLogin] = useState(false);
 
   const handleLoginClick = () => {
@@ -27,7 +27,7 @@ const Navigation = ({ auth, logout, orders, login}) => {
      
       {!auth.id && showLogin && <Login login={login} auth={auth}/>} 
       {auth.id ? <Link to="/orders" className="ml-4 text-black hover:bg-gray-100 px-4 py-2 rounded">Orders ({auth.is_admin ? orders.length : orders.filter((order) => !order.is_cart).length})</Link> : null}
-      {auth.id ? <Link to="/cart" className="ml-4 text-black hover:bg-gray-100 px-4 py-2 rounded">Cart</Link> : null}
+      {auth.id ? <Link to="/cart" className="ml-4 text-black hover:bg-gray-100 px-4 py-2 rounded">Cart ({cartCount})</Link> : null}
       {auth.is_admin ? <Link to="/admin" className="ml-4 text-black hover:bg-gray-100 px-4 py-2 rounded">Admin</Link> : null}
       <span className="text-black">
         {/* Welcome {auth.username || 'Guest'}! */}
