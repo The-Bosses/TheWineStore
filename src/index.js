@@ -15,13 +15,14 @@ import AdminProducts from "./AdminProducts";
 import AdminAddProduct from "./AdminAddProduct";
 import UserForm from "./CreateUser";
 import { useNavigate } from "react-router-dom";
-import ReviewForm from "./ReviewForm";
 import ReviewsList from "./Reviews";
 import UserProfile from "./UserProfile";
 import AdminProductEdit from "./AdminProductEdit";
 import UserDetailsPage from "./UserDetailsPage";
 import AgeVerificationModal from "./AgeVerificationModal";
 import AboutUs from "./AboutUs";
+
+import Navigation from "./Navigations";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -164,7 +165,7 @@ const App = () => {
   return (
     <div>
       {isAgeVerificationCompleted ? (
-        <Navigations auth={auth} logout={logout} orders={orders} />
+        <Navigations auth={auth} logout={logout} orders={orders} login={login}  />
       ) : (
         <AgeVerificationModal
           onClose={() => alert("Verification closed")}
@@ -186,7 +187,7 @@ const App = () => {
                     }
                     onVerifyAge={handleAgeVerification}
                   />
-                  {auth.id ? null : <Login login={login} />}
+                  {/* {auth.id ? null : <Login login={login} />} */}
                   {/* <Products
                     auth={auth}
                     products={products}

@@ -1,8 +1,6 @@
 import React, { useState } from "react"
 
-
-
-const ReviewForm = ({products, reviews, createReview, productName}) => {
+const ReviewForm = ({products, createReview, productName}) => {
 
     const [item,setItem] = useState('')
     const [user, setUser] = useState('')
@@ -51,9 +49,6 @@ const ReviewForm = ({products, reviews, createReview, productName}) => {
                         <option
                             key={pageProduct.id} value={pageProduct.name}>{pageProduct.name}
                         </option>
-                        {/* {products.map((product) => (
-                            <option key={product.id} value={product.name}>{product.name}</option>
-                        ))} */}
                     </select>
                 </div>
     
@@ -68,7 +63,7 @@ const ReviewForm = ({products, reviews, createReview, productName}) => {
                 </div>
     
                 <div className="mb-4">
-                    <label className="block text-red-900 text-sm font-bold mb-2" htmlFor="rating">Rating</label>
+                    <label className="block text-red-900 text-sm font-bold mb-2" htmlFor="rating">Rating: Worst 0-5 Best</label>
                     <input
                         type="number"
                         id="rating"

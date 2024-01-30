@@ -150,6 +150,7 @@ const Homepage = ({
         </div>
       </section>
 
+
       {/* About Us */}
         <div className="flex items-center justify-center bg-gray-100">
           <div className="container mx-auto flex items-center">
@@ -175,6 +176,23 @@ const Homepage = ({
               />
             </div>
           </div>
+
+     {/* Footer */}
+      <section className="bg-gray-100 p-8 flex items-center justify-between flex-col md:flex-row">
+        <div className="mb-4 md:mb-0">
+          <img src="../../public/Logos/plonk_logo_transparent.png" alt="Plonk Logo" className="w-16 h-16 object-contain" />
+        </div>
+
+        <div className="mb-4 md:mb-0">
+          <p className="text-center md:text-left">
+            Terms and Policies tbd     |     follow us on <a href="https://github.com/The-Bosses" className="text-blue-500 underline">GitHub</a>
+          </p>
+        </div>
+
+        <div>
+          <p className="text-red-500 font-bold text-center md:text-left">
+            Drink responsibly
+          </p>
         </div>
     </div>
   );
