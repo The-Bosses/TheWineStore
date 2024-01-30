@@ -245,7 +245,7 @@ const Products = ({
                       </button>
                     )
                   ) : null}
-                </div>
+                
 
                 {auth.id ? (
                   cartItem ? (
@@ -264,9 +264,12 @@ const Products = ({
                     </button>
                   )
                 ) : null}
-                <a href="/#/cart" className="fixed bottom-4 right-4 hover:bg-red-600 hover:text-white  bg-red-300 text-black px-4 py-2 rounded-full">
-                    Cart 
+                {auth.id ? (
+                  <a href="/#/cart" className="fixed bottom-4 right-4 hover:bg-red-600 hover:text-white  bg-red-300 text-black px-4 py-2 rounded-full">
+                  Cart 
                 </a>
+                ) : null}
+                
               </div>
             );
           })}
