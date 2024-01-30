@@ -6,7 +6,8 @@ const UserProfile = ({
   user: initialUser,  
   wishList,  
   products, 
-  removeFromWishList 
+  removeFromWishList,
+  createLineItem
 }) => {
 
   const [editMode, setEditMode] = useState(false);
@@ -55,6 +56,11 @@ const UserProfile = ({
   const handleRemoveFromWishList = (productDetails) => {
     removeFromWishList(productDetails);
   };
+
+  const handleAddToCart = (productDetails) => {
+    createLineItem(productDetails),
+    removeFromWishList(productDetails)
+  }
 
 
 
@@ -139,9 +145,9 @@ const UserProfile = ({
           <br/>
           {wishList.length > 0 && (
           <>
-          <div className="mb-4 p-4 flex-shrink w-1/2 text-right">
+          <div className="mb-4 p-4 flex-shrink-2 w-1/2 text-right">
             <h3 className="text-4xl font-bold text-center mb-4">Your Wish List: {wishList.length}</h3>
-            <ul className="text-red-800 mb-4">
+            <ul className="text-red-800 flex-shrink-2 mb-4">
               {wishList.map((wishListItem) => {
                 const productDetails = returnUserWishList(wishListItem.product_id)[0];
 
@@ -152,9 +158,16 @@ const UserProfile = ({
                        <Link to={`/product/${wishListItem.product_id}`}>
                          <strong className="text-2xl">{productDetails.name}</strong>
                        </Link>
-                       <button className="bg-gray-300 text-gray-950 hover:bg-gray-950 hover:text-white px-4 py-2 rounded-md ml-2" 
-                        onClick={() => handleRemoveFromWishList(productDetails)}
-                        >Remove From Wishlist</button>
+                       <button
+                          className="bg-red-300 text-gray-950 hover:bg-red-700 hover:text-white text-sm p-1 rounded-md ml-2"
+                          onClick={() => handleAddToCart(productDetails)}>
+                          Add to cart
+                        </button>
+                      
+                       <button className="bg-gray-300 text-gray-950 hover:bg-gray-950 hover:text-white text-sm p-1 rounded-md ml-2" 
+                        onClick={() => handleRemoveFromWishList(productDetails)}>
+                          Remove From Wishlist
+                        </button>
                      </>
                     )}
                   </li>
