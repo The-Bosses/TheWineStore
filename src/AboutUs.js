@@ -48,7 +48,7 @@ const AboutUs = () => {
               Affordability without Compromise
             </h3>
             <p>
-              All our wines are priced under $30 per bottle, proving that you
+              All our wines are priced under $35 per bottle, proving that you
               don't need to spend a fortune to savor a remarkable wine. We
               believe in providing you with outstanding choices at prices that
               won't empty your pockets.
@@ -68,6 +68,34 @@ const AboutUs = () => {
           </p>
         </div>
       </div>
+      {/* Footer */}
+      <section className="bg-gray-100 border-t-2 p-8 flex items-center justify-between flex-col md:flex-row">
+        <div className="mb-4 md:mb-0">
+          <img
+            src="../../public/Logos/plonk_logo_transparent.png"
+            alt="Plonk Logo"
+            className="w-16 h-16 object-contain"
+          />
+        </div>
+
+        <div className="mb-4 md:mb-0">
+          <p className="text-center md:text-left">
+             Follow the creators on{" "}
+            <a
+              href="https://github.com/The-Bosses"
+              className="text-blue-500 underline"
+            >
+              GitHub
+            </a>
+          </p>
+        </div>
+
+        <div>
+          <p className="text-red-950 font-bold text-center md:text-left">
+            Drink responsibly
+          </p>
+        </div>
+      </section>
     </div>
   );
 };

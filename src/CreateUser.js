@@ -36,8 +36,8 @@ const UserForm = ({createUser}) => {
     
   
     return (
-      <div className="text-white min-h-screen flex items-center justify-center">
-        <div className="bg-red-600 p-8 rounded shadow-lg w-full md:w-1/2">
+      <div className="text-white min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="bg-red-950 p-8 rounded shadow-lg w-full md:w-1/2">
           <h1 className="text-3xl font-bold mb-6">Create User</h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -163,7 +163,7 @@ const UserForm = ({createUser}) => {
 
             <button
               type="submit"
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+              className="w-full px-5 py-3 rounded-lg mb-2 focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-800 text-red-50 hover:bg-red-900 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
             >
               Submit
             </button>

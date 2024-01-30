@@ -71,7 +71,7 @@ const Cart = ({
             return (
               <div
                 key={lineItem.id}
-                className="m-4 border-b bg-red-100 border-gray-300 rounded-md pb-4"
+                className="m-4 border-b bg-gray-100 border-gray-300 rounded-md pb-4"
               >
                 <li className="flex items-center">
                   <div>
@@ -82,9 +82,10 @@ const Cart = ({
                     />
                   </div>
                   <div className="flex-1">
-                    <p className="text-lg text-red-900 font-semibold">
+                    <Link to={`/product/${product.id}`}><p className="text-lg text-red-900 font-semibold underline">
                       {product.name} ({lineItem.quantity})
                     </p>
+                    </Link>
                     <p className="text-base text-red-900 font-semibold">
                       Product total: $
                       {sumLineItem(product.price, lineItem.quantity)}
@@ -130,7 +131,7 @@ const Cart = ({
           <div className="text-lg font-semibold text-red-50">Total Cost: ${(totalCost * 1.06).toFixed(2)}</div>
           <button
             onClick={(event) => {handleCheckout(event)}}
-            className="mt-3 mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-100 text-red-950 hover:bg-red-200 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+            className="mt-3 mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-gray-100 text-red-950 hover:bg-gray-300 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
           >
             Continue to checkout
           </button>
@@ -154,7 +155,7 @@ const Cart = ({
                 address,
               });
             }}
-            className="mt-3 mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-100 text-red-950 hover:bg-red-200 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+            className="mt-3 mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-gray-100 text-red-950 hover:bg-gray-300 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
           >
             Place Order
           </button>

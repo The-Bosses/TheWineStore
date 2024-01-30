@@ -30,7 +30,7 @@ const ProductDetail = ({
     return item !== undefined;
   };
   return (
-    <div className="bg-red-100">
+    <div className="bg-gray-100">
       <Link to="/products" className="hover-underline">
         <h3 className="text-red-900 m-3 text-lg underline">
           {" "}
@@ -54,7 +54,7 @@ const ProductDetail = ({
                 <h2 className="text-4xl font-bold mb-2 text-red-900">
                   {product.name}
                 </h2>
-                {product.is_vip ? <p> VIP Product</p> : null}
+                {product.is_vip ? <p className="text-red-900 mb-2 text-xl italic font-medium"> VIP Product</p> : null}
                 <p className="text-red-900 mb-2 text-lg">{product.type}</p>
                 <p className="text-red-900 mb-2 text-lg">
                   Price: ${product.price}
@@ -109,7 +109,7 @@ const ProductDetail = ({
                 ) : (
                   <strong>
                     <h3 className="text-red-900">
-                      Please sign up or create an account to add the product to
+                      Please log in or create an account to add the product to
                       your cart.
                     </h3>
                   </strong>

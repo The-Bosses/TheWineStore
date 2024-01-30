@@ -81,7 +81,7 @@ const Homepage = ({
           height: "500px",
         }}
       >
-        <div className="bg-red-900 text-white p-4 rounded-md absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/4">
+        <div className="bg-red-950 text-white p-4 rounded-md absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/4">
           <h2 className="text-5xl font-bold mt-4 mb-4">
             Curated Wines on a Dime
           </h2>
@@ -97,14 +97,14 @@ const Homepage = ({
       </section>
 
       {/* Featured Products Section */}
-      <section className="bg-red-900 py-12">
+      <section className="bg-red-950 py-12">
         <h2 className="text-2xl text-white font-bold ml-4 mb-6">
           Featured Wines
         </h2>
         {/* Featured Products Carousel */}
         <Slider {...settings} initialSlide={currentSlide}>
           {/* Featured Product Cards */}
-          {products.slice(1, 8).map((product) => (
+          {products.slice(0, 7).map((product) => (
             <Link to={`/product/${product.id}`} key={product.id}>
               <div
                 key={product.id}
@@ -143,57 +143,78 @@ const Homepage = ({
             products.
           </p>
           <Link to="/signup">
-            <button className="bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded mt-4">
+            <button className="bg-red-950 hover:bg-red-900 text-white px-4 py-2 rounded mt-4">
               Sign Up
             </button>
           </Link>
         </div>
       </section>
 
-
       {/* About Us */}
-        <div className="flex items-center justify-center bg-gray-100">
-          <div className="container mx-auto flex items-center">
-            {/* Text on the left */}
-            <div className="w-1/2 pr-8">
-              <h2 className="text-3xl font-bold">About<Link to="/about"><img src="public/Logos/plonk_logo_transparent.png" alt="Logo" className="ml-4 w-24 h-24 inline-block object-contain transform -translate-y-1"/></Link></h2>
-              <p className="text-lg mb-4">
-                It all started with a dream. Four visionaries combined their talents to create Plonk—a wine shop for the people.
-              </p>
-              <Link to="/about" hash="">
-            <button className="bg-red-800 hover:bg-red-900 text-white px-4 py-2 rounded mt-4">
-              Learn More
-            </button>
-          </Link>
-            </div>
-
-            {/* Image on the right */}
-            <div className="w-1/2">
-              <img
-                src="public/Images/bottles_sm.png"
-                alt="Description of the image"
-                className="w-full h-auto object-cover transform translate-x-40"
-              />
-            </div>
+      <div className="flex items-center justify-center bg-gray-100 ">
+        <div className="container mx-auto flex items-center">
+          {/* Text on the left */}
+          <div className="w-1/2 pr-8">
+            <h2 className="text-3xl font-bold">
+              About
+              <Link to="/about">
+                <img
+                  src="public/Logos/plonk_logo_transparent.png"
+                  alt="Logo"
+                  className="ml-4 w-24 h-24 inline-block object-contain transform -translate-y-1"
+                />
+              </Link>
+            </h2>
+            <p className="text-lg mb-4">
+              It all started with a dream. Four visionaries combined their
+              talents to create Plonk—a wine shop for the people.
+            </p>
+            <Link to="/about" hash="">
+              <button className="bg-red-950 hover:bg-red-900 text-white px-4 py-2 rounded mt-4">
+                Learn More
+              </button>
+            </Link>
           </div>
 
-     {/* Footer */}
-      <section className="bg-gray-100 p-8 flex items-center justify-between flex-col md:flex-row">
+          {/* Image on the right */}
+          <div className="w-1/2 mb-4 mt-4">
+            <img
+              src="public/Images/bottles_sm.png"
+              alt="Description of the image"
+              className="w-full h-auto object-cover transform translate-x-40 rounded"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <section className="bg-gray-100 border-t-2 p-8 flex items-center justify-between flex-col md:flex-row">
         <div className="mb-4 md:mb-0">
-          <img src="../../public/Logos/plonk_logo_transparent.png" alt="Plonk Logo" className="w-16 h-16 object-contain" />
+          <img
+            src="../../public/Logos/plonk_logo_transparent.png"
+            alt="Plonk Logo"
+            className="w-16 h-16 object-contain"
+          />
         </div>
 
         <div className="mb-4 md:mb-0">
           <p className="text-center md:text-left">
-            Terms and Policies tbd     |     follow us on <a href="https://github.com/The-Bosses" className="text-blue-500 underline">GitHub</a>
+             Follow the creators on{" "}
+            <a
+              href="https://github.com/The-Bosses"
+              className="text-blue-500 underline"
+            >
+              GitHub
+            </a>
           </p>
         </div>
 
         <div>
-          <p className="text-red-500 font-bold text-center md:text-left">
+          <p className="text-red-950 font-bold text-center md:text-left">
             Drink responsibly
           </p>
         </div>
+      </section>
     </div>
   );
 };

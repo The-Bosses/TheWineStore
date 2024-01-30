@@ -41,9 +41,13 @@ const Products = ({
         filteredandSorted = filteredandSorted.filter(
           (product) => product.type === "Cava" || product.type === "Chardonnay" || product.type === "Pinot Grigio" || product.type === "Riesling" || product.type === "Sauvignon Blanc"
         )
+      } else if (filter === "rosé") {
+        filteredandSorted = filteredandSorted.filter(
+          (product) => product.type === "Rosé" || product.type === "Sparkling Rosé"
+        )
       } else if (filter === "sparkling") {
         filteredandSorted = filteredandSorted.filter(
-          (product) => product.type === "Prosecco" || product.type === "Sparkling Rose"
+          (product) => product.type === "Prosecco" || product.type === "Sparkling Rosé"
         )
       } else if (filter === "oceania") {
         filteredandSorted = filteredandSorted.filter(
@@ -89,6 +93,15 @@ const Products = ({
   
   }
 
+  const searchProductFound = () => {
+    let searchFind = displayedProducts.filter(
+      (product) =>
+        !searchTerm ||
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+
+    return searchFind
+  }
   return (
     <div className="bg-red-950">
       <h2 className="ml-2 text-4xl font-bold mb-4 text-white">Our Wines</h2>
@@ -114,6 +127,7 @@ const Products = ({
           <optgroup label="Type">
             <option value="red">Red</option>
             <option value="white">White</option>
+            <option value="rosé">Rosé</option>
             <option value="sparkling">Sparkling</option>
           </optgroup>
           <optgroup label="Region">
@@ -162,6 +176,7 @@ const Products = ({
 
             return (
               <div
+              
                 key={product.id}
                 className="m-6 border p-4 rounded-md bg-white flex flex-col items-center"
               >
@@ -204,6 +219,9 @@ const Products = ({
               </div>
             );
           })}
+          {searchProductFound().length === 0 && (
+            <p className="text-white text-xl font-bold ml-2">No wines found. </p>
+          )}
       </div>
     </div>
   );
