@@ -39,7 +39,7 @@ const Products = ({
         )
       } else if (filter === "white") {
         filteredandSorted = filteredandSorted.filter(
-          (product) => product.type === "Cava" || product.type === "Chardonnay" || product.type === "Pinot Grigio" || product.type === "Riesling" || product.type === "Sauvignon Blanc"
+          (product) => product.type === "Cava" || product.type === "Chardonnay" || product.type === "Pinot Grigio" || product.type === "Riesling" || product.type === "Sauvignon Blanc" || product.type === "Prosecco"
         )
       } else if (filter === "rosé") {
         filteredandSorted = filteredandSorted.filter(
@@ -47,7 +47,7 @@ const Products = ({
         )
       } else if (filter === "sparkling") {
         filteredandSorted = filteredandSorted.filter(
-          (product) => product.type === "Prosecco" || product.type === "Sparkling Rosé"
+          (product) => product.type === "Prosecco" || product.type === "Sparkling Rosé" || product.type === "Cava"
         )
       } else if (filter === "oceania") {
         filteredandSorted = filteredandSorted.filter(
