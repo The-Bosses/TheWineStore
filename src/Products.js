@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import useScrollToTop from "./ScrollToTop";
 
 const Products = ({
   products,
@@ -119,135 +120,140 @@ const Products = ({
     return searchFind;
   };
   return (
-    <div className="bg-red-950">
-      <h2 className="ml-2 text-4xl font-bold mb-4 text-white">Our Wines</h2>
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={handleSearchInputChange}
-          className="border rounded-md px-2 py-1 ml-2"
-        />
-      </div>
-      <div className="flex">
+    <div>
+      {useScrollToTop()}
+      <div className="bg-red-950">
+        <h2 className="ml-2 text-4xl font-bold mb-4 text-white">Our Wines</h2>
         <div className="mb-4">
-          <select
-            onChange={(event) => {
-              setFilter(event.target.value);
-            }}
-            id="filterDropdown"
-            className="w-96 p-2 border rounded ml-2"
-          >
-            <option value="none">Filter</option>
-            {isVipUser ? <option value="vip">VIP Products</option> : null}
-            <optgroup label="Type">
-              <option value="red">Red</option>
-              <option value="white">White</option>
-              <option value="rosé">Rosé</option>
-              <option value="sparkling">Sparkling</option>
-            </optgroup>
-            <optgroup label="Region">
-              <option value="europe">Europe</option>
-              <option value="australia">Oceania</option>
-              <option value="northAmerica">North America</option>
-              <option value="southAmerica">South America</option>
-            </optgroup>
-          </select>
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={handleSearchInputChange}
+            className="border rounded-md px-2 py-1 ml-2"
+          />
+        </div>
+        <div className="flex">
+          <div className="mb-4">
+            <select
+              onChange={(event) => {
+                setFilter(event.target.value);
+              }}
+              id="filterDropdown"
+              className="w-96 p-2 border rounded ml-2"
+            >
+              <option value="none">Filter</option>
+              {isVipUser ? <option value="vip">VIP Products</option> : null}
+              <optgroup label="Type">
+                <option value="red">Red</option>
+                <option value="white">White</option>
+                <option value="rosé">Rosé</option>
+                <option value="sparkling">Sparkling</option>
+              </optgroup>
+              <optgroup label="Region">
+                <option value="europe">Europe</option>
+                <option value="australia">Oceania</option>
+                <option value="northAmerica">North America</option>
+                <option value="southAmerica">South America</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <select
+              onChange={(event) => {
+                setSortBy(event.target.value);
+              }}
+              id="sortDropdown"
+              className="w-96 p-2 border rounded ml-2"
+            >
+              <option value="none">Sort by ...</option>
+              <option value="lowToHigh"> Price: Low to High</option>
+              <option value="highToLow">Price: High to Low </option>
+              <option value="weakToStrong">
+                Alcohol Percentage: Low to High
+              </option>
+              <option value="strongToWeak">
+                Alcohol Percentage: High to Low
+              </option>
+            </select>
+          </div>
         </div>
 
-        <div className="mb-4">
-          <select
-            onChange={(event) => {
-              setSortBy(event.target.value);
-            }}
-            id="sortDropdown"
-            className="w-96 p-2 border rounded ml-2"
-          >
-            <option value="none">Sort by ...</option>
-            <option value="lowToHigh"> Price: Low to High</option>
-            <option value="highToLow">Price: High to Low </option>
-            <option value="weakToStrong">
-              Alcohol Percentage: Low to High
-            </option>
-            <option value="strongToWeak">
-              Alcohol Percentage: High to Low
-            </option>
-          </select>
+        <div>
+          {filter === "none" && sortBy === "none" ? null : (
+            <button
+              className=" ml-2 w-32 px-3 py-2 rounded-lg mb-2 focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-800 text-red-50 hover:bg-red-900 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+              onClick={() => {
+                handleClearAll();
+              }}
+            >
+              Clear all
+            </button>
+          )}
         </div>
-      </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {displayedProducts
 
-      <div>
-        {filter === "none" && sortBy === "none" ? null : (
-          <button
-            className=" ml-2 w-32 px-3 py-2 rounded-lg mb-2 focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-sm sm:text-base bg-red-800 text-red-50 hover:bg-red-900 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
-            onClick={() => {
-              handleClearAll();
-            }}
-          >
-            Clear all
-          </button>
-        )}
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {displayedProducts
+            .filter((product) => !product.is_vip || isVipUser)
+            .filter(
+              (product) =>
+                !searchTerm ||
+                product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            .map((product) => {
+              const cartItem = cartItems.find(
+                (lineItem) => lineItem.product_id === product.id
+              );
 
-          .filter((product) => !product.is_vip || isVipUser)
-          .filter(
-            (product) =>
-              !searchTerm ||
-              product.name.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-          .map((product) => {
-            const cartItem = cartItems.find(
-              (lineItem) => lineItem.product_id === product.id
-            );
-
-            return (
-              <div
-                key={product.id}
-                className="m-6 border p-4 rounded-md bg-white flex flex-col items-center"
-              >
-                <div className="flex-grow text-center">
-                  <img
-                    src={`${product.image}`}
-                    alt={product.name}
-                    className="object-contain size-40 mb-4 shadow-md flex-shrink-0 mx-auto"
-                  />
-                  <Link
-                    to={`/product/${product.id.toString()}`}
-                    className="text-red-900 text-xl font-bold hover:underline"
-                  >
-                    {product.name}
-                  </Link>
-                  <div className="text-red-900 text-base">{product.type}</div>
-                  <div className="text-red-900 text-base mb-2">
-                    ${product.price}
+              return (
+                <div
+                  key={product.id}
+                  className="m-6 border p-4 rounded-md bg-white flex flex-col items-center"
+                >
+                  <div className="flex-grow text-center">
+                    <img
+                      src={`${product.image}`}
+                      alt={product.name}
+                      className="object-contain size-40 mb-4 shadow-md flex-shrink-0 mx-auto"
+                    />
+                    <Link
+                      to={`/product/${product.id.toString()}`}
+                      className="text-red-900 text-xl font-bold hover:underline"
+                    >
+                      {product.name}
+                    </Link>
+                    <div className="text-red-900 text-base">{product.type}</div>
+                    <div className="text-red-900 text-base mb-2">
+                      ${product.price}
+                    </div>
                   </div>
+                  {auth.id ? (
+                    cartItem ? (
+                      <button
+                        className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+                        onClick={() => updateLineItem(cartItem)}
+                      >
+                        Add Another
+                      </button>
+                    ) : (
+                      <button
+                        className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
+                        onClick={() => createLineItem(product)}
+                      >
+                        Add to cart
+                      </button>
+                    )
+                  ) : null}
                 </div>
-                {auth.id ? (
-                  cartItem ? (
-                    <button
-                      className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
-                      onClick={() => updateLineItem(cartItem)}
-                    >
-                      Add Another
-                    </button>
-                  ) : (
-                    <button
-                      className="mx-auto px-3 py-2 rounded-lg focus:outline-none focus:ring focus:ring-offset-2 uppercase tracking-wider font-semibold text-xs sm:text-sm bg-red-900 text-red-50 hover:bg-red-950 focus:ring-red-800 focus:ring-opacity-50 active:bg-red-800"
-                      onClick={() => createLineItem(product)}
-                    >
-                      Add to cart
-                    </button>
-                  )
-                ) : null}
-              </div>
-            );
-          })}
-        {searchProductFound().length === 0 && (
-          <p className="text-white text-xl font-bold ml-2">No wines found. </p>
-        )}
+              );
+            })}
+          {searchProductFound().length === 0 && (
+            <p className="text-white text-xl font-bold ml-2">
+              No wines found.{" "}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
