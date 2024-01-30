@@ -156,7 +156,7 @@ const Homepage = ({
             {/* Text on the left */}
             <div className="w-1/2 ml-8 pr-4">
               <h2 className="text-3xl font-bold">About<Link to="/about"><img src="public/Logos/plonk_logo_transparent.png" alt="Logo" className="ml-4 w-24 h-24 inline-block object-contain transform -translate-y-1"/></Link></h2>
-              <p className="text-lg mb-4">
+              <p className="text-lg w-3/4 mb-4">
                 It all started with a dream. Four visionaries combined their talents to create Plonk—a wine shop for the people.
               </p>
               <Link to="/about" hash="">
@@ -171,7 +171,7 @@ const Homepage = ({
             <img
               src="public/Images/bottles_sm.png"
               alt="Black and white bottles"
-              className="w-full h-auto object-cover transform translate-x-40"
+              className="w-full h-auto object-cover md:mr-0 overflow-hidden"                
             />
           </div>
         </div>
