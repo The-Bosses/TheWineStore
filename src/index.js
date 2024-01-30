@@ -166,7 +166,7 @@ const App = () => {
   return (
     <div>
       {isAgeVerificationCompleted ? (
-        <Navigations auth={auth} logout={logout} orders={orders} login={login}  />
+        <Navigations auth={auth} logout={logout} orders={orders} login={login} cartCount={cartCount}  />
       ) : (
         <AgeVerificationModal
           onClose={() => alert("Verification closed")}
