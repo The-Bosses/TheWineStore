@@ -1,3 +1,7 @@
+# deploy link
+
+https://plonk-wakc.onrender.com/
+
 # the store 
 
 - npm install
